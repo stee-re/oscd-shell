@@ -48,31 +48,31 @@ describe('with editor plugins loaded', () => {
   });
 
   it('passes attribute docname', async () => {
-    editor.dispatchEvent(newOpenEvent(doc, 'test.xml'));
+    editor.dispatchEvent(newOpenEvent(doc, 'test.scd'));
     await editor.updateComplete;
 
-    const plugin = editor.shadowRoot?.querySelector('*[docName="test.xml"]');
+    const plugin = editor.shadowRoot?.querySelector('*[docName="test.scd"]');
     expect(plugin?.tagName).to.exist.and.to.satisfy(isOscdPlugin);
   });
 
   it('passes property doc', async () => {
-    editor.dispatchEvent(newOpenEvent(doc, 'test.xml'));
+    editor.dispatchEvent(newOpenEvent(doc, 'test.scd'));
     await editor.updateComplete;
 
-    const plugin = editor.shadowRoot?.querySelector('*[docname="test.xml"]');
+    const plugin = editor.shadowRoot?.querySelector('*[docname="test.scd"]');
     expect(plugin).to.have.property('docs');
   });
 
   it('passes property editCount', async () => {
-    editor.dispatchEvent(newOpenEvent(doc, 'test.xml'));
+    editor.dispatchEvent(newOpenEvent(doc, 'test.scd'));
     await editor.updateComplete;
 
-    const plugin = editor.shadowRoot?.querySelector('*[docname="test.xml"]');
+    const plugin = editor.shadowRoot?.querySelector('*[docname="test.scd"]');
     expect(plugin).to.have.property('editCount', 0);
   });
 
   it('updated passed editCount property on edit events', async () => {
-    editor.dispatchEvent(newOpenEvent(doc, 'test.xml'));
+    editor.dispatchEvent(newOpenEvent(doc, 'test.scd'));
     await editor.updateComplete;
 
     editor.dispatchEvent(
@@ -83,7 +83,7 @@ describe('with editor plugins loaded', () => {
     );
     await editor.updateComplete;
 
-    const plugin = editor.shadowRoot?.querySelector('*[docname="test.xml"]');
+    const plugin = editor.shadowRoot?.querySelector('*[docname="test.scd"]');
     expect(plugin).to.have.property('editCount', 1);
   });
 });
@@ -111,31 +111,31 @@ describe('with menu plugins loaded', () => {
   });
 
   it('passes attribute docname', async () => {
-    editor.dispatchEvent(newOpenEvent(doc, 'test.xml'));
+    editor.dispatchEvent(newOpenEvent(doc, 'test.scd'));
     await editor.updateComplete;
 
-    const plugin = editor.shadowRoot?.querySelector('*[docName="test.xml"]');
+    const plugin = editor.shadowRoot?.querySelector('*[docName="test.scd"]');
     expect(plugin?.tagName).to.exist.and.to.satisfy(isOscdPlugin);
   });
 
   it('passes property doc', async () => {
-    editor.dispatchEvent(newOpenEvent(doc, 'test.xml'));
+    editor.dispatchEvent(newOpenEvent(doc, 'test.scd'));
     await editor.updateComplete;
 
-    const plugin = editor.shadowRoot?.querySelector('*[docname="test.xml"]');
+    const plugin = editor.shadowRoot?.querySelector('*[docname="test.scd"]');
     expect(plugin).to.have.property('docs');
   });
 
   it('passes property editCount', async () => {
-    editor.dispatchEvent(newOpenEvent(doc, 'test.xml'));
+    editor.dispatchEvent(newOpenEvent(doc, 'test.scd'));
     await editor.updateComplete;
 
-    const plugin = editor.shadowRoot?.querySelector('*[docname="test.xml"]');
+    const plugin = editor.shadowRoot?.querySelector('*[docname="test.scd"]');
     expect(plugin).to.have.property('editCount', 0);
   });
 
   it('updated passed editCount property on edit events', async () => {
-    editor.dispatchEvent(newOpenEvent(doc, 'test.xml'));
+    editor.dispatchEvent(newOpenEvent(doc, 'test.scd'));
     await editor.updateComplete;
 
     editor.dispatchEvent(
@@ -146,7 +146,7 @@ describe('with menu plugins loaded', () => {
     );
     await editor.updateComplete;
 
-    const plugin = editor.shadowRoot?.querySelector('*[docname="test.xml"]');
+    const plugin = editor.shadowRoot?.querySelector('*[docname="test.scd"]');
     expect(plugin).to.have.property('editCount', 1);
   });
 });
