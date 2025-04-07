@@ -155,7 +155,7 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   concurrentBrowsers: 3,
 
   /** Amount of test files per browser to test concurrently */
-  concurrency: 2,
+  concurrency: 1,
 
   /** Browsers to run tests on */
   browsers,

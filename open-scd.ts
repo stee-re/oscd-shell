@@ -62,7 +62,7 @@ type Control = {
   icon: string;
   getName: () => string;
   isDisabled: () => boolean;
-  action?: () => unknown;
+  action?: () => void | Promise<void>;
 };
 
 type RenderedPlugin = Control & { tagName: string };
@@ -171,11 +171,18 @@ export class OpenSCD extends LitElement {
     return Object.keys(this.docs).filter(name => this.isEditable(name));
   }
 
-  #loadedPlugins = new Map<string, Plugin>();
+  #loadedPlugins: PluginSet = { menu: [], editor: [] };
+
+  #loadedPluginTagNames: string[] = [];
 
   @state()
-  get loadedPlugins(): Map<string, Plugin> {
+  get loadedPlugins(): PluginSet {
     return this.#loadedPlugins;
+  }
+
+  addLoadedPlugin(tagName: string, kind: keyof PluginSet, plugin: Plugin) {
+    this.#loadedPlugins[kind].push(plugin);
+    this.#loadedPluginTagNames.push(tagName);
   }
 
   #plugins: PluginSet = { menu: [], editor: [] };
@@ -186,19 +193,30 @@ export class OpenSCD extends LitElement {
   }
 
   set plugins(plugins: Partial<PluginSet>) {
-    Object.values(plugins).forEach(kind =>
+    Object.entries(plugins).forEach(([pluginType, kind]) =>
       kind.forEach(plugin => {
         const tagName = pluginTag(plugin.src);
-        if (this.loadedPlugins.has(tagName)) return;
-        this.#loadedPlugins.set(tagName, plugin);
-        if (customElements.get(tagName)) return;
+        if (this.#loadedPluginTagNames.includes(tagName)) {
+          return;
+        }
+
+        if (customElements.get(tagName)) {
+          this.addLoadedPlugin(tagName, pluginType as keyof PluginSet, plugin);
+          this.requestUpdate('loadedPlugins');
+          return;
+        }
         const url = new URL(plugin.src, window.location.href).toString();
-        import(url).then(mod => customElements.define(tagName, mod.default));
+        import(url).then(mod => {
+          this.addLoadedPlugin(tagName, pluginType as keyof PluginSet, plugin);
+          // Because this is async, we need to check (again) if the element is already defined.
+          if (!customElements.get(tagName)) {
+            customElements.define(tagName, mod.default);
+          }
+          this.requestUpdate('loadedPlugins');
+        });
       })
     );
-
     this.#plugins = { menu: [], editor: [], ...plugins };
-    this.requestUpdate();
   }
 
   handleOpenDoc({ detail: { docName, doc } }: OpenEvent) {
@@ -309,7 +327,7 @@ export class OpenSCD extends LitElement {
 
   @state()
   get menu() {
-    return (<Required<Control>[]>this.plugins.menu
+    return (<Required<Control>[]>this.loadedPlugins.menu
       ?.map((plugin): RenderedPlugin | undefined =>
         plugin.active
           ? {
@@ -332,7 +350,7 @@ export class OpenSCD extends LitElement {
 
   @state()
   get editors() {
-    return <RenderedPlugin[]>this.plugins.editor
+    return <RenderedPlugin[]>this.loadedPlugins.editor
       ?.map((plugin): RenderedPlugin | undefined =>
         plugin.active
           ? {
@@ -583,7 +601,7 @@ export class OpenSCD extends LitElement {
         >
       </mwc-dialog>
       <aside>
-        ${this.plugins.menu.map(
+        ${this.loadedPlugins.menu.map(
           plugin =>
             staticHtml`<${unsafeStatic(pluginTag(plugin.src))} docName="${
               this.docName
