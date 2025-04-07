@@ -208,6 +208,23 @@ export namespace util {
       )
     );
   }
+
+  export function querySelectorWithTextContent(
+    scope: Element,
+    selector: string,
+    text: string
+  ) {
+    const elements = Array.from(scope.querySelectorAll(selector));
+    return elements.find(e => (e.textContent || '').trim() === text);
+  }
+
+  export function simulateKeypressOnElement(key: string, ctrlKey: boolean) {
+    const event = new KeyboardEvent('keydown', {
+      key,
+      ctrlKey,
+    });
+    document.dispatchEvent(event);
+  }
 }
 
 function newTestDoc() {
@@ -232,7 +249,7 @@ describe('open-scd', () => {
     editor.dispatchEvent(newOpenEvent(sclDoc, 'test.xml'));
     await editor.updateComplete;
     expect(editor.docs).to.have.property('test.xml', sclDoc);
-    expect(editor).to.not.have.property('doc');
+    expect(editor).to.have.property('doc', undefined);
     expect(editor).to.not.have.property('docName', 'test.xml');
   });
 
@@ -276,35 +293,61 @@ describe('open-scd', () => {
       expect(editor).to.have.property('docName', 'newName.cid');
       expect(editor).to.have.property('doc', sclDoc);
     });
-  });
 
-  it('allows the user to close the current doc', async () => {
-    editor.shadowRoot
-      ?.querySelector<HTMLButtonElement>('mwc-icon-button[icon=edit]')
-      ?.click();
-    const dialog = editor.editFileUI;
-    await dialog.updateComplete;
-    dialog
-      .querySelector<HTMLButtonElement>('mwc-button[icon="delete"]')
-      ?.click();
-    await editor.updateComplete;
-    expect(editor).to.have.property('docName');
-    expect(editor).to.have.property('doc');
+    it('allows the user to close the current doc', async () => {
+      editor.shadowRoot
+        ?.querySelector<HTMLButtonElement>('mwc-icon-button[icon=edit]')
+        ?.click();
+      const dialog = editor.editFileUI;
+      await dialog.updateComplete;
+      dialog
+        .querySelector<HTMLButtonElement>('mwc-button[icon="delete"]')
+        ?.click();
+      await editor.updateComplete;
+      expect(editor).to.have.property('docName');
+      expect(editor).to.have.property('doc');
+    });
   });
 
   describe('with several documents loaded', () => {
     beforeEach(async () => {
-      for (let i = 0; i < Math.floor(Math.random() * 10) + 1; i += 1)
+      for (let i = 0; i < 5; i += 1)
         editor.dispatchEvent(newOpenEvent(newTestDoc(), `test${i}.scd`));
+      await editor.updateComplete;
     });
 
     it('allows the user to switch documents', async () => {
-      const oldDocName = editor.docName;
       editor.fileMenuButtonUI?.click();
       await editor.fileMenuUI.updateComplete;
       (editor.fileMenuUI.firstElementChild as HTMLButtonElement).click();
       await editor.updateComplete;
+      const oldDocName = editor.docName;
+      editor.fileMenuButtonUI?.click();
+      await editor.fileMenuUI.updateComplete;
+      (editor.fileMenuUI.lastElementChild as HTMLButtonElement).click();
+      await editor.updateComplete;
       expect(editor).to.not.have.property('docName', oldDocName);
+    });
+
+    it('prevents the user from renaming the current doc to an already opened doc name', async () => {
+      const anotherDocNameWithoutExtension = Object.keys(editor.docs)
+        ?.find(docName => docName !== editor.docName)
+        ?.split('.')[0];
+      const existingDocNameWithExtension = editor.docName;
+
+      editor.shadowRoot
+        ?.querySelector<HTMLButtonElement>('mwc-icon-button[icon=edit]')
+        ?.click();
+      const dialog = editor.editFileUI;
+      await dialog.updateComplete;
+      const textfield = dialog.querySelector('mwc-textfield')!;
+      textfield.value = anotherDocNameWithoutExtension!;
+      await textfield.updateComplete;
+      dialog
+        .querySelector<HTMLButtonElement>('mwc-button[slot="primaryAction"]')
+        ?.click();
+      await editor.updateComplete;
+      expect(editor).to.have.property('docName', existingDocNameWithExtension);
     });
   });
 
@@ -405,19 +448,180 @@ describe('open-scd', () => {
     );
   });
 
-  it('undoes a committed edit on undo() call', () => {
+  it('undoes a edit from Undo menu option', async () => {
     const node = sclDoc.querySelector('Substation')!;
     editor.dispatchEvent(newEditEvent({ node }));
-    editor.undo();
+
+    (
+      editor.querySelector(
+        'mwc-icon-button[slot="navigationIcon"]'
+      ) as HTMLButtonElement
+    )?.click();
+    await editor.updateComplete;
+    const undoButton = util
+      .querySelectorWithTextContent(
+        editor.menuUI,
+        'mwc-list-item > span',
+        'Undo'
+      )
+      ?.closest('mwc-list-item');
+    expect(undoButton).to.exist;
+    expect(undoButton).to.have.property('disabled', false);
+    undoButton?.click();
+    await editor.updateComplete;
     expect(sclDoc.querySelector('Substation')).to.exist;
   });
 
-  it('redoes an undone edit on redo() call', () => {
+  it('redoes an undone edit from Redo menu option', async () => {
     const node = sclDoc.querySelector('Substation')!;
     editor.dispatchEvent(newEditEvent({ node }));
-    editor.undo();
-    editor.redo();
     expect(sclDoc.querySelector('Substation')).to.not.exist;
+    editor.undo();
+    await editor.updateComplete;
+    expect(sclDoc.querySelector('Substation')).to.exist;
+    const redoButton = util
+      .querySelectorWithTextContent(
+        editor.menuUI,
+        'mwc-list-item > span',
+        'Redo'
+      )
+      ?.closest('mwc-list-item');
+    expect(redoButton).to.exist;
+    expect(redoButton).to.have.property('disabled', false);
+    redoButton?.click();
+    await editor.updateComplete;
+
+    expect(sclDoc.querySelector('Substation')).to.not.exist;
+  });
+
+  describe('use the keyboard shortcuts', () => {
+    it('displays the menu with Ctrl+m', async () => {
+      util.simulateKeypressOnElement('m', true);
+      await editor.updateComplete;
+      expect(editor.menuUI).to.have.attribute('open');
+    });
+
+    it('undoes the last edit with Ctrl+z', async () => {
+      const node = sclDoc.querySelector('Substation')!;
+      editor.dispatchEvent(newEditEvent({ node }));
+      await editor.updateComplete;
+
+      expect(sclDoc.querySelector('Substation')).to.not.exist;
+      util.simulateKeypressOnElement('z', true);
+      await editor.updateComplete;
+      expect(sclDoc.querySelector('Substation')).to.exist;
+    });
+
+    it('redoes the last edit with Ctrl+y', async () => {
+      const node = sclDoc.querySelector('Substation')!;
+      editor.dispatchEvent(newEditEvent({ node }));
+      expect(sclDoc.querySelector('Substation')).to.not.exist;
+      editor.undo();
+      await editor.updateComplete;
+      expect(sclDoc.querySelector('Substation')).to.exist;
+      util.simulateKeypressOnElement('y', true);
+      await editor.updateComplete;
+      expect(sclDoc.querySelector('Substation')).to.not.exist;
+    });
+
+    it('it redoes the last edit with Ctrl+Z', async () => {
+      const node = sclDoc.querySelector('Substation')!;
+      editor.dispatchEvent(newEditEvent({ node }));
+      expect(sclDoc.querySelector('Substation')).to.not.exist;
+      editor.undo();
+      await editor.updateComplete;
+      expect(sclDoc.querySelector('Substation')).to.exist;
+      util.simulateKeypressOnElement('Z', true);
+      await editor.updateComplete;
+      expect(sclDoc.querySelector('Substation')).to.not.exist;
+    });
+
+    it('displays the logs dialog on Ctrl+l', async () => {
+      util.simulateKeypressOnElement('l', true);
+      await editor.updateComplete;
+
+      expect(editor.logUI).to.have.attribute('open');
+      const closeButton = editor.logUI?.querySelector(
+        'mwc-button[dialogAction="close"]'
+      ) as HTMLButtonElement;
+      expect(closeButton).to.exist;
+      closeButton?.click();
+      await editor.updateComplete;
+      expect(editor.logUI).to.not.have.attribute('open');
+    });
+
+    it('closes the dialog on Ctrl+l', async () => {
+      editor.logUI.show();
+      await editor.updateComplete;
+      expect(editor.logUI).to.have.attribute('open');
+      util.simulateKeypressOnElement('l', true);
+      await editor.updateComplete;
+      expect(editor.logUI).to.not.have.attribute('open');
+    });
+
+    it('does not trigger anything if the Ctrl button was not pressed', async () => {
+      util.simulateKeypressOnElement('m', false);
+      await editor.updateComplete;
+      expect(editor.menuUI).to.not.have.attribute('open');
+      expect(editor.logUI).to.not.have.attribute('open');
+    });
+
+    it('does not trigger anything if the Ctrl button was pressed but the key was not one of the shortcuts', async () => {
+      util.simulateKeypressOnElement('a', true);
+      await editor.updateComplete;
+      expect(editor.menuUI).to.not.have.attribute('open');
+      expect(editor.logUI).to.not.have.attribute('open');
+    });
+  });
+
+  describe('with the editing history dialog open', () => {
+    beforeEach(async () => {
+      editor.logUI.show();
+      await editor.updateComplete;
+    });
+
+    it('displays the edit history', async () => {
+      const historyItemsCount =
+        editor.logUI?.querySelectorAll('mwc-list > abbr').length;
+      const node = sclDoc.querySelector('Substation')!;
+      editor.dispatchEvent(newEditEvent({ node }));
+      await editor.updateComplete;
+
+      expect(
+        editor.logUI?.querySelectorAll('mwc-list > abbr')
+      ).to.have.lengthOf(historyItemsCount! + 1);
+    });
+
+    it('undoes the last edit when clicking the undo button in the log dialog', async () => {
+      const node = sclDoc.querySelector('Substation')!;
+      editor.dispatchEvent(newEditEvent({ node }));
+      await editor.updateComplete;
+      const undoButton = editor.logUI?.querySelector(
+        'mwc-button[icon="undo"]'
+      ) as HTMLButtonElement;
+      expect(undoButton).to.exist;
+      expect(undoButton).to.have.property('disabled', false);
+      undoButton?.click();
+      await editor.updateComplete;
+      expect(sclDoc.querySelector('Substation')).to.exist;
+    });
+
+    it('redoes the last undone when clicking the redo button in the log dialog', async () => {
+      const node = sclDoc.querySelector('Substation')!;
+      editor.dispatchEvent(newEditEvent({ node }));
+      await editor.updateComplete;
+      editor.undo();
+      await editor.updateComplete;
+      expect(sclDoc.querySelector('Substation')).to.exist;
+      const redoButton = editor.logUI?.querySelector(
+        'mwc-button[icon="redo"]'
+      ) as HTMLButtonElement;
+      expect(redoButton).to.exist;
+      expect(redoButton).to.have.property('disabled', false);
+      redoButton?.click();
+      await editor.updateComplete;
+      expect(sclDoc.querySelector('Substation')).to.not.exist;
+    });
   });
 
   describe('generally', () => {

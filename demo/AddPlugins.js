@@ -21,7 +21,7 @@ If you choose 'Cancel', an editor type plugin will be added instead.`)
     const src =
       window.prompt(
         'Plugin source URI',
-        'https://example.org/plugin.js'
+        `/demo/DemoPluginSrc.js?${Date.now()}`
       ) || 'data:text/javascript,';
     const plugin = { name, src, icon, active, requireDoc };
     if (
@@ -30,8 +30,13 @@ If you choose 'Cancel', an editor type plugin will be added instead.`)
       
     )
       return;
-    if (!editor.plugins[kind]) editor.plugins[kind] = [];
-    editor.plugins[kind].push(plugin);
+    editor.plugins = {
+      ...editor.plugins,
+      [kind]: [
+        ...(editor.plugins[kind] || []),
+        plugin,
+      ],
+    }
     editor.requestUpdate('plugins');
   }
 }
