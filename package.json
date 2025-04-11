@@ -37,7 +37,7 @@
     "test:unit": "npm run build && playwright install && wtr --coverage --group default",
     "test:visual": "npm run build && playwright install && wtr --group visual",
     "test:watch": "npm run build && concurrently -k -r \"tsc -b --watch --preserveWatchOutput\" \"wtr --watch --coverage\"",
-    "test:update": "npm run build && wtr --update-visual-baseline",
+    "test:update": "npm run build && wtr --group visual --update-visual-baseline",
     "analyze": "cem analyze --litelement",
     "deploy": "npm run bundle && npm run doc && gh-pages --dist 'dist'",
     "build": "npm run extract && npm run localize && npm run compile",
