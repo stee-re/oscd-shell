@@ -4,7 +4,7 @@ import type { IconButton } from '@material/mwc-icon-button';
 import type { ListItem } from '@material/mwc-list/mwc-list-item.js';
 
 import './open-scd.js';
-import { expect } from '@open-wc/testing';
+import { expect, waitUntil } from '@open-wc/testing';
 import type { OpenSCD } from './open-scd.js';
 
 import { Edit, newEditEvent, newOpenEvent } from './foundation.js';
@@ -14,6 +14,13 @@ const factor = window.process && process.env.CI ? 4 : 2;
 
 function timeout(ms: number) {
   return new Promise(res => setTimeout(res, ms * factor));
+}
+
+function isMenuFullyOpen(editor: OpenSCD) {
+  const rect = editor.menuUI?.shadowRoot
+    ?.querySelector('aside.mdc-drawer--open')
+    ?.getBoundingClientRect();
+  return rect && rect.x === 0 && rect.width <= 256;
 }
 
 mocha.timeout(2000 * factor);
@@ -52,7 +59,10 @@ allLocales.forEach(lang =>
     beforeEach(async () => {
       editor.setAttribute('locale', lang);
       await editor.updateComplete;
-      expect(editor).to.have.property('locale', lang);
+      await waitUntil(
+        () => editor.locale === lang,
+        `setting locale to ${lang} failed`
+      );
     });
 
     it(`displays a top app bar`, async () => {
@@ -67,7 +77,10 @@ allLocales.forEach(lang =>
         ?.querySelector<IconButton>('mwc-icon-button[icon="menu"]')
         ?.click();
 
-      await editor.updateComplete;
+      await editor.menuUI?.updateComplete;
+      await waitUntil(() => isMenuFullyOpen(editor), 'menu did not appear', {
+        timeout: 2000,
+      });
       await timeout(200);
       await visualDiff(editor, `menu-drawer-${lang}`);
     });
