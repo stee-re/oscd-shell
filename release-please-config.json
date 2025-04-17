@@ -7,11 +7,9 @@
   "release-type": "node",
   "bump-minor-pre-major": true,
   "bump-patch-for-minor-pre-major": true,
-  "bootstrap-sha": "dd6bb0b16a1d26068b4bcaae8505413f42e4456d",
+  "bootstrap-sha": "4b07e940f9f4d80d7e6da5f9566f6783ac60d544",
   "packages": {
-    ".": {
-      "component": "open-scd-core"
-    }
+    ".": {}
   },
   "changelog-sections": [
     {
