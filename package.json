@@ -1,10 +1,10 @@
 {
-  "name": "@omicronenergy/open-scd-core",
+  "name": "@stee-re/open-scd-core-test",
   "version": "0.0.2",
   "description": "The core component of OpenSCD",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omicronenergy/open-scd-core.git"
+    "url": "git+https://github.com/stee-re/open-scd-core.git"
   },
   "keywords": [
     "scl",
