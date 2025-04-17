@@ -13,3 +13,7 @@
 /.tsbuildinfo
 /.rollup.cache
 /screenshots/*/failed/
+
+# IDE
+.vscode/
+.idea/
