@@ -1,0 +1,65 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "include-component-in-tag": true,
+  "include-v-in-tag": true,
+  "tag-separator": "@",
+  "separate-pull-requests": true,
+  "release-type": "node",
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "bootstrap-sha": "dd6bb0b16a1d26068b4bcaae8505413f42e4456d",
+  "packages": {
+    ".": {
+      "component": "open-scd-core"
+    }
+  },
+  "changelog-sections": [
+    {
+      "type": "feat",
+      "section": "✨ Features"
+    },
+    {
+      "type": "feature",
+      "section": "✨ Features"
+    },
+    {
+      "type": "fix",
+      "section": "🐞 Bug Fixes"
+    },
+    {
+      "type": "perf",
+      "section": "🚀 Performance Improvements"
+    },
+    {
+      "type": "revert",
+      "section": "Reverts"
+    },
+    {
+      "type": "docs",
+      "section": "📚 Documentation"
+    },
+    {
+      "type": "style",
+      "section": "Styles",
+      "hidden": true
+    },
+    {
+      "type": "chore",
+      "section": "📦 Miscellaneous Chores"
+    },
+    {
+      "type": "refactor",
+      "section": "Code Refactoring"
+    },
+    {
+      "type": "test",
+      "section": "Tests",
+      "hidden": true
+    },
+    {
+      "type": "ci",
+      "section": "Continuous Integration",
+      "hidden": true
+    }
+  ]
+}
