@@ -4,7 +4,7 @@
   "description": "The core component of OpenSCD",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omicronenergy/open-scd-core.git"
+    "url": "git+https://github.com/OMICRONEnergyOSS/open-scd-core.git"
   },
   "keywords": [
     "scl",
@@ -18,9 +18,9 @@
   "author": "OMICRON Electronics GmbH",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/omicronenergy/open-scd-core/issues"
+    "url": "https://github.com/OMICRONEnergyOSS/open-scd-core/issues"
   },
-  "homepage": "https://github.com/omicronenergy/open-scd-core#readme",
+  "homepage": "https://github.com/OMICRONEnergyOSS/open-scd-core#readme",
   "packageManager": "npm@8.12.2",
   "type": "module",
   "browser": "./dist/foundation.js",
