@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.0.3](https://github.com/stee-re/open-scd-core/compare/open-scd-core@v0.0.2...open-scd-core@v0.0.3) (2025-04-18)
+
+
+### ✨ Features
+
+* new test feature ([ad760d2](https://github.com/stee-re/open-scd-core/commit/ad760d21ea8eddd21534f97b49d0400a55a7b054))
+* one last test feature ([bcdaf3b](https://github.com/stee-re/open-scd-core/commit/bcdaf3b5c1e99e0a000c7b4b1ad4a900b0ff8efc))
+* yet another test feature ([3096280](https://github.com/stee-re/open-scd-core/commit/3096280772b0d4abd8e3dee910f4264fd4ec4036))
+
+
+### 📦 Miscellaneous Chores
+
+* correct repo urls ([1276a3a](https://github.com/stee-re/open-scd-core/commit/1276a3ac523d87def573792bf436add0da10d4dc))
+* **main:** release open-scd-core-test 0.0.2 ([7381f1a](https://github.com/stee-re/open-scd-core/commit/7381f1ace62f40b211747ea7248f3fd382474047))
+
 ## [0.0.2](https://github.com/stee-re/open-scd-core/compare/open-scd-core-test@v0.0.1...open-scd-core-test@v0.0.2) (2025-04-18)
 
 
