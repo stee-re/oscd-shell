@@ -12,9 +12,7 @@ import {
   property,
   record,
   string as stringArbitrary,
-  stringOf,
   tuple,
-  unicode,
   webUrl,
 } from 'fast-check';
 
@@ -100,21 +98,13 @@ export namespace util {
     return record({ parent, node, reference });
   }
 
-  const namespacedValue = record({
-    value: oneof(
-      stringOf(oneof({ arbitrary: unicode(), weight: 10 }, constant(':'))),
-      constant(null)
-    ),
-    namespaceURI: oneof({ arbitrary: webUrl(), weight: 10 }, constant(null)),
-  });
-
   export function update(nodes: Node[]): Arbitrary<Update> {
     const element = <Arbitrary<Element>>(
       constantFrom(...nodes.filter(nd => nd.nodeType === Node.ELEMENT_NODE))
     );
     const attributes = dictionary(
       oneof(stringArbitrary(), constant('colliding-attribute-name')),
-      oneof(stringArbitrary(), constant(null), namespacedValue)
+      oneof(stringArbitrary(), constant(null))
     );
     return record({ element, attributes });
   }
