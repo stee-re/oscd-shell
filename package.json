@@ -42,7 +42,7 @@
     "deploy": "npm run bundle && npm run doc && gh-pages --dist 'dist'",
     "build": "npm run extract && npm run localize && npm run compile",
     "compile": "tsc -b",
-    "bundle": "rimraf dist && rollup -c rollup.config.js",
+    "bundle": "rimraf dist && npm run localize && rollup -c rollup.config.js",
     "doc": "npm run analyze -- --exclude dist && typedoc --out dist/doc foundation.ts",
     "prepare": "npm run lint && npm run build && npm run doc",
     "lint": "eslint --ext .ts,.html . --ignore-path .gitignore && prettier \"**/*.ts\" --check --ignore-path .gitignore",
