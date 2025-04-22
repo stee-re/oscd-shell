@@ -37,22 +37,6 @@ jobs:
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-  github-packages-publish:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.release_created }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-    steps:
-      - uses: actions/checkout@v4
-      # Setup .npmrc file to publish to GitHub Packages
-      - uses: ./.github/actions/setup-node-env
-        with:
-          registry-url: 'https://npm.pkg.github.com'
-      - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   deploy:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
