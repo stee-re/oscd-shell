@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.10](https://github.com/stee-re/open-scd-core/compare/open-scd-core-v0.0.9...open-scd-core-v0.0.10) (2025-04-23)
+
+
+### Features
+
+* add build artifact to release2 ([2b9d70e](https://github.com/stee-re/open-scd-core/commit/2b9d70e8f4a7d3cf4737aa934d7c5723a3fa6f1a))
+
 ## [0.0.9](https://github.com/stee-re/open-scd-core/compare/open-scd-core-v0.0.8...open-scd-core-v0.0.9) (2025-04-23)
 
 
