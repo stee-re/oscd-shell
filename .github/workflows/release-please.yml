@@ -35,9 +35,6 @@ jobs:
         with:
           registry-url: 'https://registry.npmjs.org'
 
-      - run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Compress build output
         if: ${{ steps.release.outputs.release_created }}
         run: |
@@ -49,6 +46,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: gh release upload ${{ steps.release.outputs.tag_name }} open-scd-core.zip open-scd-core.tar.gz
+
+      - run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   deploy:
     needs: release-please
