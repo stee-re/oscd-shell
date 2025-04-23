@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
     permissions:
       contents: write
       pull-requests: write
@@ -42,10 +43,9 @@ jobs:
           tar -czvf open-scd-core.tar.gz ./dist/
 
       - name: Upload Compressed files
-        if: ${{ steps.release.outputs.release_created }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release upload ${{ steps.release.outputs.tag_name }} open-scd-core.zip open-scd-core.tar.gz
+        run: gh release upload ${{ needs.release-please.outputs.tag_name }} open-scd-core.zip open-scd-core.tar.gz
 
   npm-publish:
     needs: release-please
