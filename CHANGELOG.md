@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.0.7](https://github.com/stee-re/open-scd-core/compare/open-scd-core-v0.0.6...open-scd-core-v0.0.7) (2025-04-23)
+
+
+### Features
+
+* test commit ([727b700](https://github.com/stee-re/open-scd-core/commit/727b7006d99f27dc968aa149ddab9f6ffc9c8d12))
+
 ## [0.0.6](https://github.com/stee-re/open-scd-core/compare/open-scd-core-v0.0.5...open-scd-core-v0.0.6) (2025-04-23)
 
 
