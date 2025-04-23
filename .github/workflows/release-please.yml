@@ -21,12 +21,25 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+  add-build-artifact-to-release:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.release_created }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-node-env
+
+      - name: Build
+        run: npm run build
+
       - name: Compress build output
-        if: ${{ steps.release.outputs.release_created }}
         run: |
-          npm run build
           zip -r open-scd-core.zip ./dist/
-          tar -czvf open-scd.tar.gz ./dist/
+          tar -czvf open-scd-core.tar.gz ./dist/
 
       - name: Upload Compressed files
         if: ${{ steps.release.outputs.release_created }}
@@ -49,6 +62,7 @@ jobs:
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
   deploy:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
