@@ -34,9 +34,22 @@ jobs:
       - uses: ./.github/actions/setup-node-env
         with:
           registry-url: 'https://registry.npmjs.org'
+
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Compress build output
+        if: ${{ steps.release.outputs.release_created }}
+        run: |
+          zip -r open-scd-core.zip ./dist/
+          tar -czvf open-scd.tar.gz ./dist/
+
+      - name: Upload Compressed files
+        if: ${{ steps.release.outputs.release_created }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload ${{ steps.release.outputs.tag_name }} open-scd-core.zip open-scd-core.tar.gz
+
   deploy:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}
