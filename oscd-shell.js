@@ -10991,9 +10991,6 @@ function handleSetAttributes({ element, attributes = {}, attributesNS = {}, }) {
                     [name]: element.getAttributeNS(ns, name.split(":").pop()),
                 };
             });
-            Object.keys(attrs).forEach((name) => {
-                delete oldAttributesNS[ns][name];
-            });
         });
     // change element's namespaced attributes
     if (attributesNS)
