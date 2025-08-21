@@ -394,7 +394,8 @@ export class OpenSCD extends LitElement {
 
     this.addEventListener('oscd-open', event => this.handleOpenDoc(event));
     this.addEventListener('oscd-edit-v2', (event: EditEventV2) => {
-      this.xmlEditor.commit(event.detail.edit);
+      const { edit, title, squash } = event.detail;
+      this.xmlEditor.commit(edit, { title, squash });
     });
 
     // Catch all edits (from commits AND events) and trigger an update
