@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 export class AddPlugins extends HTMLElement {
   run() {
     const editor = this.getRootNode().host;
