@@ -3,7 +3,7 @@ import typescript from '@rollup/plugin-typescript';
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 import copy from 'rollup-plugin-copy';
-import fs from 'fs';
+import fs, { readdirSync } from 'fs';
 
 const tsconfig = JSON.parse(fs.readFileSync('./tsconfig.json', 'utf8'));
 const demoTsconfig = {
@@ -44,7 +44,7 @@ export default [
       importMetaAssets(),
     ],
   },
-    {
+  {
     input: 'foundation.ts',
     output: {
       sourcemap: true, // Add source map to build output
