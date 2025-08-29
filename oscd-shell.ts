@@ -1,5 +1,3 @@
-import '@webcomponents/scoped-custom-element-registry';
-
 import { configureLocalization, localized, msg } from '@lit/localize';
 import { css, html, LitElement, nothing, TemplateResult } from 'lit';
 import { customElement, property, query, state } from 'lit/decorators.js';
