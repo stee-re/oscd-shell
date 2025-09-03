@@ -92,8 +92,10 @@ type LocaleTag = (typeof allLocales)[number];
 const { getLocale, setLocale } = configureLocalization({
   sourceLocale,
   targetLocales,
-  loadLocale: locale =>
-    import(new URL(`./locales/${locale}.js`, import.meta.url).href),
+  loadLocale: (locale: string) =>
+    import(
+      /* @vite-ignore */ new URL(`./locales/${locale}.js`, import.meta.url).href
+    ),
 });
 
 function renderActionItem(

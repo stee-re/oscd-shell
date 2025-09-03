@@ -149,7 +149,7 @@ export function loadSourcedPlugins(
       }
 
       const url = new URL(src, window.location.href).toString();
-      import(url)
+      import(/* @vite-ignore */ url)
         .then(mod => {
           // Because this is async, we need to check (again) if the element is already defined.
           if (!customElements?.get(hashedTagName)) {

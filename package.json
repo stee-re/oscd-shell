@@ -50,7 +50,9 @@
     "analyze": "cem analyze --litelement",
     "doc": "npm run analyze -- --exclude dist && typedoc --out dist/doc oscd-shell.ts foundation.ts",
     "deploy": "npm run bundle && npm run doc && gh-pages --dist 'dist'",
-    "prepare": "husky"
+    "prepare": "husky",
+    "start:vite": "vite",
+    "test:vite": "vitest"
   },
   "dependencies": {
     "@lit/localize": "^0.12.2",
@@ -67,6 +69,7 @@
     "tslib": "^2.6.3"
   },
   "devDependencies": {
+    "@blockquote/rollup-plugin-externalize-source-dependencies": "^1.0.0",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@custom-elements-manifest/analyzer": "^0.10.4",
@@ -98,8 +101,12 @@
     "rollup-plugin-copy": "^3.5.0",
     "sinon": "^21.0.0",
     "tsdoc": "^0.0.4",
-    "typedoc": "^0.28.4",
-    "typescript": "5.5.3"
+    "typedoc": "^0.28.11",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.3",
+    "vite-plugin-static-copy": "^3.1.2",
+    "vite-plugin-web-components-hmr": "^0.1.3",
+    "vitest": "^3.2.4"
   },
   "overrides": {
     "playwright": {
