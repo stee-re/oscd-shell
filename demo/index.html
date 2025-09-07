@@ -12,7 +12,11 @@
     />
   </head>
   <body>
-    <oscd-shell></oscd-shell>
+    <oscd-shell
+      locale="de"
+      landingPageHeading="Willkommen bei OpenSCD"
+      landingPageSubHeading="Open Source IEC-61850-6 SCL Editing Platform"
+    ></oscd-shell>
     <script type="module" src="index.js"></script>
 
     <style>
@@ -20,6 +24,7 @@
         --oscd-theme-text-font: 'Roboto';
         --oscd-theme-icon-font: 'Material Symbols Outlined';
 
+        height: 100vh;
         margin: 0px;
         padding: 0px;
       }
@@ -27,6 +32,11 @@
       abbr {
         text-decoration: none;
         border-bottom: none;
+      }
+
+      body {
+        background: url('./background.svg') no-repeat center center fixed;
+        background-size: cover;
       }
     </style>
   </body>

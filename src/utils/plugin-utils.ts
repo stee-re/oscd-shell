@@ -148,7 +148,7 @@ export function loadSourcedPlugins(
       }
 
       const url = new URL(src, window.location.href).toString();
-      import(url)
+      import(/* @vite-ignore */ url)
         .then(mod => {
           // Because this is async, we need to check (again) if the element is already defined.
           if (!registry?.get(hashedTagName)) {
@@ -156,8 +156,9 @@ export function loadSourcedPlugins(
           }
         })
         .catch(err => {
-          console.error(
-            `[Invalid Plugin] Failed to load plugin ${plugin.name} from ${url}`,
+          // Log this as a warning because we load an Error WC in place of the plugin.
+          console.warn(
+            `[Invalid Plugin] Failed to load plugin ${plugin.name} <${hashedTagName}/> from ${url}`,
             err,
           );
           const ErrWc = generateErrorWcClass(plugin);
