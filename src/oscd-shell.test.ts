@@ -1,13 +1,13 @@
 import { expect, waitUntil } from '@open-wc/testing';
 import { visualDiff } from '@web/test-runner-visual-regression';
 
-import './oscd-shell.js';
+import '../oscd-shell.js';
 
 import { OscdAppBar } from '@omicronenergy/oscd-ui/app-bar/OscdAppBar.js';
 import type { OscdFilledIconButton } from '@omicronenergy/oscd-ui/iconbutton/oscd-filled-icon-button.js';
 import { OscdSecondaryTab } from '@omicronenergy/oscd-ui/tabs/OscdSecondaryTab.js';
 
-import { newOpenEvent } from '@omicronenergy/oscd-api/utils.js';
+import { newOpenEvent } from '@openscd/oscd-api/utils.js';
 import { queryButtonByIcon } from '@omicronenergy/oscd-test-utils';
 
 import { allLocales } from './locales.js';

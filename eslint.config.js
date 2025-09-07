@@ -82,6 +82,7 @@ export default [
             'rollup.config.js',
             'web-test-runner.config.js',
             'web-dev-server.*',
+            'vite.config.js',
           ],
         },
       ],
@@ -102,7 +103,7 @@ export default [
     },
   },
   {
-    files: ['*.test.ts', '*.spec.ts'],
+    files: ['**/*.test.ts', '**/*.spec.ts'],
     rules: {
       '@typescript-eslint/no-unused-expressions': 'off',
     },

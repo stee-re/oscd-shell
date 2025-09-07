@@ -2,31 +2,21 @@ import { expect, fixture, waitUntil } from '@open-wc/testing';
 
 import { html } from 'lit';
 
-import './oscd-shell.js';
+import '../oscd-shell.js';
 import sinon from 'sinon';
 import type { OscdShell, PluginEntry } from './oscd-shell.js';
+import {
+  TestBackgroundPlugin,
+  TestMenuPlugin1,
+} from './utils/testing/test-plugins.js';
+
+const sclDocString = `<?xml version="1.0" encoding="UTF-8"?>
+  <SCL version="2007" revision="B" xmlns="http://www.iec.ch/61850/2003/SCL" xmlns:ens1="http://example.org/somePreexistingExtensionNamespace">
+  <Substation ens1:foo="a" name="A1" desc="test substation"></Substation>
+</SCL>`;
 
 // customElements.define(
 //   'test-menu-plugin1',
-class TestMenuPlugin1 extends HTMLElement {
-  async run() {
-    return !!this;
-  }
-}
-// );
-
-class TestBackgroundPlugin extends HTMLElement {
-  constructor() {
-    super();
-    document.addEventListener('test-tx', event => {
-      document.dispatchEvent(
-        new CustomEvent('test-rx', {
-          detail: (event as CustomEvent).detail,
-        }),
-      );
-    });
-  }
-}
 
 const isPluginLoaded = (shell: OscdShell, plugin: PluginEntry): boolean =>
   !!shell.registry?.get(plugin.tagName) &&
@@ -83,6 +73,15 @@ describe('OscdShell Plugin Handling', () => {
     if (!registry.get('test-menu-plugin1')) {
       registry?.define('test-menu-plugin1', TestMenuPlugin1);
     }
+
+    oscdShell.docs = {
+      ['sample.scd']: new DOMParser().parseFromString(
+        sclDocString,
+        'application/xml',
+      ),
+    };
+    oscdShell.docName = 'sample.scd';
+
     oscdShell.plugins = {
       menu: sampleMenuPlugins,
       background: [
@@ -101,111 +100,122 @@ describe('OscdShell Plugin Handling', () => {
     oscdShell.remove();
   });
 
-  it('loads menu plugins', () => {
-    expect(oscdShell).property('plugins').property('menu').to.have.lengthOf(3);
-  });
-
-  it('loads background plugins', () => {
-    expect(oscdShell)
-      .property('plugins')
-      .property('background')
-      .to.have.lengthOf(1);
-  });
-
-  it('background plugins do something', async () => {
-    // Use a real event listener and a Promise to avoid timing issues
-    const eventPromise = new Promise<CustomEvent>(resolve => {
-      document.addEventListener(
-        'test-rx',
-        (e: Event) => resolve(e as CustomEvent),
-        { once: true },
-      );
+  describe('with sample plugins loaded', () => {
+    it('loads menu plugins', () => {
+      expect(oscdShell)
+        .property('plugins')
+        .property('menu')
+        .to.have.lengthOf(3);
     });
-    const testValue = crypto.randomUUID();
-    document.dispatchEvent(new CustomEvent('test-tx', { detail: testValue }));
 
-    const event = await eventPromise;
-    expect(event.detail).to.equal(testValue);
-  });
+    it('loads background plugins', () => {
+      expect(oscdShell)
+        .property('plugins')
+        .property('background')
+        .to.have.lengthOf(1);
+    });
 
-  it('loading the same plugins twice does not result in duplicates', () => {
-    oscdShell.plugins = {
-      menu: sampleMenuPlugins,
-    };
-    expect(oscdShell).property('plugins').property('menu').to.have.lengthOf(3);
-    oscdShell.plugins = {
-      menu: sampleMenuPlugins,
-    };
-    expect(oscdShell).property('plugins').property('menu').to.have.lengthOf(3);
-  });
+    it('background plugins do something', async () => {
+      // Use a real event listener and a Promise to avoid timing issues
+      const eventPromise = new Promise<CustomEvent>(resolve => {
+        document.addEventListener(
+          'test-rx',
+          (e: Event) => resolve(e as CustomEvent),
+          { once: true },
+        );
+      });
+      const testValue = crypto.randomUUID();
+      document.dispatchEvent(new CustomEvent('test-tx', { detail: testValue }));
 
-  it('loads editor plugins', async () => {
-    oscdShell.plugins = {
-      editor: [
-        {
-          name: 'Test Editor Plugin',
-          translations: { de: 'Test Editor Erweiterung' },
-          src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestEditorPlugin%20extends%20HTMLElement%20%7B%0D%0A%20%20constructor%20%28%29%20%7B%20super%28%29%3B%20this.innerHTML%20%3D%20%60%3Cp%3ETest%20Editor%20Plugin%3C%2Fp%3E%60%3B%20%7D%0D%0A%7D',
-          icon: 'coronavirus',
-        },
-        {
-          name: 'Test Editor Plugin 2',
-          src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestEditorPlugin%20extends%20HTMLElement%20%7B%0D%0A%20%20constructor%20%28%29%20%7B%20super%28%29%3B%20this.innerHTML%20%3D%20%60%3Cp%3ETest%20Editor%20Plugin%3C%2Fp%3E%60%3B%20%7D%0D%0A%7D',
-          icon: 'coronavirus',
-        },
-      ],
-    };
-    await oscdShell.updateComplete;
-    expect(oscdShell)
-      .property('plugins')
-      .property('editor')
-      .to.have.lengthOf(2);
-  });
+      const event = await eventPromise;
+      expect(event.detail).to.equal(testValue);
+    });
 
-  it('ignores plugins with no tagName or src', async () => {
-    oscdShell.plugins = {
-      editor: [
-        {
-          name: 'Tagless, Sourceless, Hopeless Plugin',
-          icon: 'coronavirus',
-        },
-      ],
-    };
-    await oscdShell.updateComplete;
-    expect(oscdShell)
-      .property('plugins')
-      .property('editor')
-      .to.have.lengthOf(0);
-  });
+    it('loading the same plugins twice does not result in duplicates', () => {
+      oscdShell.plugins = {
+        menu: sampleMenuPlugins,
+      };
+      expect(oscdShell)
+        .property('plugins')
+        .property('menu')
+        .to.have.lengthOf(3);
+      oscdShell.plugins = {
+        menu: sampleMenuPlugins,
+      };
+      expect(oscdShell)
+        .property('plugins')
+        .property('menu')
+        .to.have.lengthOf(3);
+    });
 
-  it('ignores invalid SourcePlugins', async () => {
-    oscdShell.plugins = {
-      background: [
-        {
-          src: 'test-background-plugin',
-        },
-      ],
-    };
-    await oscdShell.updateComplete;
-    expect(oscdShell)
-      .property('plugins')
-      .property('background')
-      .to.have.lengthOf(0);
-  });
+    it('loads editor plugins', async () => {
+      oscdShell.plugins = {
+        editor: [
+          {
+            name: 'Test Editor Plugin',
+            translations: { de: 'Test Editor Erweiterung' },
+            src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestEditorPlugin%20extends%20HTMLElement%20%7B%0D%0A%20%20constructor%20%28%29%20%7B%20super%28%29%3B%20this.innerHTML%20%3D%20%60%3Cp%3ETest%20Editor%20Plugin%3C%2Fp%3E%60%3B%20%7D%0D%0A%7D',
+            icon: 'coronavirus',
+          },
+          {
+            name: 'Test Editor Plugin 2',
+            src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestEditorPlugin%20extends%20HTMLElement%20%7B%0D%0A%20%20constructor%20%28%29%20%7B%20super%28%29%3B%20this.innerHTML%20%3D%20%60%3Cp%3ETest%20Editor%20Plugin%3C%2Fp%3E%60%3B%20%7D%0D%0A%7D',
+            icon: 'coronavirus',
+          },
+        ],
+      };
+      await oscdShell.updateComplete;
+      expect(oscdShell)
+        .property('plugins')
+        .property('editor')
+        .to.have.lengthOf(2);
+    });
 
-  it('ignores plugins missing a few fields', async () => {
-    oscdShell.plugins = {
-      background: [
-        {
-          tagName: 'test-background-plugin',
-        },
-      ],
-    };
-    await oscdShell.updateComplete;
-    expect(oscdShell)
-      .property('plugins')
-      .property('background')
-      .to.have.lengthOf(0);
+    it('ignores plugins with no tagName or src', async () => {
+      oscdShell.plugins = {
+        editor: [
+          {
+            name: 'Tagless, Sourceless, Hopeless Plugin',
+            icon: 'coronavirus',
+          },
+        ],
+      };
+      await oscdShell.updateComplete;
+      expect(oscdShell)
+        .property('plugins')
+        .property('editor')
+        .to.have.lengthOf(0);
+    });
+
+    it('ignores invalid SourcePlugins', async () => {
+      oscdShell.plugins = {
+        background: [
+          {
+            src: 'test-background-plugin',
+          },
+        ],
+      };
+      await oscdShell.updateComplete;
+      expect(oscdShell)
+        .property('plugins')
+        .property('background')
+        .to.have.lengthOf(0);
+    });
+
+    it('ignores plugins missing a few fields', async () => {
+      oscdShell.plugins = {
+        background: [
+          {
+            tagName: 'test-background-plugin',
+          },
+        ],
+      };
+      await oscdShell.updateComplete;
+      expect(oscdShell)
+        .property('plugins')
+        .property('background')
+        .to.have.lengthOf(0);
+    });
   });
 
   describe('shows an error plugin inplace of corrupted src plugins', () => {

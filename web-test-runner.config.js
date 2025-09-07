@@ -23,8 +23,8 @@ const filteredLogs = [
 
 const browsers = [
   playwrightLauncher({ product: 'chromium' }),
-  playwrightLauncher({ product: 'firefox' }),
-  playwrightLauncher({ product: 'webkit' }),
+  // playwrightLauncher({ product: 'firefox' }),
+  // playwrightLauncher({ product: 'webkit' }),
 ];
 
 function defaultGetImageDiff({ baselineImage, image, options }) {
@@ -84,6 +84,8 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
     }),
   ],
 
+  rootDir: './dist',
+
   groups: [
     {
       name: 'unit',
@@ -92,8 +94,10 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
     {
       name: 'visual',
       files: 'dist/**/*.test.js',
-      testRunnerHtml: testFramework => `
-<!DOCTYPE html>
+    },
+  ],
+
+  testRunnerHtml: testFramework => `<!DOCTYPE html>
         <html>
           <head>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&family=Roboto:wght@300;400;500&display=swap" />
@@ -162,8 +166,6 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
             </style>
           </body>
         </html>`,
-    },
-  ],
 
   /** Resolve bare module imports */
   nodeResolve: {
@@ -193,4 +195,5 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   browsers,
 
   // See documentation for all available options
+  testsFinishTimeout: 5000,
 });

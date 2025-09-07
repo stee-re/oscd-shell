@@ -1,5 +1,4 @@
 import '@webcomponents/scoped-custom-element-registry';
-
 import '../oscd-shell.js';
 import OscdMenuOpen from '@omicronenergy/oscd-menu-open';
 import OscdMenuSave from '@omicronenergy/oscd-menu-save';
@@ -18,43 +17,38 @@ const plugins = {
       translations: { de: 'Datei speichern' },
       icon: 'save',
       requireDoc: true,
-      tagName: 'oscd-template-menu',
-    },
-    {
-      name: 'Template Menu item',
-      translations: { de: 'Vorlagenmenüelement' },
-      icon: 'edit',
-      requireDoc: true,
-      tagName: 'oscd-template-menu',
+      tagName: 'oscd-menu-save',
     },
   ],
   editor: [
     {
-      name: 'Start',
-      translations: {
-        de: 'Start',
-      },
-      icon: 'start',
-      src: 'https://openenergytools.github.io/scl-editor-landing/scl-editor-landing.js',
-    },
-
-    {
-      name: 'Substation',
-      icon: 'margin',
-      requireDoc: true,
-      src: 'https://omicronenergyoss.github.io/oscd-editor-substation/oscd-editor-substation.js',
-    },
-    {
       name: 'Design SLD',
       translations: {
-        de: 'Designer',
+        de: 'SLD entwerfen',
       },
       icon: 'add_box',
       requireDoc: true,
       src: 'https://omicronenergyoss.github.io/oscd-editor-sld/oscd-editor-sld.js',
     },
+
+    {
+      name: 'Communication',
+      translations: {
+        de: 'Kommunikation',
+      },
+      icon: 'settings_ethernet',
+      active: true,
+      requireDoc: true,
+      src: 'https://omicronenergyoss.github.io/oscd-editor-communication/oscd-editor-communication.js',
+    },
   ],
   background: [
+    {
+      name: 'EditV1 Events Listener',
+      icon: 'none',
+      requireDoc: true,
+      tagName: 'oscd-background-editv1',
+    },
     {
       name: 'EditV1 Events Listener',
       icon: 'none',
@@ -65,11 +59,10 @@ const plugins = {
 };
 
 const oscdShell = document.querySelector('oscd-shell');
-const registry = oscdShell.registry;
+const { registry } = oscdShell;
 registry.define('oscd-menu-open', OscdMenuOpen);
 registry.define('oscd-menu-save', OscdMenuSave);
 registry.define('oscd-background-editv1', OscdBackgroundEditV1);
-
 oscdShell.plugins = plugins;
 
 const params = new URL(document.location).searchParams;
@@ -77,8 +70,15 @@ for (const [name, value] of params) {
   oscdShell.setAttribute(name, value);
 }
 
-const sample = await fetch('sample.scd').then(r => r.text());
-oscdShell.docs = {
-  ['sample.scd']: new DOMParser().parseFromString(sample, 'application/xml'),
-};
-oscdShell.docName = 'sample.scd';
+// const sclDocString = await fetch('sample.scd').then(r => r.text());
+// const sclDocString = `<?xml version="1.0" encoding="UTF-8"?>
+//   <SCL version="2007" revision="B" xmlns="http://www.iec.ch/61850/2003/SCL">
+//   <Substation name="A1" desc="test substation"></Substation>
+// </SCL>`;
+// oscdShell.docs = {
+//   ['sample.scd']: new DOMParser().parseFromString(
+//     sclDocString,
+//     'application/xml',
+//   ),
+// };
+// oscdShell.docName = 'sample.scd';

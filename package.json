@@ -2,7 +2,6 @@
   "name": "@omicronenergy/oscd-shell",
   "version": "0.0.9",
   "description": "The shell component of OpenSCD, where plugins are loaded and the application is initialized.",
-  "displayName": "OpenSCD Shell",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OMICRONEnergyOSS/oscd-shell.git"
@@ -44,7 +43,6 @@
     "start:bundle": "npm run bundle && concurrently -k -r \"rollup -c rollup.config.js --watch\" \"wds --watch \"",
     "test": "npm run build && wtr --coverage --group unit",
     "test:watch": "npm run build && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --watch --group unit --coverage\"",
-    "test:unit:watch": "npm run build && concurrently -k -r \"tsc -b --watch --preserveWatchOutput\" \"wtr --watch --coverage  --group default\"",
     "analyze": "cem analyze --litelement --exclude demo/* --exclude dist/* --exclude *.spec.ts --exclude *.test.ts --exclude coverage/*",
     "doc": "npm run analyze -- --exclude dist && typedoc --out dist/doc oscd-shell.ts foundation.ts",
     "test:visual": "npm run build && wtr --group visual",
@@ -54,14 +52,14 @@
   },
   "dependencies": {
     "@lit/localize": "^0.12.2",
-    "@omicronenergy/oscd-api": "^0.1.3",
     "@omicronenergy/oscd-background-editv1": "^0.0.6",
     "@omicronenergy/oscd-editor": "^1.5.0",
     "@omicronenergy/oscd-menu-open": "^0.0.6",
     "@omicronenergy/oscd-menu-save": "^0.0.2",
     "@omicronenergy/oscd-test-utils": "^0.0.8",
-    "@omicronenergy/oscd-ui": "^0.0.6",
+    "@omicronenergy/oscd-ui": "^0.0.9",
     "@open-wc/scoped-elements": "^3.0.6",
+    "@openscd/oscd-api": "^0.1.4",
     "@webcomponents/scoped-custom-element-registry": "^0.0.10",
     "lit": "^3.3.1",
     "tslib": "^2.8.1"
