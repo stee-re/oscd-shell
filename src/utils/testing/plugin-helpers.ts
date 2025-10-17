@@ -2,6 +2,48 @@
 import { waitUntil } from '@open-wc/testing';
 import { OscdShell, PluginEntry } from '../../oscd-shell.js';
 
+export const sampleMenuPlugins: (Omit<PluginEntry, 'tagName'> & {
+  tagName?: string;
+  src?: string;
+})[] = [
+  {
+    name: 'Test Menu Plugin',
+    translations: { de: 'Test Menu Erweiterung' },
+    tagName: 'test-menu-plugin1',
+    icon: 'margin',
+    requireDoc: false,
+  },
+  {
+    name: 'Test Menu Plugin 2',
+    src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestStrMenuPlugin2%20extends%20HTMLElement%20%7B%0D%0A%20%20async%20run%28%29%20%7B%0D%0A%20%20%20%20return%20true%3B%0D%0A%20%20%7D%0D%0A%7D',
+    icon: 'margin',
+    requireDoc: false,
+  },
+  {
+    name: 'Test Menu Plugin 3',
+    src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestStrMenuPlugin3%20extends%20HTMLElement%20%7B%0D%0A%20%20async%20run%28%29%20%7B%0D%0A%20%20%20%20return%20true%3B%0D%0A%20%20%7D%0D%0A%7D',
+    icon: 'margin',
+    requireDoc: false,
+  },
+];
+
+export const sampleEditorPlugins: (Omit<PluginEntry, 'tagName'> & {
+  tagName?: string;
+  src?: string;
+})[] = [
+  {
+    name: 'Test Editor Plugin',
+    translations: { de: 'Test Editor Erweiterung' },
+    src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestEditorPlugin%20extends%20HTMLElement%20%7B%0D%0A%20%20constructor%20%28%29%20%7B%20super%28%29%3B%20this.innerHTML%20%3D%20%60%3Cp%3ETest%20Editor%20Plugin%3C%2Fp%3E%60%3B%20%7D%0D%0A%7D',
+    icon: 'coronavirus',
+  },
+  {
+    name: 'Test Editor Plugin 2',
+    src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestEditorPlugin%20extends%20HTMLElement%20%7B%0D%0A%20%20constructor%20%28%29%20%7B%20super%28%29%3B%20this.innerHTML%20%3D%20%60%3Cp%3ETest%20Editor%20Plugin%3C%2Fp%3E%60%3B%20%7D%0D%0A%7D',
+    icon: 'coronavirus',
+  },
+];
+
 export const isPluginInstanciated = (
   pluginTagName: string,
   shell: OscdShell,
@@ -47,10 +89,10 @@ export const waitForAllPluginsToInstantiate = async (shell: OscdShell) => {
     editor => editor.tagName === shell.editor,
   );
 
-  const menuPlugins = (shell.plugins.menu ?? []).filter(
+  const menuPlugins = shell.plugins.menu.filter(
     plugin => !plugin.requireDoc || docLoaded,
   );
-  const backgroundPlugins = (shell.plugins.background ?? []).filter(
+  const backgroundPlugins = shell.plugins.background.filter(
     plugin => !plugin.requireDoc || docLoaded,
   );
 

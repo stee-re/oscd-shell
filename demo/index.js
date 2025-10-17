@@ -2,27 +2,52 @@ import '@webcomponents/scoped-custom-element-registry';
 import '../oscd-shell.js';
 import OscdMenuOpen from '@omicronenergy/oscd-menu-open';
 import OscdMenuSave from '@omicronenergy/oscd-menu-save';
+import {
+  OscdMenuFileClose,
+  OscdMenuFileRename,
+  OscdMenuNew,
+} from '@omicronenergy/oscd-menu-commons';
 import OscdBackgroundEditV1 from '@omicronenergy/oscd-background-editv1';
 
 const plugins = {
   menu: [
     {
-      name: 'Open File',
+      name: 'Open...',
       translations: { de: 'Datei öffnen' },
       icon: 'folder_open',
       tagName: 'oscd-menu-open',
     },
     {
-      name: 'Save File',
+      name: 'New File...',
+      translations: { de: 'Neu Datei' },
+      icon: 'note_add',
+      tagName: 'oscd-menu-new',
+    },
+    {
+      name: 'Save...',
       translations: { de: 'Datei speichern' },
       icon: 'save',
       requireDoc: true,
       tagName: 'oscd-menu-save',
     },
+    {
+      name: 'Rename...',
+      translations: { de: 'Datei umbenenen' },
+      icon: 'edit',
+      requireDoc: true,
+      src: 'https://omicronenergyoss.github.io/oscd-menu-commons/oscd-menu-file-rename.js',
+    },
+    {
+      name: 'Close',
+      translations: { de: 'Schließen' },
+      icon: 'close',
+      requireDoc: true,
+      src: 'https://omicronenergyoss.github.io/oscd-menu-commons/oscd-menu-file-close.js',
+    },
   ],
   editor: [
     {
-      name: 'Design SLD',
+      name: 'SLD Designer',
       translations: {
         de: 'SLD entwerfen',
       },
@@ -32,14 +57,14 @@ const plugins = {
     },
 
     {
-      name: 'Communication',
+      name: 'Engineering Workflows',
       translations: {
-        de: 'Kommunikation',
+        de: 'Engineering-Workflows',
       },
-      icon: 'settings_ethernet',
+      icon: 'automation',
       active: true,
       requireDoc: true,
-      src: 'https://omicronenergyoss.github.io/oscd-editor-communication/oscd-editor-communication.js',
+      src: 'https://ase-compas.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/engineering-wizard/index.js',
     },
   ],
   background: [
@@ -62,7 +87,11 @@ const oscdShell = document.querySelector('oscd-shell');
 const { registry } = oscdShell;
 registry.define('oscd-menu-open', OscdMenuOpen);
 registry.define('oscd-menu-save', OscdMenuSave);
+registry.define('oscd-menu-new', OscdMenuNew);
+registry.define('oscd-menu-file-rename', OscdMenuFileRename);
+registry.define('oscd-menu-file-close', OscdMenuFileClose);
 registry.define('oscd-background-editv1', OscdBackgroundEditV1);
+
 oscdShell.plugins = plugins;
 
 const params = new URL(document.location).searchParams;

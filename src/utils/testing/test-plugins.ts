@@ -1,6 +1,15 @@
-export class TestMenuPlugin1 extends HTMLElement {
+import { LitElement } from 'lit';
+import { property } from 'lit/decorators.js';
+import { OscdShell } from '../../oscd-shell.js';
+
+export class TestMenuPlugin1 extends LitElement {
+  @property({})
+  docVersion = 0;
+
   async run() {
-    return !!this;
+    const editor = (this.getRootNode() as ShadowRoot).host as OscdShell;
+    editor.undo();
+    return true;
   }
 }
 
@@ -17,10 +26,10 @@ export class TestBackgroundPlugin extends HTMLElement {
   }
 }
 
-export const testMenuPlugin = {
-  name: 'Test Undo Menu Plugin',
+export const testMenuPlugin1 = {
+  name: 'Test Undo Menu Plugin 1',
   translations: { de: 'Test Rückgängig-Menü-Plugin' },
-  src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestPlugin%20extends%20HTMLElement%20%7B%0D%0A%20%20async%20run()%20%7B%0D%0A%20%20const%20editor%20=%20(this.getRootNode()).host;%20%0D%0A%20editor.undo();%0D%0A%20return%20true;%0D%0A%20%20%7D%0D%0A%7D',
+  tagName: 'test-menu-plugin1',
   icon: 'undo',
   requireDoc: false,
 };

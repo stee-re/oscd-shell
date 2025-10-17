@@ -102,6 +102,11 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
           <head>
             <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&family=Roboto:wght@300;400;500&display=swap" />
             <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Symbols+Outlined&display=block" />
+            <!-- Script to replace window.structuredClone with @ungap/structured-clone (in lossy mode) -->
+            <script type="module">       
+              import structuredClone from '@ungap/structured-clone';
+              window.structuredClone = (value) => structuredClone(value, { lossy: true });
+            </script>
           </head>
           <body>
             <style class="deanimator">

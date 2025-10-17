@@ -1,5 +1,5 @@
 import { css, html, LitElement, nothing } from 'lit';
-import { property, state } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { localized } from '@lit/localize';
 
@@ -14,12 +14,12 @@ import { PluginEntry } from '../oscd-shell.js';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'plugins-side-panel': EditorPluginsSidePanel;
+    'editor-plugins-panel': EditorPluginsPanel;
   }
 }
 
 @localized()
-export class EditorPluginsSidePanel extends ScopedElementsMixin(LitElement) {
+export class EditorPluginsPanel extends ScopedElementsMixin(LitElement) {
   static scopedElements = {
     'oscd-icon-button': OscdIconButton,
     'oscd-icon': OscdIcon,
@@ -36,20 +36,15 @@ export class EditorPluginsSidePanel extends ScopedElementsMixin(LitElement) {
   @property({ type: String })
   locale!: LocaleTag;
 
-  @state()
-  _expanded = true;
-
+  // eslint-disable-next-line class-methods-use-this
   @property({ type: Boolean, reflect: true })
   get expanded() {
-    const e = localStorage.getItem('editorsPanel.expanded');
-    if (typeof e !== 'undefined' && e !== null) {
-      this._expanded = e === 'true';
-    }
-    return this._expanded;
+    const expandedStr = localStorage.getItem('editorsPanel.expanded');
+    return expandedStr === 'false' ? false : true;
   }
+  // eslint-disable-next-line class-methods-use-this
   set expanded(expanded: boolean) {
     localStorage.setItem('editorsPanel.expanded', String(expanded));
-    this._expanded = expanded;
   }
 
   render() {
@@ -100,7 +95,7 @@ export class EditorPluginsSidePanel extends ScopedElementsMixin(LitElement) {
   static styles = css`
     :host {
       width: 76px;
-      height: calc(100% - 24px);
+      height: calc(100% - 20px);
       display: grid;
       grid-template-rows: 1fr auto;
       min-height: 0;
@@ -130,10 +125,11 @@ export class EditorPluginsSidePanel extends ScopedElementsMixin(LitElement) {
     }
 
     .footer {
-      display: flex;
-      justify-self: center;
+      /* setting this to display:none until re-design is fixed and its safe to remove */
+      display: none;
+      /* justify-self: center;
       justify-content: center;
-      padding-block: 22px;
+      padding-block: 22px; */
     }
 
     .toggle-button {
@@ -150,13 +146,13 @@ export class EditorPluginsSidePanel extends ScopedElementsMixin(LitElement) {
     }
 
     :host([expanded]) {
-      width: 295px;
+      width: var(--side-panel-width, 240px);
     }
 
-    :host([expanded]) .footer {
+    /* :host([expanded]) .footer {
       justify-self: flex-end;
       justify-content: flex-end;
       padding-inline: 22px;
-    }
+    } */
   `;
 }

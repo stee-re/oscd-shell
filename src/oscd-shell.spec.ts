@@ -1,8 +1,5 @@
 import { expect, fixtureCleanup, waitUntil } from '@open-wc/testing';
-import {
-  getFirstTextNodeContent,
-  querySelectorContainingText,
-} from '@omicronenergy/oscd-test-utils';
+import { getFirstTextNodeContent } from '@omicronenergy/oscd-test-utils';
 
 import '../oscd-shell.js';
 
@@ -14,23 +11,37 @@ import type { OscdShell } from './oscd-shell.js';
 
 import { cyrb64 } from './foundation.js';
 import { Plugin } from '@openscd/oscd-api';
-import { EditorPluginsSidePanel } from './side-panel/editor-plugins-side-panel.js';
+import { EditorPluginsPanel } from './side-panel/editor-plugins-panel.js';
 import { OscdMenuItem } from '@omicronenergy/oscd-ui/menu/OscdMenuItem.js';
 import {
   isPluginInstanciated,
   waitForAllPluginsToInstantiate,
-} from './utils/testing/plugin-test-utils.js';
+} from './utils/testing/plugin-helpers.js';
 import {
-  testMenuPlugin,
+  testMenuPlugin1,
   testMenuPlugin2,
   testEditorPlugin,
   testEditorPlugin2,
   TestBackgroundPlugin,
+  TestMenuPlugin1,
 } from './utils/testing/test-plugins.js';
-import { createSclDocument } from './utils/testing/test-documents.js';
+import {
+  createSclDocument,
+  openDocOnShell,
+} from './utils/testing/test-doc-helpers.js';
 
 const getIndexOfSelectedEditor = (editorItems: OscdListItem[]) => {
   return editorItems.findIndex(item => item.classList.contains('active'));
+};
+
+const registerPlugin = (
+  shell: OscdShell,
+  tagName: string,
+  pluginClass: CustomElementConstructor,
+) => {
+  if (!shell.registry?.get(tagName)) {
+    shell.registry?.define(tagName, pluginClass);
+  }
 };
 
 describe('OscdShell', () => {
@@ -38,6 +49,8 @@ describe('OscdShell', () => {
   beforeEach(() => {
     oscdShell = document.createElement('oscd-shell');
     document.body.prepend(oscdShell);
+    registerPlugin(oscdShell, 'test-background-plugin', TestBackgroundPlugin);
+    registerPlugin(oscdShell, 'test-menu-plugin1', TestMenuPlugin1);
   });
 
   afterEach(() => {
@@ -47,14 +60,8 @@ describe('OscdShell', () => {
 
   describe('with no documents loaded', async () => {
     beforeEach(async () => {
-      if (!oscdShell.registry?.get('test-background-plugin')) {
-        oscdShell.registry?.define(
-          'test-background-plugin',
-          TestBackgroundPlugin,
-        );
-      }
       oscdShell.plugins = {
-        menu: [testMenuPlugin, testMenuPlugin2],
+        menu: [testMenuPlugin1, testMenuPlugin2],
         editor: [testEditorPlugin, testEditorPlugin2],
         background: [
           {
@@ -121,8 +128,8 @@ describe('OscdShell', () => {
 
     it('changes editor plugin when clicking on the editor item', async () => {
       const editorPluginsSidePanel = oscdShell.shadowRoot?.querySelector(
-        'editor-plugins-side-panel',
-      ) as EditorPluginsSidePanel;
+        'editor-plugins-panel',
+      ) as EditorPluginsPanel;
 
       const editorItems = Array.from(
         editorPluginsSidePanel.shadowRoot?.querySelectorAll('oscd-list-item') ??
@@ -206,7 +213,7 @@ describe('OscdShell', () => {
     let menuPlugin: HTMLElement & Plugin;
     beforeEach(async () => {
       oscdShell.plugins = {
-        menu: [testMenuPlugin],
+        menu: [testMenuPlugin1],
       };
       await oscdShell.updateComplete;
       await waitForAllPluginsToInstantiate(oscdShell);
@@ -244,80 +251,75 @@ describe('OscdShell', () => {
         menuPlugin = oscdShell.shadowRoot?.querySelector(
           '.off-screen-plugin-container .menu-plugins > *:first-child',
         ) as HTMLElement & Plugin;
-        console.log('beforeEach done');
       });
 
       it('has its docName property set', () => {
         expect(menuPlugin.docName).to.equal('test.scd');
-        console.log('has its docName property set');
       });
 
       it('has its doc property set', () => {
         expect(menuPlugin.doc).to.equal(doc);
-        console.log('has its doc property set');
       });
 
       it('has its docs property set', () => {
         expect(menuPlugin.docs).to.be.an('object');
         expect(menuPlugin.docs['test.scd']).to.equal(doc);
-        console.log('has its docs property set');
       });
 
       it('passes property docVersion', () => {
         expect(menuPlugin).to.have.property('docVersion', 0);
         expect(menuPlugin).to.have.property('editCount', 0);
-        console.log('passes property docVersion');
       });
-    });
 
-    it('updated passed docVersion property on edit events', async () => {
-      const doc = createSclDocument();
-      oscdShell.dispatchEvent(newOpenEvent(doc, 'test.scd'));
-      await oscdShell.updateComplete;
+      it('updated passed docVersion property on edit events', async () => {
+        // const doc = createSclDocument();
+        // oscdShell.dispatchEvent(newOpenEvent(doc, 'test.scd'));
+        await oscdShell.updateComplete;
 
-      oscdShell.dispatchEvent(
-        newEditEventV2({
-          element: doc.querySelector('testdoc')!,
-          attributes: { name: 'someName' },
-          attributesNS: {},
-        }),
-      );
-      await oscdShell.updateComplete;
+        oscdShell.dispatchEvent(
+          newEditEventV2({
+            element: doc.querySelector('testdoc')!,
+            attributes: { name: 'someName' },
+            attributesNS: {},
+          }),
+        );
+        await oscdShell.updateComplete;
 
-      expect(menuPlugin).to.have.property('docVersion', 1);
-      expect(menuPlugin).to.have.property('editCount', 1);
+        expect(menuPlugin).to.have.property('docVersion', 1);
+        expect(menuPlugin).to.have.property('editCount', 1);
+      });
     });
   });
 
   describe('Custom plugins', () => {
+    let sclDoc: XMLDocument;
     beforeEach(async () => {
+      sclDoc = createSclDocument();
+      openDocOnShell(oscdShell, 'test.scd', sclDoc);
       oscdShell.plugins = {
-        menu: [testMenuPlugin],
+        menu: [testMenuPlugin1],
         editor: [testEditorPlugin],
       };
       await oscdShell.updateComplete;
 
       await waitUntil(
         () =>
-          oscdShell.menuUI.shadowRoot?.querySelectorAll('oscd-menu-item')
+          oscdShell.pluginMenu.shadowRoot?.querySelectorAll('oscd-menu-item')
             .length === 1,
-        `Custom Menu Plugin "${testMenuPlugin.name}" did not load`,
+        `Custom Menu Plugin "${testMenuPlugin1.name}" did not load`,
       );
     });
 
     it('executes the plugin upon menu item click', async () => {
-      const sclDoc = createSclDocument();
-      oscdShell.dispatchEvent(newOpenEvent(sclDoc, 'test.scd'));
-      await oscdShell.updateComplete;
       const node = oscdShell.doc.querySelector('Substation')!;
       oscdShell.dispatchEvent(newEditEventV2({ node }));
       await oscdShell.updateComplete;
       expect(sclDoc.querySelector('Substation')).to.not.exist;
 
-      oscdShell.menuUI.open();
-      await oscdShell.menuUI.updateComplete;
+      oscdShell.pluginMenu.open();
+      await oscdShell.pluginMenu.updateComplete;
 
-      const pluginMenuItem = oscdShell.menuUI.shadowRoot?.querySelectorAll(
+      const pluginMenuItem = oscdShell.pluginMenu.shadowRoot?.querySelectorAll(
         'oscd-menu-item',
       )[0] as OscdMenuItem;
       expect(pluginMenuItem).to.exist;
@@ -337,12 +339,11 @@ describe('OscdShell', () => {
 
       const customEditorPluginTagName = `oscd-p${cyrb64(customEditorPlugin.src)}`;
 
-      if (!oscdShell.registry?.get(customEditorPluginTagName)) {
-        oscdShell.registry?.define(
-          customEditorPluginTagName,
-          class extends HTMLElement {},
-        );
-      }
+      registerPlugin(
+        oscdShell,
+        customEditorPluginTagName,
+        class extends HTMLElement {},
+      );
 
       expect(oscdShell.registry).not.to.be.undefined;
       const customElementDefineSpy =
@@ -360,36 +361,26 @@ describe('OscdShell', () => {
     let editorTabStrings: string[] = [];
 
     beforeEach(async () => {
+      const sclDoc = createSclDocument();
+      openDocOnShell(oscdShell, 'test.scd', sclDoc);
       oscdShell.plugins = {
-        menu: [testMenuPlugin],
+        menu: [testMenuPlugin1],
         editor: [testEditorPlugin],
       };
       await oscdShell.updateComplete;
-      await waitUntil(
-        () =>
-          querySelectorContainingText(
-            oscdShell.menuUI,
-            'oscd-menu-item > div',
-            testMenuPlugin.name,
-          ),
-        `Custom menu plugin (${testMenuPlugin.name}) did not load`,
-      );
-      await waitUntil(
-        () =>
-          querySelectorContainingText(
-            oscdShell.shadowRoot!.querySelector('oscd-tabs')!,
-            'oscd-secondary-tab',
-            testEditorPlugin.name,
-          ),
-        `Custom editor plugin (${testEditorPlugin.name}) did not load`,
-      );
+
+      waitForAllPluginsToInstantiate(oscdShell);
 
       menuItemStrings = Array.from(
-        oscdShell.menuUI.querySelectorAll('oscd-list-item > span'),
+        oscdShell?.pluginMenu?.shadowRoot?.querySelectorAll(
+          "oscd-menu-item > div[slot='headline']",
+        ) || [],
       ).map(span => (span as Element).textContent?.trim() || '');
 
       editorTabStrings = Array.from(
-        oscdShell?.shadowRoot?.querySelectorAll('oscd-secondary-tab') || [],
+        oscdShell?.editorPluginsPanel?.shadowRoot?.querySelectorAll(
+          '.editors-list oscd-list-item > span',
+        ) || [],
       ).map(
         tab =>
           Array.from((tab as Element).childNodes)
@@ -413,7 +404,7 @@ describe('OscdShell', () => {
 
     it('the menu items appear in german', () => {
       const untranslatedStrings = Array.from(
-        oscdShell.menuUI.querySelectorAll('oscd-menu-item > div'),
+        oscdShell.pluginMenu.querySelectorAll('oscd-menu-item > div'),
       )
         .map(span => (span as Element).textContent?.trim() || '')
         .filter((text: string) => menuItemStrings.includes(text));
@@ -423,7 +414,7 @@ describe('OscdShell', () => {
 
     it('the editor plugin appears in german', () => {
       const untranslatedStrings = Array.from(
-        oscdShell.pluginsSidePanelUI.shadowRoot?.querySelectorAll(
+        oscdShell.editorPluginsPanel.shadowRoot?.querySelectorAll(
           'oscd-list-item > span',
         ) || [],
       )
