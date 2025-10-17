@@ -12,14 +12,18 @@
     />
   </head>
   <body>
-    <oscd-shell locale="de" appIcon="./logo.svg"> </oscd-shell>
+    <oscd-shell locale="de">
+      <demo-landing-page slot="landing-page"></demo-landing-page>
+    </oscd-shell>
     <script type="module" src="index.js"></script>
+    <script type="module" src="demo-landing-page.js"></script>
 
     <style>
       * {
         --oscd-theme-text-font: 'Roboto';
         --oscd-theme-icon-font: 'Material Symbols Outlined';
-
+        height: 100%;
+        width: 100%;
         margin: 0px;
         padding: 0px;
       }
@@ -29,16 +33,8 @@
         border-bottom: none;
       }
 
-      html,
       body {
-        height: 100%;
-        width: 100%;
-        margin: 0;
-      }
-
-      body {
-        background: url('./background.svg') no-repeat center center fixed;
-        background-size: cover;
+        background-color: #eee8d5;
       }
     </style>
   </body>

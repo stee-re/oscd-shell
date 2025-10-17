@@ -1,65 +1,20 @@
-import { expect, fixture, waitUntil } from '@open-wc/testing';
+import { expect, fixture } from '@open-wc/testing';
 
 import { html } from 'lit';
 
 import '../oscd-shell.js';
 import sinon from 'sinon';
-import type { OscdShell, PluginEntry } from './oscd-shell.js';
+import type { OscdShell } from './oscd-shell.js';
 import {
   TestBackgroundPlugin,
   TestMenuPlugin1,
 } from './utils/testing/test-plugins.js';
-
-const sclDocString = `<?xml version="1.0" encoding="UTF-8"?>
-  <SCL version="2007" revision="B" xmlns="http://www.iec.ch/61850/2003/SCL" xmlns:ens1="http://example.org/somePreexistingExtensionNamespace">
-  <Substation ens1:foo="a" name="A1" desc="test substation"></Substation>
-</SCL>`;
-
-// customElements.define(
-//   'test-menu-plugin1',
-
-const isPluginLoaded = (shell: OscdShell, plugin: PluginEntry): boolean =>
-  !!shell.registry?.get(plugin.tagName) &&
-  !!shell.shadowRoot?.querySelector(plugin.tagName);
-
-const waitForPlugin = async (
-  shell: OscdShell,
-  plugin: PluginEntry,
-): Promise<void> =>
-  waitUntil(
-    () => isPluginLoaded(shell, plugin),
-    `Plugin: "${plugin.name}" <${plugin.tagName}> failed to load. CustomElements Registry: ${shell.registry?.get(plugin.tagName) ? 'Found' : 'Missing'}, DOM: ${shell.shadowRoot?.querySelector(plugin.tagName) ? 'Found' : 'Missing'}`,
-  );
-
-const waitForPluginsToLoad = async (oscdShell: OscdShell) => {
-  const allPlugins = Object.values(oscdShell.plugins).flat();
-  await Promise.all(allPlugins.map(plugin => waitForPlugin(oscdShell, plugin)));
-};
-
-const sampleMenuPlugins: (Omit<PluginEntry, 'tagName'> & {
-  tagName?: string;
-  src?: string;
-})[] = [
-  {
-    name: 'Test Menu Plugin',
-    translations: { de: 'Test Menu Erweiterung' },
-    tagName: 'test-menu-plugin1',
-    icon: 'margin',
-    requireDoc: false,
-  },
-  {
-    name: 'Test Menu Plugin 2',
-    src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestStrMenuPlugin2%20extends%20HTMLElement%20%7B%0D%0A%20%20async%20run%28%29%20%7B%0D%0A%20%20%20%20return%20true%3B%0D%0A%20%20%7D%0D%0A%7D',
-    icon: 'margin',
-    requireDoc: false,
-  },
-  {
-    name: 'Test Menu Plugin 3',
-    src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestStrMenuPlugin3%20extends%20HTMLElement%20%7B%0D%0A%20%20async%20run%28%29%20%7B%0D%0A%20%20%20%20return%20true%3B%0D%0A%20%20%7D%0D%0A%7D',
-    icon: 'margin',
-    requireDoc: false,
-  },
-];
+import {
+  sampleEditorPlugins,
+  sampleMenuPlugins,
+  waitForAllPluginsToInstantiate,
+} from './utils/testing/plugin-helpers.js';
+import { createSclDocument } from './utils/testing/test-doc-helpers.js';
 
 describe('OscdShell Plugin Handling', () => {
   let oscdShell: OscdShell;
@@ -75,10 +30,7 @@ describe('OscdShell Plugin Handling', () => {
     }
 
     oscdShell.docs = {
-      ['sample.scd']: new DOMParser().parseFromString(
-        sclDocString,
-        'application/xml',
-      ),
+      ['sample.scd']: createSclDocument(),
     };
     oscdShell.docName = 'sample.scd';
 
@@ -93,7 +45,7 @@ describe('OscdShell Plugin Handling', () => {
       ],
     };
     await oscdShell.updateComplete;
-    await waitForPluginsToLoad(oscdShell);
+    await waitForAllPluginsToInstantiate(oscdShell);
   });
 
   afterEach(() => {
@@ -150,19 +102,7 @@ describe('OscdShell Plugin Handling', () => {
 
     it('loads editor plugins', async () => {
       oscdShell.plugins = {
-        editor: [
-          {
-            name: 'Test Editor Plugin',
-            translations: { de: 'Test Editor Erweiterung' },
-            src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestEditorPlugin%20extends%20HTMLElement%20%7B%0D%0A%20%20constructor%20%28%29%20%7B%20super%28%29%3B%20this.innerHTML%20%3D%20%60%3Cp%3ETest%20Editor%20Plugin%3C%2Fp%3E%60%3B%20%7D%0D%0A%7D',
-            icon: 'coronavirus',
-          },
-          {
-            name: 'Test Editor Plugin 2',
-            src: 'data:text/javascript;charset=utf-8,export%20default%20class%20TestEditorPlugin%20extends%20HTMLElement%20%7B%0D%0A%20%20constructor%20%28%29%20%7B%20super%28%29%3B%20this.innerHTML%20%3D%20%60%3Cp%3ETest%20Editor%20Plugin%3C%2Fp%3E%60%3B%20%7D%0D%0A%7D',
-            icon: 'coronavirus',
-          },
-        ],
+        editor: sampleEditorPlugins,
       };
       await oscdShell.updateComplete;
       expect(oscdShell)
@@ -239,7 +179,7 @@ describe('OscdShell Plugin Handling', () => {
           },
         ],
       };
-      await waitForPluginsToLoad(oscdShell);
+      await waitForAllPluginsToInstantiate(oscdShell);
     });
 
     afterEach(() => {

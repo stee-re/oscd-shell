@@ -1,3 +1,5 @@
+import { OscdShell } from '../../oscd-shell.js';
+
 export const nonSclDocString = `<testdoc></testdoc>`;
 
 export const sclDocString = `<?xml version="1.0" encoding="UTF-8"?>
@@ -14,3 +16,26 @@ export const createSclDocument = () => {
   const parser = new DOMParser();
   return parser.parseFromString(sclDocString, 'application/xml');
 };
+
+export const openDocOnShell = async (
+  shell: OscdShell,
+  docName: string,
+  doc: XMLDocument,
+): Promise<void> => {
+  shell.docs = { ...shell.docs, [docName]: doc };
+  shell.docName = docName;
+  await shell.updateComplete;
+};
+
+export function createTestDocs(amount: number) {
+  return Array(amount)
+    .fill(0)
+    .reduce(
+      (acc, _, index) => {
+        const docName = `test${index}.cid`;
+        acc[docName] = createSclDocument();
+        return acc;
+      },
+      {} as Record<string, XMLDocument>,
+    );
+}

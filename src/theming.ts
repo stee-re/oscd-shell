@@ -3,8 +3,10 @@ import { css } from 'lit';
 export const theming = css`
   * {
     /* color variables names taken from Omicron Pallet (for reference) */
-    --slate-100: #dce0e5;
     --slate-35: #4f5a69;
+    --slate-95: #d0d5dc;
+    --slate-100: #dce0e5;
+
     --french-blue-15: #0b335b;
 
     --Omicron-yellow: #f5e214;
@@ -17,10 +19,10 @@ export const theming = css`
     --oscd-secondary: var(--oscd-theme-secondary, var(--french-blue-15));
     --secondary: var(--oscd-secondary);
     --oscd-theme-error: var(--oscd-theme-secondary, var(--error));
-    --oscd-base03: var(--oscd-theme-base03, var(--slate-35));
-    --oscd-base02: var(--oscd-theme-base02, #073642);
-    --oscd-base01: var(--oscd-theme-base01, #586e75);
     --oscd-base00: var(--oscd-theme-base00, var(--slate-35));
+    --oscd-base01: var(--oscd-theme-base01, #586e75);
+    --oscd-base02: var(--oscd-theme-base02, #073642);
+    --oscd-base03: var(--oscd-theme-base03, var(--slate-35));
     --oscd-base0: var(--oscd-theme-base0, #839496);
     --oscd-base1: var(--oscd-theme-base1, #93a1a1);
     --oscd-base2: var(--oscd-theme-base2, #eee8d5);

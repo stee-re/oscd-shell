@@ -13,12 +13,12 @@ import { PluginEntry } from '../oscd-shell.js';
 
 declare global {
   interface HTMLElementTagNameMap {
-    'plugin-menu': MenuPluginsDrowDownMenu;
+    'plugin-menu': PluginsMenu;
   }
 }
 
 @localized()
-export class MenuPluginsDrowDownMenu extends ScopedElementsMixin(LitElement) {
+export class PluginsMenu extends ScopedElementsMixin(LitElement) {
   static scopedElements = {
     'oscd-filled-icon-button': OscdFilledIconButton,
     'oscd-icon': OscdIcon,
@@ -76,42 +76,49 @@ export class MenuPluginsDrowDownMenu extends ScopedElementsMixin(LitElement) {
 
   render() {
     return html`
-      <div style="position: relative;" id="menu-button">
-        <oscd-icon>${this.appIcon}</oscd-icon>
-        <h1>${this.appTitle}</h1>
-        <oscd-filled-icon-button
-          slot="actionStart"
-          aria-label="${msg('Menu')}"
-          @click=${async () => {
+      <img src=${this.appIcon} alt="logo" />
+      <h1 class="app-title">${this.appTitle}</h1>
+      <oscd-filled-icon-button
+        id="menu-button"
+        aria-label="${msg('Menu')}"
+        @click=${async () => {
+          if (this.menu.open) {
+            this.menu.close();
+          } else {
             this.menu.show();
-          }}
-          ><oscd-icon
-            >arrow_drop_down_circle</oscd-icon
-          ></oscd-filled-icon-button
-        >
-        <oscd-menu
-          anchor="menu-button"
-          menuCorner="START_END"
-          anchorCorner="START_END"
-        >
-          ${this.menuPlugins.map(plugin =>
-            this.renderMenuItem(
-              plugin,
-              !!(plugin.requireDoc && (this.editableDocs ?? []).length === 0),
-            ),
-          )}
-        </oscd-menu>
-      </div>
+          }
+        }}
+        ><oscd-icon>arrow_drop_down_circle</oscd-icon></oscd-filled-icon-button
+      >
+      <oscd-menu
+        quick
+        anchor="menu-button"
+        menuCorner="START_END"
+        anchorCorner="START_END"
+      >
+        ${this.menuPlugins.map(plugin =>
+          this.renderMenuItem(
+            plugin,
+            !!(plugin.requireDoc && (this.editableDocs ?? []).length === 0),
+          ),
+        )}
+      </oscd-menu>
     `;
   }
 
   static styles = css`
-    :host > div {
+    :host {
       display: flex;
       align-items: center;
+      gap: 4px;
     }
 
-    h1 {
+    img {
+      height: 34.4px;
+      width: auto;
+    }
+
+    :host h1.app-title {
       font-family: Roboto;
       font-size: 22.114px;
       font-style: normal;

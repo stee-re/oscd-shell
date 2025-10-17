@@ -2,45 +2,13 @@ import { newEditEventV2, newOpenEvent } from '@openscd/oscd-api/utils.js';
 
 import { expect, fixture, html } from '@open-wc/testing';
 
-import { OscdListItem } from '@omicronenergy/oscd-ui/list/OscdListItem.js';
-
-import { OscdMenuItem } from '@omicronenergy/oscd-ui/menu/OscdMenuItem.js';
-
-import {
-  simulateKeypressOnElement,
-  queryButtonByIcon,
-  querySelectorContainingText,
-} from '@omicronenergy/oscd-test-utils';
-
 import { EditV2 } from '@openscd/oscd-api';
 
 import type { OscdShell } from './oscd-shell.js';
 
 import '../oscd-shell.js';
-
-// Temporary addition until we can resolve the issue with the same function
-// failing when called from oscd-test-utils
-// see: https://github.com/OMICRONEnergyOSS/oscd-test-utils/issues/11
-// async function waitForDialogState(element: Element, state: 'open' | 'closed') {
-//   return new Promise<void>(resolve => {
-//     const dialog = element as OscdDialog;
-//     // If already closed, resolve immediately
-//     if (!dialog.open) {
-//       resolve();
-//       return;
-//     }
-//     const observer = new MutationObserver(() => {
-//       if (
-//         (state === 'open' && dialog.open) ||
-//         (state === 'closed' && !dialog.open)
-//       ) {
-//         observer.disconnect();
-//         resolve();
-//       }
-//     });
-//     observer.observe(dialog, { attributes: true, attributeFilter: ['open'] });
-//   });
-// }
+import { OscdFilledIconButton } from '@omicronenergy/oscd-ui/iconbutton/OscdFilledIconButton.js';
+import { queryButtonByIcon } from '@omicronenergy/oscd-test-utils';
 
 export const xmlAttributeName =
   /^(?!xml|Xml|xMl|xmL|XMl|xML|XmL|XML)[A-Za-z_][A-Za-z0-9-_.]*(:[A-Za-z_][A-Za-z0-9-_.]*)?$/;
@@ -55,35 +23,6 @@ const sclDocString = `<?xml version="1.0" encoding="UTF-8"?>
   <SCL version="2007" revision="B" xmlns="http://www.iec.ch/61850/2003/SCL" xmlns:ens1="http://example.org/somePreexistingExtensionNamespace">
   <Substation ens1:foo="a" name="A1" desc="test substation"></Substation>
 </SCL>`;
-const testDocStrings = [
-  sclDocString,
-  `<?xml version="1.0" encoding="UTF-8"?>
-  <testDoc1>
-<element1 property1="value1" property2="value2">SomeText</element1>
-<element2 property2="value2" property3="value3"><!--AComment--></element2>
-<element3 property3="value3" property1="value1">
-  <subelement1 property1="value1" property2="value2">SomeMoreText</subelement1>
-  <subelement2 property2="value2" property3="value3"><!----></subelement2>
-  <subelement3 property3="value3" property1="value1"></subelement3>
-</element3>
-</testDoc1>`,
-  `<?xml version="1.0" encoding="UTF-8"?>
-  <testDoc2>
-<element1 property1="value1" property2="value2">SomeText</element1>
-<element2 property2="value2" property3="value3"><!--AComment--></element2>
-<element3 property3="value3" property1="value1">
-  <subelement1 property1="value1" property2="value2">SomeMoreText</subelement1>
-  <subelement2 property2="value2" property3="value3"><!----></subelement2>
-  <subelement3 property3="value3" property1="value1"></subelement3>
-</element3>
-</testDoc2>`,
-];
-
-function newTestDoc() {
-  const docString =
-    testDocStrings[Math.floor(Math.random() * testDocStrings.length)];
-  return new DOMParser().parseFromString(docString, 'application/xml');
-}
 
 describe('oscd-shell', () => {
   let oscdShell: OscdShell;
@@ -92,155 +31,8 @@ describe('oscd-shell', () => {
   beforeEach(async () => {
     oscdShell = <OscdShell>await fixture(html`<oscd-shell></oscd-shell>`);
     sclDoc = new DOMParser().parseFromString(sclDocString, 'application/xml');
-  });
-
-  it('loads a non-SCL document on OpenDocEvent', async () => {
-    oscdShell.dispatchEvent(newOpenEvent(sclDoc, 'test.xml'));
-    await oscdShell.updateComplete;
-    expect(oscdShell.docs).to.have.property('test.xml', sclDoc);
-    expect(oscdShell).to.have.property('doc', undefined);
-    expect(oscdShell).to.not.have.property('docName', 'test.xml');
-  });
-
-  it('opens an SCL document for editing on OpenDocEvent', async () => {
     oscdShell.dispatchEvent(newOpenEvent(sclDoc, 'test.scd'));
     await oscdShell.updateComplete;
-    expect(oscdShell.docs).to.have.property('test.scd', sclDoc);
-    expect(oscdShell).to.have.property('doc', sclDoc);
-    expect(oscdShell).to.have.property('docName', 'test.scd');
-  });
-
-  describe('with an SCL document loaded', () => {
-    beforeEach(async () => {
-      oscdShell.dispatchEvent(newOpenEvent(sclDoc, 'test.scd'));
-      await oscdShell.updateComplete;
-    });
-
-    it('updates the UI when a document with the same name is opened', async () => {
-      const newDoc = newTestDoc();
-      const oldUpdate = oscdShell.updateComplete;
-      oscdShell.dispatchEvent(newOpenEvent(newDoc, 'test.scd'));
-      expect(oldUpdate).to.not.equal(oscdShell.updateComplete);
-    });
-
-    // it('allows the user to change the current doc name', async () => {
-    //   queryButtonByIcon(
-    //     oscdShell.shadowRoot!,
-    //     'oscd-filled-icon-button',
-    //     'edit',
-    //   )?.click();
-    //   const dialog = oscdShell.editFileUI;
-    //   await dialog.updateComplete;
-    //   const textfield = dialog.querySelector<OscdFilledTextField>(
-    //     'oscd-filled-text-field',
-    //   )!;
-    //   textfield.value = 'newName';
-    //   const select = dialog.querySelector(
-    //     'oscd-filled-select',
-    //   )! as OscdFilledSelect;
-    //   select.value = 'cid';
-    //   await textfield.updateComplete;
-    //   await select.updateComplete;
-    //   queryButtonByIcon(dialog, 'oscd-text-button', 'edit')?.click();
-    //   await oscdShell.updateComplete;
-    //   expect(oscdShell).to.have.property('docName', 'newName.cid');
-    //   expect(oscdShell).to.have.property('doc', sclDoc);
-    // });
-
-    //   it('allows the user to close the current doc', async () => {
-    //     const currentDocName = oscdShell.docName;
-    //     const editButton = queryButtonByIcon(
-    //       oscdShell.shadowRoot!,
-    //       'oscd-filled-icon-button',
-    //       'edit',
-    //     );
-    //     expect(editButton).to.exist;
-    //     editButton?.click();
-
-    //     const dialog = oscdShell.editFileUI;
-    //     await dialog.updateComplete;
-    //     const deleteButton = queryButtonByIcon(
-    //       dialog,
-    //       'oscd-text-button',
-    //       'delete',
-    //     );
-    //     expect(deleteButton).to.exist;
-    //     deleteButton?.click();
-
-    //     await new Promise<void>(resolve => {
-    //       dialog.addEventListener('closed', () => resolve(), { once: true });
-    //     });
-
-    //     await oscdShell.updateComplete;
-    //     expect(oscdShell.docName).to.not.equal(currentDocName);
-    //     expect(oscdShell.doc).to.be.undefined;
-    //   });
-  });
-
-  describe('with several documents loaded', () => {
-    beforeEach(async () => {
-      for (let i = 0; i < 5; i += 1) {
-        oscdShell.dispatchEvent(newOpenEvent(newTestDoc(), `test${i}.scd`));
-      }
-      await oscdShell.updateComplete;
-    });
-
-    it('allows the user to switch documents', async () => {
-      oscdShell.fileMenuButtonUI?.click();
-      await oscdShell.fileMenuUI.updateComplete;
-      (oscdShell.fileMenuUI.firstElementChild as OscdMenuItem).click();
-      await oscdShell.updateComplete;
-      const oldDocName = oscdShell.docName;
-      oscdShell.fileMenuButtonUI?.click();
-      await oscdShell.fileMenuUI.updateComplete;
-      (oscdShell.fileMenuUI.lastElementChild as OscdMenuItem).click();
-      await oscdShell.updateComplete;
-      expect(oscdShell).to.not.have.property('docName', oldDocName);
-    });
-
-    // it('prevents the user from renaming the current doc to an already opened doc name', async () => {
-    //   const anotherDocNameWithoutExtension = Object.keys(oscdShell.docs)
-    //     ?.find(docName => docName !== oscdShell.docName)
-    //     ?.split('.')[0];
-    //   const existingDocNameWithExtension = oscdShell.docName;
-    //   queryButtonByIcon(
-    //     oscdShell.shadowRoot!,
-    //     'oscd-app-bar oscd-filled-icon-button',
-    //     'edit',
-    //   )?.click();
-    //   const dialog = oscdShell.editFileUI;
-    //   await dialog.updateComplete;
-    //   const textfield = dialog.querySelector<OscdFilledTextField>('#fileName')!;
-    //   textfield.value = anotherDocNameWithoutExtension!;
-    //   textfield.dispatchEvent(
-    //     new Event('input', { bubbles: true, composed: true }),
-    //   );
-    //   await textfield.updateComplete;
-    //   const renameButton = queryButtonByIcon(
-    //     dialog,
-    //     'oscd-text-button',
-    //     'edit',
-    //   );
-    //   expect(renameButton).to.exist;
-    //   renameButton!.click();
-    //   await oscdShell.updateComplete;
-    //   expect(oscdShell.editFileUI.open).to.be.true;
-
-    //   const [filename] = existingDocNameWithExtension.split('.');
-    //   textfield.value = filename;
-    //   textfield.dispatchEvent(
-    //     new Event('input', { bubbles: true, composed: true }),
-    //   );
-    //   await oscdShell.updateComplete;
-    //   renameButton!.click();
-    //   await waitForDialogState(oscdShell.editFileUI, 'closed');
-    //   await oscdShell.updateComplete;
-    //   expect(oscdShell.editFileUI.open).not.to.be.true;
-    //   expect(oscdShell).to.have.property(
-    //     'docName',
-    //     existingDocNameWithExtension,
-    //   );
-    // });
   });
 
   [
@@ -324,119 +116,90 @@ describe('oscd-shell', () => {
     );
   });
 
-  it('undoes a edit from Undo menu option', async () => {
-    const node = sclDoc.querySelector('Substation')!;
-    oscdShell.dispatchEvent(newEditEventV2({ node }));
+  describe('App-Bar Undo and Redo Buttons', () => {
+    let undoButton: OscdFilledIconButton;
+    let redoButton: OscdFilledIconButton;
 
-    const navMenuButton = queryButtonByIcon(
-      oscdShell.shadowRoot!,
-      'oscd-filled-icon-button',
-      'menu',
-    );
-    expect(navMenuButton).to.exist;
-    navMenuButton?.click();
-
-    await oscdShell.updateComplete;
-    const undoButton = querySelectorContainingText(
-      oscdShell.menuUI,
-      'oscd-list-item > span',
-      'Undo',
-    )?.closest('oscd-list-item') as OscdListItem;
-    expect(undoButton).to.exist;
-    expect(undoButton).to.have.property('disabled', false);
-    undoButton?.click();
-    await oscdShell.updateComplete;
-    expect(sclDoc.querySelector('Substation')).to.exist;
-  });
-
-  it('redoes an undone edit from Redo menu option', async () => {
-    const node = sclDoc.querySelector('Substation')!;
-    oscdShell.dispatchEvent(newEditEventV2({ node }));
-    expect(sclDoc.querySelector('Substation')).to.not.exist;
-    oscdShell.undo();
-    await oscdShell.updateComplete;
-    expect(sclDoc.querySelector('Substation')).to.exist;
-    const redoButton = querySelectorContainingText(
-      oscdShell.menuUI,
-      'oscd-list-item > span',
-      'Redo',
-    )?.closest('oscd-list-item') as OscdListItem;
-    expect(redoButton).to.exist;
-    expect(redoButton).to.have.property('disabled', false);
-    redoButton?.click();
-    await oscdShell.updateComplete;
-
-    expect(sclDoc.querySelector('Substation')).to.not.exist;
-  });
-
-  describe('use the keyboard shortcuts', () => {
-    it('displays the menu with Ctrl+m', async () => {
-      simulateKeypressOnElement('m', true);
-      await oscdShell.updateComplete;
-      expect(oscdShell.menuUI).to.have.property('opened');
+    beforeEach(async () => {
+      const appBar = oscdShell.shadowRoot?.querySelector('oscd-app-bar');
+      expect(appBar, 'expect oscd-app-bar to be present').to.exist;
+      undoButton = queryButtonByIcon(
+        appBar!,
+        'oscd-filled-icon-button',
+        'undo',
+      ) as OscdFilledIconButton;
+      redoButton = queryButtonByIcon(
+        appBar!,
+        'oscd-filled-icon-button',
+        'redo',
+      ) as OscdFilledIconButton;
     });
 
-    it('undoes the last edit with Ctrl+z', async () => {
+    it('disabled the Undo button when there is nothing to undo', async () => {
+      expect(oscdShell.canUndo).to.be.false;
+      expect(undoButton.disabled).to.be.true;
+    });
+    it('enabled the Undo button when there is something to undo', async () => {
       const node = sclDoc.querySelector('Substation')!;
       oscdShell.dispatchEvent(newEditEventV2({ node }));
       await oscdShell.updateComplete;
 
-      expect(sclDoc.querySelector('Substation')).to.not.exist;
-      simulateKeypressOnElement('z', true);
-      await oscdShell.updateComplete;
-      expect(sclDoc.querySelector('Substation')).to.exist;
+      expect(oscdShell.canUndo).to.be.true;
+      expect(undoButton.disabled).to.be.false;
     });
 
-    it('redoes the last edit with Ctrl+y', async () => {
+    it('disabled the Redo button when there is nothing to redo', async () => {
+      expect(oscdShell.canRedo).to.be.false;
+      expect(redoButton.disabled).to.be.true;
+    });
+
+    it('enabled the Redo button when there is something to redo', async () => {
       const node = sclDoc.querySelector('Substation')!;
       oscdShell.dispatchEvent(newEditEventV2({ node }));
-      expect(sclDoc.querySelector('Substation')).to.not.exist;
+      await oscdShell.updateComplete;
       oscdShell.undo();
       await oscdShell.updateComplete;
-      expect(sclDoc.querySelector('Substation')).to.exist;
-      simulateKeypressOnElement('y', true);
-      await oscdShell.updateComplete;
-      expect(sclDoc.querySelector('Substation')).to.not.exist;
+
+      expect(oscdShell.canRedo).to.be.true;
+      expect(redoButton.disabled).to.be.false;
     });
 
-    it('it redoes the last edit with Ctrl+Z', async () => {
-      const node = sclDoc.querySelector('Substation')!;
-      oscdShell.dispatchEvent(newEditEventV2({ node }));
-      expect(sclDoc.querySelector('Substation')).to.not.exist;
-      oscdShell.undo();
-      await oscdShell.updateComplete;
-      expect(sclDoc.querySelector('Substation')).to.exist;
-      simulateKeypressOnElement('Z', true);
-      await oscdShell.updateComplete;
-      expect(sclDoc.querySelector('Substation')).to.not.exist;
-    });
-
-    it('does not trigger anything if the Ctrl button was not pressed', async () => {
-      simulateKeypressOnElement('m', false);
-      await oscdShell.updateComplete;
-      expect(oscdShell.menuUI).to.not.have.attribute('open');
-    });
-
-    it('does not trigger anything if the Ctrl button was pressed but the key was not one of the shortcuts', async () => {
-      simulateKeypressOnElement('a', true);
-      await oscdShell.updateComplete;
-      expect(oscdShell.menuUI).to.not.have.attribute('open');
-    });
-
-    it('does not change anything if there is nothing to Undo', async () => {
+    it('undoes an edit when the Undo button is clicked', async () => {
       const before = new XMLSerializer().serializeToString(sclDoc);
-      simulateKeypressOnElement('Z', true);
+
+      //Delete the substation to have something to undo
+      const node = sclDoc.querySelector('Substation')!;
+      oscdShell.dispatchEvent(newEditEventV2({ node }));
       await oscdShell.updateComplete;
+
+      //Now undo the deletion via the Undo button
+      undoButton.click();
+      await oscdShell.updateComplete;
+
+      //compare before and after
       const after = new XMLSerializer().serializeToString(sclDoc);
       expect(after).to.equal(before);
     });
-
-    it('does not change anything if there is nothing to redo', async () => {
-      const before = new XMLSerializer().serializeToString(sclDoc);
-      simulateKeypressOnElement('y', true);
+    it('redoes an edit when the Redo button is clicked', async () => {
+      //Delete the substation to have an edit to undo & redo
+      const node = sclDoc.querySelector('Substation')!;
+      oscdShell.dispatchEvent(newEditEventV2({ node }));
       await oscdShell.updateComplete;
-      const after = new XMLSerializer().serializeToString(sclDoc);
-      expect(after).to.equal(before);
+
+      //lets snapshot the document before the undo
+      const beforeUndo = new XMLSerializer().serializeToString(sclDoc);
+
+      //Now undo the deletion via the Undo button
+      undoButton.click();
+      await oscdShell.updateComplete;
+
+      //Now redo the deletion via the Redo button
+      redoButton.click();
+      await oscdShell.updateComplete;
+
+      //compare before and after
+      const afterRedo = new XMLSerializer().serializeToString(sclDoc);
+      expect(afterRedo).to.equal(beforeUndo);
     });
   });
 
@@ -477,49 +240,13 @@ describe('oscd-shell', () => {
 
       const before = new XMLSerializer().serializeToString(sclDoc);
 
+      oscdShell.undo();
+      await oscdShell.updateComplete;
+
       oscdShell.redo(10);
       await oscdShell.updateComplete;
       const after = new XMLSerializer().serializeToString(sclDoc);
       expect(after).to.equal(before);
-    });
-  });
-
-  describe('Undo and Redo from the AppBar', () => {
-    beforeEach(async () => {
-      const node = sclDoc.querySelector('Substation')!;
-      oscdShell.dispatchEvent(newEditEventV2({ node }));
-      await oscdShell.updateComplete;
-      expect(sclDoc.querySelector('Substation')).to.not.exist;
-    });
-
-    it('undoes the last edit when the AppBar undo button is clicked', async () => {
-      const undoButton = queryButtonByIcon(
-        oscdShell.shadowRoot!,
-        'oscd-app-bar oscd-filled-icon-button',
-        'undo',
-      );
-      expect(undoButton).to.exist;
-      undoButton?.click();
-
-      await oscdShell.updateComplete;
-      expect(sclDoc.querySelector('Substation')).to.exist;
-    });
-
-    it('it redoes the last undo when the AppBar redo button is clicked', async () => {
-      oscdShell.undo();
-      await oscdShell.updateComplete;
-      expect(sclDoc.querySelector('Substation')).to.exist;
-
-      const redoButton = queryButtonByIcon(
-        oscdShell.shadowRoot!,
-        'oscd-app-bar oscd-filled-icon-button',
-        'redo',
-      );
-      expect(redoButton).to.exist;
-      redoButton?.click();
-      await oscdShell.updateComplete;
-
-      expect(sclDoc.querySelector('Substation')).to.not.exist;
     });
   });
 });

@@ -1,14 +1,16 @@
 import { css, html, LitElement, nothing } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
+import {
+  customElement,
+  property,
+  query,
+  queryAssignedNodes,
+  state,
+} from 'lit/decorators.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
-import { localized } from '@lit/localize';
+import { localized, msg } from '@lit/localize';
 import { html as staticHtml, unsafeStatic } from 'lit/static-html.js';
 
 import { OscdFilledIconButton } from '@omicronenergy/oscd-ui/iconbutton/OscdFilledIconButton.js';
-import { OscdList } from '@omicronenergy/oscd-ui/list/OscdList.js';
-import { OscdListItem } from '@omicronenergy/oscd-ui/list/OscdListItem.js';
-import { OscdMenu } from '@omicronenergy/oscd-ui/menu/OscdMenu.js';
-import { OscdMenuItem } from '@omicronenergy/oscd-ui/menu/OscdMenuItem.js';
 import { XMLEditor } from '@omicronenergy/oscd-editor';
 import { EditEventV2, OpenEvent } from '@openscd/oscd-api';
 
@@ -19,11 +21,14 @@ import {
   setLocale,
   Translations,
 } from './utils/localization.js';
-import { AppBar } from './app-bar/app-bar.js';
 import { theming } from './theming.js';
-import { EditorPluginsSidePanel } from './side-panel/editor-plugins-side-panel.js';
-import { MenuPluginsDrowDownMenu } from './app-bar/menu-plugins-dropdown-menu.js';
+import { EditorPluginsPanel } from './side-panel/editor-plugins-panel.js';
+import { PluginsMenu } from './menus/plugins-menu.js';
 import { LandingPage } from './landing-page/landing-page.js';
+import { RenameEvent, CloseEvent } from './foundation/events.js';
+import { FilesMenu } from './menus/files-menu.js';
+import { OscdAppBar } from '@omicronenergy/oscd-ui/app-bar/OscdAppBar.js';
+import { OscdIcon } from '@omicronenergy/oscd-ui/icon/OscdIcon.js';
 
 export type PluginEntry = {
   name: string;
@@ -50,13 +55,12 @@ export type PluginSet<P = PluginEntry> = {
 @customElement('oscd-shell')
 export class OscdShell extends ScopedElementsMixin(LitElement) {
   static scopedElements = {
-    'app-bar': AppBar,
-    'menu-plugins-dropdown-menu': MenuPluginsDrowDownMenu,
-    'editor-plugins-side-panel': EditorPluginsSidePanel,
-    'oscd-list': OscdList,
-    'oscd-list-item': OscdListItem,
-    'oscd-menu': OscdMenu,
-    'oscd-menu-item': OscdMenuItem,
+    'oscd-app-bar': OscdAppBar,
+    'oscd-filled-icon-button': OscdFilledIconButton,
+    'oscd-icon': OscdIcon,
+    'files-menu': FilesMenu,
+    'plugins-menu': PluginsMenu,
+    'editor-plugins-panel': EditorPluginsPanel,
     'landing-page': LandingPage,
   };
 
@@ -64,23 +68,21 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
    * Properties
    */
 
+  /**
+   * Url to the app icon displayed in the app bar
+   */
   @property({ type: String })
-  appIcon: string = 'home_app_logo';
+  appIcon: string = '';
 
   @property({ type: String })
   appTitle: string = 'OpenSCD';
 
   @property({ type: String })
-  landingPageHeading?: string = 'Welcome to OpenSCD';
-
-  @property({ type: Object })
-  landingPageHeadingIcon?: Element;
+  landingPageHeading: string = 'Welcome to OpenSCD';
 
   @property({ type: String })
-  landingPageSubHeading?: string = 'Open Source Project Editing Platform';
-
-  @property({ type: Object })
-  landingPageContent?: Element;
+  landingPageSubHeading: string =
+    'Open Source IEC-61850-6 SCL Editing Platform';
 
   /** The file endings of editable files */
   @property({ type: Array, reflect: true }) editable = [
@@ -190,42 +192,57 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
   /*
    * All Queries
    */
-  @query('#fileMenu')
-  fileMenuUI!: OscdMenu;
 
-  @query('#fileMenuButton')
-  fileMenuButtonUI?: OscdFilledIconButton;
+  @query('plugins-menu')
+  pluginMenu!: PluginsMenu;
 
-  @query('#fileName')
-  fileNameUI!: HTMLInputElement;
+  @query('editor-plugins-panel')
+  editorPluginsPanel!: EditorPluginsPanel;
 
-  @query('menu-plugins-dropdown-menu')
-  menuUI!: MenuPluginsDrowDownMenu;
-
-  @query('editor-plugins-side-panel')
-  pluginsSidePanelUI!: EditorPluginsSidePanel;
+  @queryAssignedNodes({ slot: 'landing-page' })
+  private _landingPageNodes?: NodeListOf<HTMLElement>;
 
   /*
-   * Constructor & functions
+   * Constructor & life cycle methods
    */
   constructor() {
     super();
-
-    document.addEventListener('keydown', event => this.handleKeyPress(event));
-
-    this.addEventListener('oscd-open', event => this.handleOpenDoc(event));
-    this.addEventListener('oscd-edit-v2', (event: EditEventV2) => {
-      const { edit, title, squash } = event.detail;
-      this.xmlEditor.commit(edit, { title, squash });
-    });
-
     // Catch all edits (from commits AND events) and trigger an update
     this.xmlEditor.subscribe(() => {
       this.docVersion += 1;
     });
   }
 
-  handleOpenDoc({ detail: { docName, doc } }: OpenEvent) {
+  connectedCallback() {
+    super.connectedCallback();
+
+    document.addEventListener('keydown', this.handleKeyPress);
+    this.addEventListener('oscd-open', this.handleOpenDoc);
+    this.addEventListener('oscd-rename', this.handleRenameDoc);
+    this.addEventListener('oscd-close', this.handleCloseDoc);
+    this.addEventListener('oscd-edit-v2', this.handleEditV2);
+    this.addEventListener('oscd-undo', this.handleUndo);
+    this.addEventListener('oscd-redo', this.handleRedo);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+
+    // Remove event listeners
+    document.removeEventListener('keydown', this.handleKeyPress);
+    this.removeEventListener('oscd-open', this.handleOpenDoc);
+    this.removeEventListener('oscd-rename', this.handleRenameDoc);
+    this.removeEventListener('oscd-edit-v2', this.handleEditV2);
+    this.removeEventListener('oscd-undo', this.handleUndo);
+    this.removeEventListener('oscd-redo', this.handleRedo);
+    this.removeEventListener('oscd-close', this.handleCloseDoc);
+  }
+
+  /*
+   * Event Handlers
+   */
+
+  handleOpenDoc = ({ detail: { docName, doc } }: OpenEvent) => {
     this.docs = {
       ...this.docs,
       [docName]: doc,
@@ -234,21 +251,84 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
       this.docName = docName;
     }
     this.requestUpdate();
-  }
+  };
 
-  private handleKeyPress(e: KeyboardEvent): void {
+  handleRenameDoc = (customEvent: RenameEvent) => {
+    const { oldName, newName } = customEvent.detail;
+    if (!this.docs[oldName] || newName === oldName || this.docs[newName]) {
+      return;
+    }
+    const doc = this.docs[oldName];
+    delete this.docs[oldName];
+    this.docs = {
+      ...this.docs,
+      [newName]: doc,
+    };
+    this.docName = newName;
+  };
+
+  handleEditV2 = (event: EditEventV2) => {
+    const { edit, title, squash } = event.detail;
+    this.xmlEditor.commit(edit, { title, squash });
+  };
+
+  handleCloseDoc = (event: CloseEvent) => {
+    const docName = event.detail.docName as string;
+    delete this.docs[docName];
+    if (this.docName === docName) {
+      this.docName = this.editableDocs[0] || '';
+    }
+  };
+
+  handleUndo = () => {
+    this.undo();
+  };
+
+  handleRedo = () => {
+    this.redo();
+  };
+
+  private handleKeyPress = (e: KeyboardEvent) => {
     if (!e.ctrlKey) {
       return;
     }
     if (!Object.prototype.hasOwnProperty.call(this.hotkeys, e.key)) {
       return;
     }
-    this.hotkeys[e.key]!();
+    this.hotkeys[e.key]!.call(this);
     e.preventDefault();
-  }
+  };
+
+  handleOpenPluginMenu = () => {
+    this.pluginMenu.open();
+  };
+
+  /** Undo the last `n` [[Edit]]s committed */
+  undo = (n = 1) => {
+    if (!this.canUndo || n < 1) {
+      return;
+    }
+    this.xmlEditor.undo();
+    if (n > 1) {
+      this.undo(n - 1);
+    }
+    this.requestUpdate();
+  };
+
+  /** Redo the last `n` [[Edit]]s that have been undone */
+  redo = (n = 1) => {
+    if (!this.canRedo || n < 1) {
+      return;
+    }
+    this.xmlEditor.redo();
+    if (n > 1) {
+      this.redo(n - 1);
+    }
+    this.requestUpdate();
+  };
 
   private hotkeys: Partial<Record<string, () => void>> = {
-    m: this.openMenu,
+    m: this.handleOpenPluginMenu,
     z: this.undo,
     y: this.redo,
     Z: this.redo,
@@ -260,36 +340,8 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
     );
   }
 
-  /** Undo the last `n` [[Edit]]s committed */
-  undo(n = 1) {
-    if (!this.canUndo || n < 1) {
-      return;
-    }
-    this.xmlEditor.undo();
-    if (n > 1) {
-      this.undo(n - 1);
-    }
-    this.requestUpdate();
-  }
-
-  /** Redo the last `n` [[Edit]]s that have been undone */
-  redo(n = 1) {
-    if (!this.canRedo || n < 1) {
-      return;
-    }
-    this.xmlEditor.redo();
-    if (n > 1) {
-      this.redo(n - 1);
-    }
-    this.requestUpdate();
-  }
-
   onDocsChanged() {
     this.docVersion += 1;
-  }
-
-  async openMenu() {
-    this.menuUI.open();
   }
 
   renderPlugin(tagName: string) {
@@ -314,7 +366,7 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
     }
   }
 
-  renderOffScreenPluginContainer() {
+  renderOffScreenPlugins() {
     return html`
       <section class="off-screen-plugin-container" aria-hidden="true">
         <div class="menu-plugins">
@@ -331,72 +383,35 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
     `;
   }
 
-  render() {
-    const offScreenPlugins = html`
-      <section class="off-screen-plugin-container" aria-hidden="true">
-        <div class="menu-plugins">
-          ${this.plugins.menu
-            .filter(plugin => !plugin.requireDoc || !!this.docName)
-            .map(plugin => this.renderPlugin(plugin.tagName))}
-        </div>
-        <div class="background-plugins">
-          ${this.plugins.background
-            .filter(plugin => !plugin.requireDoc || !!this.docName)
-            .map(plugin => this.renderPlugin(plugin.tagName))}
-        </div>
-      </section>
+  renderDefaultLandingPage() {
+    return html`
+      <landing-page
+        heading=${this.landingPageHeading}
+        subHeading=${this.landingPageSubHeading}
+        .menuPlugins=${this.plugins.menu.filter(
+          plugin => !plugin.requireDoc || !!this.docName,
+        )}
+        .locale=${this.locale}
+        @menu-plugin-select=${(event: CustomEvent) =>
+          this.onMenuPluginSelect(event)}
+      >
+      </landing-page>
     `;
+  }
 
+  render() {
+    const hasCustomLandingPage = !!this._landingPageNodes?.length;
     if (this.editableDocs.length === 0) {
-      return html` <landing-page
-          .headingIcon=${this.landingPageHeadingIcon}
-          .heading=${this.landingPageHeading}
-          .subHeading=${this.landingPageSubHeading}
-          .menuPlugins=${this.plugins.menu.filter(
-            plugin => !plugin.requireDoc || !!this.docName,
-          )}
-          .locale=${this.locale}
-          @menu-plugin-select=${(event: CustomEvent) =>
-            this.onMenuPluginSelect(event)}
-        ></landing-page>
-        ${offScreenPlugins}`;
+      return html` <slot
+          name="landing-page"
+          @slotchange=${() => this.requestUpdate()}
+        ></slot>
+        ${!hasCustomLandingPage ? this.renderDefaultLandingPage() : nothing}
+        ${this.renderOffScreenPlugins()}`;
     }
 
-    return html` <app-bar
-        .docName=${this.docName}
-        .doc=${this.doc}
-        .docs=${this.docs}
-        .appIcon=${this.appIcon}
-        .appTitle=${this.appTitle}
-        .xmlEditor=${this.xmlEditor}
-        .locale=${this.locale}
-        .menuPlugins=${this.plugins.menu}
-        .editableDocs=${this.editableDocs}
-        @undo=${() => {
-          this.undo();
-        }}
-        @redo=${() => {
-          this.redo();
-        }}
-        @closeFile=${(customEvent: CustomEvent) => {
-          const docName = customEvent.detail.docName as string;
-          delete this.docs[docName];
-          if (this.docName === docName) {
-            this.docName = this.editableDocs[0] || '';
-          }
-        }}
-        @renameFile=${(customEvent: CustomEvent) => {
-          const { oldName, newName } = customEvent.detail;
-          const doc = this.docs[oldName];
-          delete this.docs[oldName];
-          this.docs = {
-            ...this.docs,
-            [newName]: doc,
-          };
-          this.docName = newName;
-        }}
-      >
-        <menu-plugins-dropdown-menu
+    return html` <oscd-app-bar>
+        <plugins-menu
           slot="alignStart"
           appTitle=${this.appTitle}
           appIcon=${this.appIcon}
@@ -405,26 +420,66 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
           .locale=${this.locale}
           @menu-plugin-select=${(event: CustomEvent) =>
             this.onMenuPluginSelect(event)}
-        ></menu-plugins-dropdown-menu>
-      </app-bar>
+        ></plugins-menu>
+
+        <files-menu
+          slot="alignMiddle"
+          .selectedDocName=${this.docName}
+          .editableDocs=${this.editableDocs}
+          .locale=${this.locale}
+          @change=${(event: CustomEvent) => {
+            const name = event.detail.name as string;
+            this.docName = name;
+          }}
+        ></files-menu>
+
+        <div slot="alignEnd">
+          <oscd-filled-icon-button
+            aria-label="${msg('Undo')}"
+            ?disabled=${!this.canUndo}
+            @click=${async () => {
+              this.dispatchEvent(
+                new CustomEvent('oscd-undo', {
+                  bubbles: true,
+                  composed: true,
+                }),
+              );
+            }}
+            ><oscd-icon>undo</oscd-icon></oscd-filled-icon-button
+          >
+          <oscd-filled-icon-button
+            aria-label="${msg('Redo')}"
+            ?disabled=${!this.canRedo}
+            @click=${async () => {
+              this.dispatchEvent(
+                new CustomEvent('oscd-redo', {
+                  bubbles: true,
+                  composed: true,
+                }),
+              );
+            }}
+            ><oscd-icon>redo</oscd-icon></oscd-filled-icon-button
+          >
+        </div>
+      </oscd-app-bar>
 
       <main>
         <section class="editors-side-panel-section">
-          <editor-plugins-side-panel
+          <editor-plugins-panel
             .editors=${this.plugins.editor}
             .editorIndex=${this.editorIndex}
             .locale=${this.locale}
             @editor-select=${(e: CustomEvent) => {
               this.editorIndex = e.detail.index;
             }}
-          ></editor-plugins-side-panel>
+          ></editor-plugins-panel>
         </section>
 
         <section class="editor-container">
           ${this.editor ? this.renderPlugin(this.editor) : nothing}
         </section>
 
-        ${offScreenPlugins}
+        ${this.renderOffScreenPlugins()}
       </main>`;
   }
 
@@ -433,19 +488,56 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
 
     * {
       --app-bar-height: 54px;
+      --side-panel-width: 280px;
+    }
+
+    :host {
+      height: 100%;
+      display: grid;
+      grid-template-rows: min-content 1fr;
+      grid-template-columns: 1fr;
+      grid-template-areas:
+        'header'
+        'main';
+    }
+
+    oscd-app-bar {
+      grid-area: header;
+      box-shadow: var(--md-sys-elevation-level-2);
+      z-index: 10;
     }
 
     main {
-      height: calc(100% - var(--app-bar-height));
-      display: flex;
+      grid-area: main;
+      display: grid;
+      grid-template-columns: var(--side-panel-width) 1fr;
+      grid-template-areas: 'sidebar editor';
+      overflow: hidden;
+    }
+
+    /* Side panel collapsed state */
+    main.sidebar-collapsed {
+      grid-template-columns: 0 1fr;
+    }
+
+    section.editors-side-panel-section {
+      grid-area: sidebar;
+      overflow-y: auto;
+      overflow-x: hidden;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    /* Hide side panel when collapsed */
+    main.sidebar-collapsed section.editors-side-panel-section {
+      transform: translateX(-100%);
     }
 
     section.editor-container {
-      flex-grow: 1;
-      position: relative;
+      grid-area: editor;
       background-color: var(--slate-100);
       padding: 8px;
       overflow: auto;
+      position: relative;
     }
 
     .off-screen-plugin-container {

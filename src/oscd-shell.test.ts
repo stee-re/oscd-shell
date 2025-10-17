@@ -22,7 +22,7 @@ function timeout(ms: number) {
 }
 
 function isMenuFullyOpen(shell: OscdShell) {
-  const rect = shell.menuUI?.shadowRoot
+  const rect = shell.pluginMenu?.shadowRoot
     ?.querySelector('.md3-navigation-drawer-modal--opened')
     ?.getBoundingClientRect();
   return rect && rect.width <= 360;
@@ -44,7 +44,7 @@ async function openMenuDrawer() {
     throw new Error('App bar or menu button not found');
   }
   menuButton.click();
-  await oscdShell.menuUI?.updateComplete;
+  await oscdShell.pluginMenu?.updateComplete;
   await waitUntil(() => isMenuFullyOpen(oscdShell), 'menu did not appear', {
     timeout: 2000,
   });
@@ -186,10 +186,10 @@ allLocales.forEach(lang =>
 
       it('triggers menu plugins on menu entry click', async () => {
         await openMenuDrawer();
-        oscdShell.menuUI
+        oscdShell.pluginMenu
           ?.querySelector<OscdFilledIconButton>('oscd-list-item:nth-of-type(2)')
           ?.click();
-        oscdShell.menuUI
+        oscdShell.pluginMenu
           ?.querySelector<OscdFilledIconButton>('oscd-list-item:nth-of-type(3)')
           ?.click();
 

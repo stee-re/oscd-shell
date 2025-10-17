@@ -1,4 +1,4 @@
-import { css, html, LitElement, nothing } from 'lit';
+import { css, html, LitElement } from 'lit';
 import { property } from 'lit/decorators.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { localized } from '@lit/localize';
@@ -8,6 +8,7 @@ import { OscdTextButton } from '@omicronenergy/oscd-ui/button/OscdTextButton.js'
 
 import { PluginEntry } from '../oscd-shell.js';
 import { LocaleTag } from '../utils/localization.js';
+import { OscdElevation } from '@omicronenergy/oscd-ui/elevation/OscdElevation.js';
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -19,19 +20,16 @@ export class LandingPage extends ScopedElementsMixin(LitElement) {
   static scopedElements = {
     'oscd-icon': OscdIcon,
     'oscd-text-button': OscdTextButton,
+    'oscd-elevation': OscdElevation,
   };
 
   /* Properties */
 
-  @property({ type: Object })
-  headingIcon?: Element;
+  @property({ type: String })
+  heading: string = '';
 
   @property({ type: String })
-  heading?: string = '';
-
-  @property({ type: String })
-  subHeading?: string = '';
-
+  subHeading: string = '';
   @property({ type: Array })
   menuPlugins: PluginEntry[] = [];
 
@@ -40,10 +38,7 @@ export class LandingPage extends ScopedElementsMixin(LitElement) {
 
   render() {
     return html`
-      <h1 class="heading">
-        ${this.headingIcon ? html`${this.headingIcon}` : nothing}
-        <span>${this.heading}</span>
-      </h1>
+      <h1 class="heading">${this.heading}</h1>
       <h2 class="sub-heading">${this.subHeading}</h2>
       <div class="menu-plugins-grid">
         ${this.menuPlugins.map(
@@ -60,6 +55,7 @@ export class LandingPage extends ScopedElementsMixin(LitElement) {
                 );
               }}
             >
+              <oscd-elevation></oscd-elevation>
               <div class="menu-plugin-item-content">
                 <oscd-icon>${plugin.icon}</oscd-icon>
                 <span>${plugin.name}</span>
@@ -72,13 +68,15 @@ export class LandingPage extends ScopedElementsMixin(LitElement) {
   }
 
   static styles = css`
-    .heading {
+    .host {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
       gap: 8px;
+    }
 
+    .heading {
       color: var(--oscd-base3);
       text-align: center;
       font-family: 'Roboto';
@@ -116,12 +114,12 @@ export class LandingPage extends ScopedElementsMixin(LitElement) {
     }
 
     .menu-plugin-item {
+      --md-text-button-container-shape: 2px;
       display: flex;
       flex-direction: row;
       align-items: center;
       text-align: center;
       padding: 8px;
-      border-radius: 2px;
       color: var(--oscd-base3);
       background: var(--oscd-primary);
       transition: background-color 0.3s;
@@ -129,7 +127,7 @@ export class LandingPage extends ScopedElementsMixin(LitElement) {
     }
 
     .menu-plugin-item:hover {
-      /* Add oscd-elevation-1 shadow */
+      --md-elevation-level: 2;
     }
 
     .menu-plugin-item-content {
