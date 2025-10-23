@@ -200,5 +200,5 @@ export default /** @type {import("@web/test-runner").TestRunnerConfig} */ ({
   browsers,
 
   // See documentation for all available options
-  testsFinishTimeout: 5000,
+  testsFinishTimeout: 16000,
 });

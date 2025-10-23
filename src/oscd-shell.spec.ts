@@ -1,4 +1,4 @@
-import { expect, fixtureCleanup, waitUntil } from '@open-wc/testing';
+import { expect, fixture, fixtureCleanup, waitUntil } from '@open-wc/testing';
 import { getFirstTextNodeContent } from '@omicronenergy/oscd-test-utils';
 
 import '../oscd-shell.js';
@@ -15,6 +15,7 @@ import { EditorPluginsPanel } from './side-panel/editor-plugins-panel.js';
 import { OscdMenuItem } from '@omicronenergy/oscd-ui/menu/OscdMenuItem.js';
 import {
   isPluginInstanciated,
+  registerPlugin,
   waitForAllPluginsToInstantiate,
 } from './utils/testing/plugin-helpers.js';
 import {
@@ -34,21 +35,10 @@ const getIndexOfSelectedEditor = (editorItems: OscdListItem[]) => {
   return editorItems.findIndex(item => item.classList.contains('active'));
 };
 
-const registerPlugin = (
-  shell: OscdShell,
-  tagName: string,
-  pluginClass: CustomElementConstructor,
-) => {
-  if (!shell.registry?.get(tagName)) {
-    shell.registry?.define(tagName, pluginClass);
-  }
-};
-
 describe('OscdShell', () => {
   let oscdShell: OscdShell;
-  beforeEach(() => {
-    oscdShell = document.createElement('oscd-shell');
-    document.body.prepend(oscdShell);
+  beforeEach(async () => {
+    oscdShell = await fixture<OscdShell>(`<oscd-shell></oscd-shell>`);
     registerPlugin(oscdShell, 'test-background-plugin', TestBackgroundPlugin);
     registerPlugin(oscdShell, 'test-menu-plugin1', TestMenuPlugin1);
   });
@@ -304,7 +294,7 @@ describe('OscdShell', () => {
 
       await waitUntil(
         () =>
-          oscdShell.pluginMenu.shadowRoot?.querySelectorAll('oscd-menu-item')
+          oscdShell.pluginsMenu.shadowRoot?.querySelectorAll('oscd-menu-item')
             .length === 1,
         `Custom Menu Plugin "${testMenuPlugin1.name}" did not load`,
       );
@@ -316,10 +306,10 @@ describe('OscdShell', () => {
       await oscdShell.updateComplete;
       expect(sclDoc.querySelector('Substation')).to.not.exist;
 
-      oscdShell.pluginMenu.open();
-      await oscdShell.pluginMenu.updateComplete;
+      oscdShell.pluginsMenu.open();
+      await oscdShell.pluginsMenu.updateComplete;
 
-      const pluginMenuItem = oscdShell.pluginMenu.shadowRoot?.querySelectorAll(
+      const pluginMenuItem = oscdShell.pluginsMenu.shadowRoot?.querySelectorAll(
         'oscd-menu-item',
       )[0] as OscdMenuItem;
       expect(pluginMenuItem).to.exist;
@@ -372,7 +362,7 @@ describe('OscdShell', () => {
       waitForAllPluginsToInstantiate(oscdShell);
 
       menuItemStrings = Array.from(
-        oscdShell?.pluginMenu?.shadowRoot?.querySelectorAll(
+        oscdShell?.pluginsMenu?.shadowRoot?.querySelectorAll(
           "oscd-menu-item > div[slot='headline']",
         ) || [],
       ).map(span => (span as Element).textContent?.trim() || '');
@@ -404,7 +394,7 @@ describe('OscdShell', () => {
 
     it('the menu items appear in german', () => {
       const untranslatedStrings = Array.from(
-        oscdShell.pluginMenu.querySelectorAll('oscd-menu-item > div'),
+        oscdShell.pluginsMenu.querySelectorAll('oscd-menu-item > div'),
       )
         .map(span => (span as Element).textContent?.trim() || '')
         .filter((text: string) => menuItemStrings.includes(text));

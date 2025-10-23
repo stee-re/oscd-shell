@@ -194,7 +194,7 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
    */
 
   @query('plugins-menu')
-  pluginMenu!: PluginsMenu;
+  pluginsMenu!: PluginsMenu;
 
   @query('editor-plugins-panel')
   editorPluginsPanel!: EditorPluginsPanel;
@@ -300,7 +300,7 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
   };
 
   handleOpenPluginMenu = () => {
-    this.pluginMenu.open();
+    this.pluginsMenu.open();
   };
 
   /** Undo the last `n` [[Edit]]s committed */
