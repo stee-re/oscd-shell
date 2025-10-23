@@ -106,3 +106,13 @@ export const waitForAllPluginsToInstantiate = async (shell: OscdShell) => {
     ? waitForPluginsToInstantiate(allPlugins, shell)
     : Promise.resolve();
 };
+
+export const registerPlugin = (
+  shell: OscdShell,
+  tagName: string,
+  pluginClass: CustomElementConstructor,
+) => {
+  if (!shell.registry?.get(tagName)) {
+    shell.registry?.define(tagName, pluginClass);
+  }
+};

@@ -246,17 +246,17 @@ describe('OscdShell Event Handling', () => {
   describe('keypress events (the keyboard shortcuts)', () => {
     it('displays the menu with Ctrl+m', async () => {
       waitUntil(
-        () => oscdShell.pluginMenu !== undefined,
+        () => oscdShell.pluginsMenu !== undefined,
         'Menu UI is undefined',
       );
 
-      expect(oscdShell.pluginMenu).property('open').to.not.be.true;
+      expect(oscdShell.pluginsMenu).property('open').to.not.be.true;
 
       simulateKeypressOnElement('m', true);
       await oscdShell.updateComplete;
-      expect(oscdShell.pluginMenu).to.exist;
+      expect(oscdShell.pluginsMenu).to.exist;
       const oscdMenu =
-        oscdShell.pluginMenu.shadowRoot?.querySelector('oscd-menu');
+        oscdShell.pluginsMenu.shadowRoot?.querySelector('oscd-menu');
       expect(oscdMenu).to.exist;
       expect(oscdMenu).to.have.property('open').which.is.true;
     });
@@ -299,9 +299,9 @@ describe('OscdShell Event Handling', () => {
     it('does not trigger anything if the Ctrl button was not pressed', async () => {
       simulateKeypressOnElement('m', false);
       await oscdShell.updateComplete;
-      expect(oscdShell.pluginMenu).to.exist;
+      expect(oscdShell.pluginsMenu).to.exist;
       const oscdMenu =
-        oscdShell.pluginMenu.shadowRoot?.querySelector('oscd-menu');
+        oscdShell.pluginsMenu.shadowRoot?.querySelector('oscd-menu');
       expect(oscdMenu).to.exist;
       expect(oscdMenu).property('open').to.not.be.true;
     });
@@ -309,9 +309,9 @@ describe('OscdShell Event Handling', () => {
     it('does not trigger anything if the Ctrl button was pressed but the key was not one of the shortcuts', async () => {
       simulateKeypressOnElement('a', true);
       await oscdShell.updateComplete;
-      expect(oscdShell.pluginMenu).to.exist;
+      expect(oscdShell.pluginsMenu).to.exist;
       const oscdMenu =
-        oscdShell.pluginMenu.shadowRoot?.querySelector('oscd-menu');
+        oscdShell.pluginsMenu.shadowRoot?.querySelector('oscd-menu');
       expect(oscdMenu).to.exist;
       expect(oscdMenu).property('open').to.not.be.true;
     });
