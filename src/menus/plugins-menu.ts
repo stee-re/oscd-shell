@@ -1,4 +1,4 @@
-import { css, html, LitElement } from 'lit';
+import { css, html, LitElement, nothing } from 'lit';
 import { property, query } from 'lit/decorators.js';
 import { ScopedElementsMixin } from '@open-wc/scoped-elements/lit-element.js';
 import { localized, msg } from '@lit/localize';
@@ -76,7 +76,7 @@ export class PluginsMenu extends ScopedElementsMixin(LitElement) {
 
   render() {
     return html`
-      <img src=${this.appIcon} alt="logo" />
+      ${this.appIcon ? html`<img src=${this.appIcon} alt="logo" />` : nothing}
       <h1 class="app-title">${this.appTitle}</h1>
       <oscd-filled-icon-button
         id="menu-button"
