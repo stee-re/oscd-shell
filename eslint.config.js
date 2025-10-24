@@ -29,8 +29,8 @@ export default [
       'node_modules',
       'coverage',
       'doc',
-      'locales.ts',
-      'locales/',
+      'src/locales.ts',
+      'src/locales/',
     ],
   },
 
