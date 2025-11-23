@@ -1,6 +1,8 @@
 import { css } from 'lit';
+import { colors } from './colors.js';
 
 export const theming = css`
+  ${colors}
   * {
     /* color variables names taken from Omicron Pallet (for reference) */
     --slate-35: #4f5a69;
@@ -11,6 +13,15 @@ export const theming = css`
 
     --Omicron-yellow: #f5e214;
     --error: #dc322f;
+
+    --oscd-theme-base03: var(--slate-15);
+    --oscd-theme-base02: var(--slate-20);
+    --oscd-theme-base01: var(--slate-50);
+    --oscd-theme-base00: var(--slate-55);
+    --oscd-theme-base0: var(--slate-70);
+    --oscd-theme-base1: var(--slate-75);
+    --oscd-theme-base2: var(--slate-100);
+    --oscd-theme-base3: white;
   }
 
   /* @media (prefers-color-scheme: light) { */
@@ -19,31 +30,31 @@ export const theming = css`
     --oscd-secondary: var(--oscd-theme-secondary, var(--french-blue-15));
     --secondary: var(--oscd-secondary);
     --oscd-theme-error: var(--oscd-theme-secondary, var(--error));
-    --oscd-base00: var(--oscd-theme-base00, var(--slate-35));
-    --oscd-base01: var(--oscd-theme-base01, #586e75);
-    --oscd-base02: var(--oscd-theme-base02, #073642);
-    --oscd-base03: var(--oscd-theme-base03, var(--slate-35));
-    --oscd-base0: var(--oscd-theme-base0, #839496);
-    --oscd-base1: var(--oscd-theme-base1, #93a1a1);
-    --oscd-base2: var(--oscd-theme-base2, #eee8d5);
+    --oscd-base03: var(--oscd-theme-base03, var(--slate-15));
+    --oscd-base02: var(--oscd-theme-base02, var(--slate-20));
+    --oscd-base01: var(--oscd-theme-base01, var(--slate-50));
+    --oscd-base00: var(--oscd-theme-base00, var(--slate-55));
+    --oscd-base0: var(--oscd-theme-base0, var(--slate-70));
+    --oscd-base1: var(--oscd-theme-base1, var(--slate-75));
+    --oscd-base2: var(--oscd-theme-base2, var(--slate-110));
     --oscd-base3: var(--oscd-theme-base3, white);
     --mdc-theme-text-disabled-on-light: rgba(255, 255, 255, 0.38);
   }
   /* } */
   /* @media (prefers-color-scheme: dark) {
-      * {
-        --oscd-primary: var(--oscd-theme-secondary, #0a3158);
-        --oscd-secondary: var(--oscd-theme-primary, #2aa198);
-        --oscd-base03: var(--oscd-theme-base3, #fdf6e3);
-        --oscd-base02: var(--oscd-theme-base2, #eee8d5);
-        --oscd-base01: var(--oscd-theme-base1, #93a1a1);
-        --oscd-base00: var(--oscd-theme-base0, #839496);
-        --oscd-base0: var(--oscd-theme-base00, #657b83);
-        --oscd-base1: var(--oscd-theme-base01, #586e75);
-        --oscd-base2: var(--oscd-theme-base02, #073642);
-        --oscd-base3: var(--oscd-theme-base03, #ffffff);
-      }
-    } */
+    * {
+      --oscd-primary: var(--oscd-theme-secondary, #0a3158);
+      --oscd-secondary: var(--oscd-theme-primary, #2aa198);
+      --oscd-base03: var(--oscd-theme-base3, #fdf6e3);
+      --oscd-base02: var(--oscd-theme-base2, #eee8d5);
+      --oscd-base01: var(--oscd-theme-base1, #93a1a1);
+      --oscd-base00: var(--oscd-theme-base0, #839496);
+      --oscd-base0: var(--oscd-theme-base00, #657b83);
+      --oscd-base1: var(--oscd-theme-base01, #586e75);
+      --oscd-base2: var(--oscd-theme-base02, #073642);
+      --oscd-base3: var(--oscd-theme-base03, #ffffff);
+    }
+  } */
   * {
     --oscd-error: var(--oscd-theme-error, #dc322f);
     --oscd-text-font: var(--oscd-theme-text-font, 'Roboto');

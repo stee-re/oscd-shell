@@ -1,0 +1,55 @@
+import { css } from 'lit';
+
+export const colors = css`
+  * {
+    --slate-0: #121417; /* L* ≈ 7% */
+    --slate-5: #1a1e23; /* L* ≈ 10% */
+    --slate-10: #23282f; /* L* ≈ 14% */
+    --slate-15: #2c323a; /* L* ≈ 18% base03 */
+    --slate-20: #363d47; /* L* ≈ 22% base02*/
+    --slate-25: #3d4651; /* L* ≈ 26% */
+    --slate-30: #46505d; /* L* ≈ 30% */
+    --slate-35: #4f5a69; /* L* ≈ 34% */
+    --slate-40: #586474; /* L* ≈ 38% */
+    --slate-45: #606e80; /* L* ≈ 42% */
+    --slate-50: #69788c; /* L* ≈ 46% base01*/
+    --slate-55: #738296; /* L* ≈ 50% base00*/
+    --slate-60: #7f8c9f; /* L* ≈ 54% */
+    --slate-65: #8b97a7; /* L* ≈ 58% */
+    --slate-70: #96a1b0; /* L* ≈ 62% base0*/
+    --slate-75: #a2abb9; /* L* ≈ 66% base1*/
+    --slate-80: #aeb6c2; /* L* ≈ 70% */
+    --slate-85: #b9c0ca; /* L* ≈ 74% */
+    --slate-90: #c5cbd3; /* L* ≈ 78% */
+    --slate-95: #d0d5dc; /* L* ≈ 82% */
+    --slate-100: #dce0e5; /* L* ≈ 86% */
+    --slate-105: #e8eaed; /* L* ≈ 90% */
+    --slate-110: #f3f5f6; /* L* ≈ 94% base2 */
+    /* --slate-white: #FFF; L* ≈ 100% base3 */
+
+    --coal-0: #0a0a0a; /* L* ≈ 4% */
+    --coal-5: #141414; /* L* ≈ 8% */
+    --coal-10: #1f1f1f; /* L* ≈ 12% */
+    --coal-15: #292929; /* L* ≈ 16% base03 */
+    --coal-20: #333333; /* L* ≈ 20% base02 */
+    --coal-25: #3d3d3d; /* L* ≈ 24% */
+    --coal-30: #474747; /* L* ≈ 28% */
+    --coal-35: #525252; /* L* ≈ 32% */
+    --coal-40: #5c5c5c; /* L* ≈ 36% */
+    --coal-45: #666666; /* L* ≈ 40% */
+    --coal-50: #707070; /* L* ≈ 44% */
+    --coal-55: #7a7a7a; /* L* ≈ 48% base01 */
+    --coal-60: #858585; /* L* ≈ 52% base00 */
+    --coal-65: #8f8f8f; /* L* ≈ 56% */
+    --coal-70: #999999; /* L* ≈ 60% base0 */
+    --coal-75: #a3a3a3; /* L* ≈ 64% */
+    --coal-80: #adadad; /* L* ≈ 68% base1 */
+    --coal-85: #b8b8b8; /* L* ≈ 72% */
+    --coal-90: #c2c2c2; /* L* ≈ 76% */
+    --coal-95: #cccccc; /* L* ≈ 80% */
+    --coal-100: #d6d6d6; /* L* ≈ 84% */
+    --coal-105: #e0e0e0; /* L* ≈ 88% */
+    --coal-110: #ebebeb; /* L* ≈ 92% base2 */
+    /* --coal-white: #FFF; L* ≈ 100% base3 */
+  }
+`;
