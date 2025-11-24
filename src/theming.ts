@@ -4,58 +4,18 @@ import { colors } from './colors.js';
 export const theming = css`
   ${colors}
   * {
-    /* color variables names taken from Omicron Pallet (for reference) */
-    --slate-35: #4f5a69;
-    --slate-95: #d0d5dc;
-    --slate-100: #dce0e5;
-
-    --french-blue-15: #0b335b;
-
-    --Omicron-yellow: #f5e214;
-    --error: #dc322f;
-
-    --oscd-theme-base03: var(--slate-15);
-    --oscd-theme-base02: var(--slate-20);
-    --oscd-theme-base01: var(--slate-50);
-    --oscd-theme-base00: var(--slate-55);
-    --oscd-theme-base0: var(--slate-70);
-    --oscd-theme-base1: var(--slate-75);
-    --oscd-theme-base2: var(--slate-100);
-    --oscd-theme-base3: white;
-  }
-
-  /* @media (prefers-color-scheme: light) { */
-  * {
     --oscd-primary: var(--oscd-theme-primary, var(--french-blue-15));
-    --oscd-secondary: var(--oscd-theme-secondary, var(--french-blue-15));
+    --oscd-secondary: var(--oscd-theme-secondary, var(--french-blue-55));
     --secondary: var(--oscd-secondary);
-    --oscd-theme-error: var(--oscd-theme-secondary, var(--error));
-    --oscd-base03: var(--oscd-theme-base03, var(--slate-15));
-    --oscd-base02: var(--oscd-theme-base02, var(--slate-20));
-    --oscd-base01: var(--oscd-theme-base01, var(--slate-50));
-    --oscd-base00: var(--oscd-theme-base00, var(--slate-55));
-    --oscd-base0: var(--oscd-theme-base0, var(--slate-70));
-    --oscd-base1: var(--oscd-theme-base1, var(--slate-75));
+    --oscd-theme-error: var(--oscd-theme-error, #dc322f);
+    --oscd-base03: var(--oscd-theme-base03, var(--slate-0));
+    --oscd-base02: var(--oscd-theme-base02, var(--slate-5));
+    --oscd-base01: var(--oscd-theme-base01, var(--slate-25));
+    --oscd-base00: var(--oscd-theme-base00, var(--slate-30));
+    --oscd-base0: var(--oscd-theme-base0, var(--slate-65));
+    --oscd-base1: var(--oscd-theme-base1, var(--slate-70));
     --oscd-base2: var(--oscd-theme-base2, var(--slate-110));
     --oscd-base3: var(--oscd-theme-base3, white);
-    --mdc-theme-text-disabled-on-light: rgba(255, 255, 255, 0.38);
-  }
-  /* } */
-  /* @media (prefers-color-scheme: dark) {
-    * {
-      --oscd-primary: var(--oscd-theme-secondary, #0a3158);
-      --oscd-secondary: var(--oscd-theme-primary, #2aa198);
-      --oscd-base03: var(--oscd-theme-base3, #fdf6e3);
-      --oscd-base02: var(--oscd-theme-base2, #eee8d5);
-      --oscd-base01: var(--oscd-theme-base1, #93a1a1);
-      --oscd-base00: var(--oscd-theme-base0, #839496);
-      --oscd-base0: var(--oscd-theme-base00, #657b83);
-      --oscd-base1: var(--oscd-theme-base01, #586e75);
-      --oscd-base2: var(--oscd-theme-base02, #073642);
-      --oscd-base3: var(--oscd-theme-base03, #ffffff);
-    }
-  } */
-  * {
     --oscd-error: var(--oscd-theme-error, #dc322f);
     --oscd-text-font: var(--oscd-theme-text-font, 'Roboto');
     --oscd-icon-font: var(--oscd-theme-icon-font, 'Material Icons');
@@ -111,5 +71,6 @@ export const theming = css`
     --mdc-select-dropdown-icon-color: var(--oscd-base01);
     --mdc-typography-font-family: var(--oscd-text-font);
     --mdc-icon-font: var(--oscd-icon-font);
+    --mdc-theme-text-disabled-on-light: rgba(255, 255, 255, 0.38);
   }
 `;

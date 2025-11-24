@@ -161,7 +161,7 @@ export class LandingPage extends ScopedElementsMixin(LitElement) {
       height: 50px;
       background: linear-gradient(
         to top left,
-        var(--Omicron-yellow) 50%,
+        var(--omicron-yellow) 50%,
         transparent 50%
       );
     }
