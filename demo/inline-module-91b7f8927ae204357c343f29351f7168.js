@@ -1,3 +1,14 @@
+function __variableDynamicURLRuntime0__(path) {
+  switch (path) {
+    case './locales/de.js': return new URL(new URL('assets/de-e8fd8982.js', import.meta.url).href);
+    default: return new Promise(function(resolve, reject) {
+      (typeof queueMicrotask === 'function' ? queueMicrotask : setTimeout)(
+        reject.bind(null, new Error("Unknown variable dynamic new URL statement: " + path))
+      );
+    })
+   }
+ }
+
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -11326,7 +11337,7 @@ window.customElements.define = (name, cl, conf) => {
 const { getLocale, setLocale } = configureLocalization({
     sourceLocale,
     targetLocales,
-    loadLocale: locale => import(new URL(`./locales/${locale}.js`, import.meta.url).href),
+    loadLocale: locale => import(__variableDynamicURLRuntime0__(`./locales/${locale}.js`).href),
 });
 function renderActionItem(control, slot = 'actionItems') {
     return x `<oscd-filled-icon-button
@@ -12136,7 +12147,7 @@ customElements.define('oscd-menu-open', OscdMenuOpen);
             name: 'Add plugins...',
             translations: { de: 'Erweitern...' },
             icon: 'extension',
-            src: '/demo/AddPlugins.js',
+            src: './AddPlugins.js',
           },
           {
             name: 'Open File',
@@ -12194,4 +12205,4 @@ customElements.define('oscd-menu-open', OscdMenuOpen);
         editor.setAttribute(name, value);
       }
       editor.plugins = plugins;
-//# sourceMappingURL=inline-module-37a37a178a15681e7ffc4263e6760f6d.js.map
+//# sourceMappingURL=inline-module-91b7f8927ae204357c343f29351f7168.js.map
