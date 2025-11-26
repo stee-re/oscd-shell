@@ -4,8 +4,6 @@
 const hmr = process.argv.includes('--hmr');
 
 export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
-  rootDir: 'dist',
-  open: 'demo/',
   /** Use regular watch mode if HMR is not enabled. */
   watch: !hmr,
   /** nodeResolve commented out here because we ONLY want it to resolve running wds in development.

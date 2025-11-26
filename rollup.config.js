@@ -2,6 +2,7 @@
 import nodeResolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
+import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 
 import fs, { readdirSync } from 'fs';
 
@@ -13,8 +14,8 @@ const demoTsconfig = {
   compilerOptions: { ...tsconfig.compilerOptions, outDir: 'dist/demo' },
 };
 
-const locales = readdirSync('locales').map(locale => ({
-  input: `locales/${locale}`,
+const locales = readdirSync('src/locales').map(locale => ({
+  input: `src/locales/${locale}`,
   output: {
     sourcemap: true, // Add source map to build output
     format: 'es', // ES module type export
@@ -27,7 +28,7 @@ const locales = readdirSync('locales').map(locale => ({
 
 export default [
   {
-    input: 'oscd-shell.ts',
+    input: 'src/oscd-shell.ts',
     output: {
       sourcemap: true, // Add source map to build output
       format: 'es', // ES module type export
@@ -52,7 +53,7 @@ export default [
     ],
   },
   {
-    input: 'foundation.ts',
+    input: 'src/foundation.ts',
     output: {
       sourcemap: true, // Add source map to build output
       format: 'es', // ES module type export
@@ -76,6 +77,7 @@ export default [
       }),
       nodeResolve(),
       typescript(demoTsconfig),
+      importMetaAssets(),
     ],
     output: {
       dir: 'dist/demo',

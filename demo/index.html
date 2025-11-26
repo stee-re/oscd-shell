@@ -15,14 +15,13 @@
       rel="stylesheet"
     />
 
-    <oscd-shell></oscd-shell>
+    <oscd-shell locale="de"></oscd-shell>
 
     <script type="module">
+      import '../dist/oscd-shell.js';
       import OscdMenuOpen from '@omicronenergy/oscd-menu-open';
       import OscdMenuSave from '@omicronenergy/oscd-menu-save';
       import OscdBackgroundEditV1 from '@omicronenergy/oscd-background-editv1';
-
-      import '../oscd-shell.js';
 
       customElements.define('oscd-menu-open', OscdMenuOpen);
       customElements.define('oscd-menu-save', OscdMenuSave);
@@ -34,7 +33,7 @@
             name: 'Add plugins...',
             translations: { de: 'Erweitern...' },
             icon: 'extension',
-            src: '/demo/AddPlugins.js',
+            src: './AddPlugins.js',
           },
           {
             name: 'Open File',
