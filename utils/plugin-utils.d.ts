@@ -26,4 +26,4 @@ export declare function validatePlugin(plugin: unknown): PluginEntry | undefined
  * @param plugins - Array of plugins to convert.
  * @returns Array of plugins with tagName included.
  */
-export declare function loadSourcedPlugins(plugins: Partial<PluginEntry | SourcedPluginEntry>[]): PluginEntry[];
+export declare function loadSourcedPlugins(plugins: Partial<PluginEntry | SourcedPluginEntry>[], registry: CustomElementRegistry): PluginEntry[];

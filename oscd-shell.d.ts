@@ -1,49 +1,25 @@
-import '@webcomponents/scoped-custom-element-registry';
-import { LitElement, TemplateResult } from 'lit';
-import '@omicronenergy/oscd-ui/app-bar/oscd-app-bar.js';
-import type { OscdDialog } from '@omicronenergy/oscd-ui/dialog/OscdDialog.js';
-import '@omicronenergy/oscd-ui/dialog/oscd-dialog.js';
-import '@omicronenergy/oscd-ui/divider/oscd-divider.js';
-import type { OscdFilledIconButton } from '@omicronenergy/oscd-ui/iconbutton/OscdFilledIconButton.js';
-import '@omicronenergy/oscd-ui/iconbutton/oscd-filled-icon-button.js';
-import '@omicronenergy/oscd-ui/select/oscd-filled-select.js';
-import '@omicronenergy/oscd-ui/textfield/oscd-filled-text-field.js';
-import '@omicronenergy/oscd-ui/icon/oscd-icon.js';
-import '@omicronenergy/oscd-ui/list/oscd-list.js';
-import '@omicronenergy/oscd-ui/list/oscd-list-item.js';
-import type { OscdMenu } from '@omicronenergy/oscd-ui/menu/OscdMenu.js';
-import '@omicronenergy/oscd-ui/menu/oscd-menu.js';
-import '@omicronenergy/oscd-ui/menu/oscd-menu-item.js';
-import type { OscdNavigationDrawer } from '@omicronenergy/oscd-ui/navigation-drawer/OscdNavigationDrawer.js';
-import '@omicronenergy/oscd-ui/navigation-drawer/oscd-navigation-drawer.js';
-import '@omicronenergy/oscd-ui/navigation-drawer/oscd-navigation-drawer-header.js';
-import '@omicronenergy/oscd-ui/tabs/oscd-secondary-tab.js';
-import '@omicronenergy/oscd-ui/select/oscd-select-option.js';
-import '@omicronenergy/oscd-ui/tabs/oscd-tabs.js';
-import '@omicronenergy/oscd-ui/button/oscd-text-button.js';
+import { LitElement } from 'lit';
+import { OscdFilledIconButton } from '@omicronenergy/oscd-ui/iconbutton/OscdFilledIconButton.js';
 import { XMLEditor } from '@omicronenergy/oscd-editor';
-import { EditV2, OpenEvent, Transactor } from '@omicronenergy/oscd-api';
-import { allLocales, targetLocales } from './locales.js';
-export interface Plugin {
-    editor: Transactor<EditV2>;
-    docs: Record<string, XMLDocument>;
-    doc?: XMLDocument;
-    docName?: string;
-    docVersion: unknown;
-    /** @deprecated Use `docVersion` instead */
-    editCount: number;
-    locale: string;
-}
+import { EditEventV2, OpenEvent } from '@openscd/oscd-api';
+import { LocaleTag, Translations } from './utils/localization.js';
+import { EditorPluginsPanel } from './side-panel/editor-plugins-panel.js';
+import { PluginsMenu } from './menus/plugins-menu.js';
+import { LandingPage } from './landing-page/landing-page.js';
+import { RenameEvent, CloseEvent } from './foundation/events.js';
+import { FilesMenu } from './menus/files-menu.js';
+import { OscdAppBar } from '@omicronenergy/oscd-ui/app-bar/OscdAppBar.js';
+import { OscdIcon } from '@omicronenergy/oscd-ui/icon/OscdIcon.js';
 export type PluginEntry = {
     name: string;
-    translations?: Record<(typeof targetLocales)[number], string>;
+    translations?: Translations;
     tagName: string;
     icon: string;
     requireDoc?: boolean;
 };
 export type SourcedPluginEntry = {
     name: string;
-    translations?: Record<(typeof targetLocales)[number], string>;
+    translations?: Translations;
     src: string;
     icon: string;
     requireDoc?: boolean;
@@ -53,67 +29,77 @@ export type PluginSet<P = PluginEntry> = {
     editor: P[];
     background: P[];
 };
-type Control = {
-    icon: string;
-    getName: () => string;
-    isDisabled: () => boolean;
-    action?: () => void | Promise<void>;
-};
-type RenderedPlugin = Control & {
-    tagName: string;
-};
-type LocaleTag = (typeof allLocales)[number];
-export declare class OpenSCD extends LitElement {
-    #private;
+declare const OscdShell_base: typeof LitElement & import("@open-wc/scoped-elements/lit-element.js").ScopedElementsHostConstructor;
+export declare class OscdShell extends OscdShell_base {
+    static scopedElements: {
+        'oscd-app-bar': typeof OscdAppBar;
+        'oscd-filled-icon-button': typeof OscdFilledIconButton;
+        'oscd-icon': typeof OscdIcon;
+        'files-menu': typeof FilesMenu;
+        'plugins-menu': typeof PluginsMenu;
+        'editor-plugins-panel': typeof EditorPluginsPanel;
+        'landing-page': typeof LandingPage;
+    };
+    /**
+     * Url to the app icon displayed in the app bar
+     */
+    appIcon: string;
+    appTitle: string;
+    landingPageHeading: string;
+    landingPageSubHeading: string;
     /** The file endings of editable files */
     editable: string[];
-    isEditable(docName: string): boolean;
-    get editableDocs(): string[];
-    private _docs;
-    /** The set of `XMLDocument`s currently loaded */
-    get docs(): Record<string, XMLDocument>;
-    set docs(newDocs: Record<string, XMLDocument>);
-    onDocsChanged(): void;
-    /** The name of the [[`doc`]] currently being edited */
-    docName: string;
-    get doc(): XMLDocument;
-    xmlEditor: XMLEditor;
-    docVersion: number;
-    get last(): number;
-    get canUndo(): boolean;
-    get canRedo(): boolean;
-    get plugins(): PluginSet;
-    set plugins(plugins: Partial<PluginSet<Partial<PluginEntry | SourcedPluginEntry>>>);
-    handleOpenDoc({ detail: { docName, doc } }: OpenEvent): void;
-    /** Undo the last `n` [[Edit]]s committed */
-    undo(n?: number): void;
-    /** Redo the last `n` [[Edit]]s that have been undone */
-    redo(n?: number): void;
-    editFileUI: OscdDialog;
-    menuUI: OscdNavigationDrawer;
-    fileNameUI: HTMLInputElement;
-    fileExtensionUI: HTMLInputElement;
-    fileMenuUI: OscdMenu;
-    fileMenuButtonUI?: OscdFilledIconButton;
     get locale(): LocaleTag;
     set locale(tag: LocaleTag);
-    private editorIndex;
+    _plugins: PluginSet;
+    get plugins(): PluginSet;
+    set plugins(plugins: Partial<PluginSet<Partial<PluginEntry | SourcedPluginEntry>>>);
+    get canRedo(): boolean;
+    get canUndo(): boolean;
     get editor(): string;
-    private controls;
-    get menu(): Required<Control>[];
-    get editors(): RenderedPlugin[];
-    private hotkeys;
-    private handleKeyPress;
+    private editorIndex;
+    get doc(): XMLDocument;
+    /** The name of the [[`doc`]] currently being edited */
+    docName: string;
+    /** The set of `XMLDocument`s currently loaded */
+    private _docs;
+    get docs(): Record<string, XMLDocument>;
+    set docs(newDocs: Record<string, XMLDocument>);
+    docVersion: number;
+    get editableDocs(): string[];
+    get last(): number;
+    xmlEditor: XMLEditor;
+    pluginsMenu: PluginsMenu;
+    editorPluginsPanel: EditorPluginsPanel;
+    private _landingPageNodes?;
     constructor();
-    updated(changedProps: Map<string, unknown>): void;
-    renderPlugin(tagName: string): TemplateResult;
-    render(): TemplateResult<1>;
-    firstUpdated(): void;
+    connectedCallback(): void;
+    disconnectedCallback(): void;
+    handleOpenDoc: ({ detail: { docName, doc } }: OpenEvent) => void;
+    handleRenameDoc: (customEvent: RenameEvent) => void;
+    handleEditV2: (event: EditEventV2) => void;
+    handleCloseDoc: (event: CloseEvent) => void;
+    handleUndo: () => void;
+    handleRedo: () => void;
+    private handleKeyPress;
+    handleOpenPluginMenu: () => void;
+    /** Undo the last `n` [[Edit]]s committed */
+    undo: (n?: number) => void;
+    /** Redo the last `n` [[Edit]]s that have been undone */
+    redo: (n?: number) => void;
+    private hotkeys;
+    isEditable(docName: string): boolean;
+    onDocsChanged(): void;
+    renderPlugin(tagName: string): import("lit-html").TemplateResult;
+    onMenuPluginSelect(customEvent: CustomEvent): void;
+    renderOffScreenPlugins(): import("lit-html").TemplateResult<1>;
+    renderDefaultLandingPage(): import("lit-html").TemplateResult<1>;
+    render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }
 declare global {
     interface HTMLElementTagNameMap {
-        'oscd-shell': OpenSCD;
+        'oscd-shell': OscdShell;
     }
 }
 export {};
