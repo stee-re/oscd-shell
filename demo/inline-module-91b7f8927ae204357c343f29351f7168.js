@@ -1,6 +1,6 @@
 function __variableDynamicURLRuntime0__(path) {
   switch (path) {
-    case './locales/de.js': return new URL(new URL('assets/de-e8fd8982.js', import.meta.url).href);
+    case './locales/de.js': return new URL(new URL('assets/de-0a2a5e1a.js', import.meta.url).href);
     default: return new Promise(function(resolve, reject) {
       (typeof queueMicrotask === 'function' ? queueMicrotask : setTimeout)(
         reject.bind(null, new Error("Unknown variable dynamic new URL statement: " + path))
