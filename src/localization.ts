@@ -1,5 +1,5 @@
 import { configureLocalization } from '@lit/localize';
-import { allLocales, sourceLocale, targetLocales } from '../locales.js';
+import { allLocales, sourceLocale, targetLocales } from './locales.js';
 export type LocaleTag = (typeof allLocales)[number];
 export type Translation = (typeof targetLocales)[number];
 export type Translations = Record<Translation, string>;
@@ -19,10 +19,7 @@ const { getLocale, setLocale } =
     sourceLocale,
     targetLocales,
     loadLocale: _locale => {
-      return import(
-        /* @vite-ignore */ new URL(`./locales/${_locale}.js`, import.meta.url)
-          .href
-      );
+      return import(new URL(`./locales/de.js`, import.meta.url).href);
     },
   });
 

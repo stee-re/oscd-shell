@@ -13,7 +13,13 @@
   </head>
   <body>
     <oscd-shell locale="de"> </oscd-shell>
-    <script type="module" src="index.js"></script>
+    <script type="module">
+      // Known issue, scoped registry polyfill doesn't load as fast as oscd-shell, causing oscs-shell to fail.
+      // To safeguard, we await the polyfill first, then load the rest.
+      await import('@webcomponents/scoped-custom-element-registry');
+      await import('../dist/oscd-shell.js');
+      await import('./index.js');
+    </script>
 
     <style>
       * {

@@ -1,5 +1,5 @@
-import '@webcomponents/scoped-custom-element-registry';
-import '../dist/oscd-shell.js';
+// import '@webcomponents/scoped-custom-element-registry';
+// import '../dist/oscd-shell.js';
 import OscdMenuOpen from '@omicronenergy/oscd-menu-open';
 import OscdMenuSave from '@omicronenergy/oscd-menu-save';
 import {

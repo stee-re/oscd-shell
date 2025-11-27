@@ -7,7 +7,7 @@ import { OscdIcon } from '@omicronenergy/oscd-ui/icon/OscdIcon.js';
 import { OscdTextButton } from '@omicronenergy/oscd-ui/button/OscdTextButton.js';
 
 import { PluginEntry } from '../oscd-shell.js';
-import { LocaleTag } from '../utils/localization.js';
+import { LocaleTag } from '../localization.js';
 import { OscdElevation } from '@omicronenergy/oscd-ui/elevation/OscdElevation.js';
 
 declare global {
