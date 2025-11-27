@@ -5,8 +5,6 @@ const hmr = process.argv.includes('--hmr');
 
 //Details & options: https://modern-web.dev/docs/dev-server/overview/
 export default /** @type {import('@web/dev-server').DevServerConfig} */ ({
-  rootDir: 'dist',
-  open: 'demo/index.html',
   /** Use regular watch mode if HMR is not enabled. */
   watch: !hmr,
 
