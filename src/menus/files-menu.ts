@@ -8,7 +8,7 @@ import { OscdMenu } from '@omicronenergy/oscd-ui/menu/OscdMenu.js';
 import { OscdMenuItem } from '@omicronenergy/oscd-ui/menu/OscdMenuItem.js';
 import { OscdTextButton } from '@omicronenergy/oscd-ui/button/OscdTextButton.js';
 
-import { LocaleTag } from '../utils/localization.js';
+import { LocaleTag } from '../localization.js';
 
 declare global {
   interface HTMLElementTagNameMap {

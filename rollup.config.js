@@ -26,6 +26,7 @@ const locales = readdirSync('src/locales').map(locale => ({
 }));
 
 export default [
+  ...locales,
   {
     input: 'src/oscd-shell.ts',
     output: {
@@ -39,6 +40,7 @@ export default [
       /** Resolve bare module imports */
       nodeResolve(),
       typescript(),
+      importMetaAssets({ warnOnError: true }),
     ],
   },
   {
@@ -54,6 +56,7 @@ export default [
       /** Resolve bare module imports */
       nodeResolve(),
       typescript(),
+      importMetaAssets({ warnOnError: true }),
     ],
   },
   {
@@ -65,15 +68,18 @@ export default [
       }),
       copy({
         targets: [
-          { src: 'demo/*.*', dest: 'dist/demo' },
-          // Add more patterns if you have more assets
+          {
+            src: 'demo/*.*',
+            dest: 'dist/demo',
+            ignore: ['demo/index.js', 'demo/index.html'],
+          },
         ],
         verbose: true,
         flatten: false,
       }),
       nodeResolve(),
       typescript(demoTsconfig),
-      importMetaAssets(),
+      importMetaAssets({ warnOnError: true }),
     ],
     output: {
       dir: 'dist/demo',
@@ -81,4 +87,4 @@ export default [
       sourcemap: true,
     },
   },
-].concat(locales);
+];

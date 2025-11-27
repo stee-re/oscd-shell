@@ -8,7 +8,7 @@ import { OscdIcon } from '@omicronenergy/oscd-ui/icon/OscdIcon.js';
 import { OscdList } from '@omicronenergy/oscd-ui/list/OscdList.js';
 import { OscdListItem } from '@omicronenergy/oscd-ui/list/OscdListItem.js';
 
-import { LocaleTag, Translation } from '../utils/localization.js';
+import { LocaleTag, Translation } from '../localization.js';
 import { classMap } from 'lit/directives/class-map.js';
 import { PluginEntry } from '../oscd-shell.js';
 

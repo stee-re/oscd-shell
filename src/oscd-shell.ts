@@ -20,7 +20,7 @@ import {
   LocaleTag,
   setLocale,
   Translations,
-} from './utils/localization.js';
+} from './localization.js';
 import { theming } from './theming.js';
 import { EditorPluginsPanel } from './side-panel/editor-plugins-panel.js';
 import { PluginsMenu } from './menus/plugins-menu.js';
