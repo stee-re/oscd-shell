@@ -2646,9 +2646,10 @@ const { getLocale, setLocale } = window.localization ??
         sourceLocale,
         targetLocales,
         loadLocale: _locale => {
-            return import(
-            /* @vite-ignore */ __variableDynamicURLRuntime0__(`../locales/${_locale}.js`)
-                .href);
+            const importPath = __variableDynamicURLRuntime0__(`../locales/${_locale}.js`)
+                .href;
+            console.log(`Loading locale from ${importPath}`);
+            return import(importPath);
         },
     });
 /*
