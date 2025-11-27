@@ -30,6 +30,17 @@ Object.getOwnPropertyDescriptor(X,Y);Z&&Object.defineProperty(W,Y,Z);}else W[Y]=
 "length"!==c&&"item"!==c&&"namedItem"!==c&&(b[c]=1===e.length?e[0]:new RadioNodeList(e));});};HTMLFormControlsCollection.prototype.item=function(a){var b;return null!=(b=this[a])?b:null};HTMLFormControlsCollection.prototype[Symbol.iterator]=function(){throw Error("Method not implemented.");};HTMLFormControlsCollection.prototype.namedItem=function(a){var b;return null!=(b=this[a])?b:null};var ja=Object.getOwnPropertyDescriptor(HTMLFormElement.prototype,"elements");Object.defineProperty(HTMLFormElement.prototype,
 "elements",{get:function(){var a=ja.get.call(this),b=[];a=q(a);for(var d=a.next();!d.done;d=a.next()){d=d.value;var e=E.get(d);e&&true!==e.formAssociated||b.push(d);}return new HTMLFormControlsCollection(b)}});}}).call(typeof globalThis === 'object' ? globalThis : window);
 
+function __variableDynamicURLRuntime0__(path) {
+  switch (path) {
+
+    default: return new Promise(function(resolve, reject) {
+      (typeof queueMicrotask === 'function' ? queueMicrotask : setTimeout)(
+        reject.bind(null, new Error("Unknown variable dynamic new URL statement: " + path))
+      );
+    })
+   }
+ }
+
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -2635,7 +2646,9 @@ const { getLocale, setLocale } = window.localization ??
         sourceLocale,
         targetLocales,
         loadLocale: _locale => {
-            return import(`./locales/${_locale}.js`);
+            return import(
+            /* @vite-ignore */ __variableDynamicURLRuntime0__(`./locales/${_locale}.js`)
+                .href);
         },
     });
 /*

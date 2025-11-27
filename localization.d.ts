@@ -6,10 +6,10 @@ declare global {
     interface Window {
         localization?: {
             getLocale: () => string;
-            setLocale: (locale: string) => Promise<void>;
+            setLocale: (locale: string) => void;
         };
     }
 }
-declare const getLocale: () => string, setLocale: (locale: string) => Promise<void>;
+declare const getLocale: () => string, setLocale: (locale: string) => void;
 export { getLocale, setLocale };
 export { allLocales, sourceLocale, targetLocales };
