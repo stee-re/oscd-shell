@@ -2603,7 +2603,7 @@ const { getLocale, setLocale } = window.localization ??
         sourceLocale,
         targetLocales,
         loadLocale: _locale => {
-            return import(new URL(new URL('assets/de-D12oYo34.js', import.meta.url).href).href);
+            return import(new URL(`../locales/de.js`, import.meta.url).href);
         },
     });
 /*
