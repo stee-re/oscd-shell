@@ -2,7 +2,7 @@ import { LitElement } from 'lit';
 import { OscdFilledIconButton } from '@omicronenergy/oscd-ui/iconbutton/OscdFilledIconButton.js';
 import { XMLEditor } from '@omicronenergy/oscd-editor';
 import { EditEventV2, OpenEvent } from '@openscd/oscd-api';
-import { LocaleTag, Translations } from './localization.js';
+import { LocaleTag, Translations } from './utils/localization.js';
 import { EditorPluginsPanel } from './side-panel/editor-plugins-panel.js';
 import { PluginsMenu } from './menus/plugins-menu.js';
 import { LandingPage } from './landing-page/landing-page.js';
