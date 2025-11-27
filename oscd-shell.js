@@ -2606,9 +2606,8 @@ const { getLocale, setLocale } = window.localization ??
         sourceLocale,
         targetLocales,
         loadLocale: _locale => {
-            console.log(`Loading local from: ${new URL(`./locales/${_locale}.js`, import.meta.url).href}`);
             return import(
-            /* @vite-ignore */ new URL(`./locales/${_locale}.js`, import.meta.url)
+            /* @vite-ignore */ new URL(`../locales/${_locale}.js`, import.meta.url)
                 .href);
         },
     });
