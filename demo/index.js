@@ -17628,6 +17628,12 @@ const plugins = {
       requireDoc: true,
       src: 'https://omicronenergyoss.github.io/oscd-menu-commons/oscd-menu-file-close.js',
     },
+    {
+      name: 'Add plugins...',
+      translations: { de: 'Erweitern...' },
+      icon: 'extension',
+      src: './AddPlugins.js',
+    },
   ],
   editor: [
     {
