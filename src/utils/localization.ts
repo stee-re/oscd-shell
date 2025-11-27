@@ -20,10 +20,8 @@ const { getLocale, setLocale } =
     targetLocales,
     loadLocale: _locale => {
       return import(
-        /* @vite-ignore */ new URL(
-          `../../locales/${_locale}.js`,
-          import.meta.url,
-        ).href
+        /* @vite-ignore */ new URL(`./locales/${_locale}.js`, import.meta.url)
+          .href
       );
     },
   });

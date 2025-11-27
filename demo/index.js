@@ -1,5 +1,5 @@
 import '@webcomponents/scoped-custom-element-registry';
-import '../oscd-shell.js';
+import '../dist/oscd-shell.js';
 import OscdMenuOpen from '@omicronenergy/oscd-menu-open';
 import OscdMenuSave from '@omicronenergy/oscd-menu-save';
 import {
@@ -43,6 +43,12 @@ const plugins = {
       icon: 'close',
       requireDoc: true,
       src: 'https://omicronenergyoss.github.io/oscd-menu-commons/oscd-menu-file-close.js',
+    },
+    {
+      name: 'Add plugins...',
+      translations: { de: 'Erweitern...' },
+      icon: 'extension',
+      src: './AddPlugins.js',
     },
   ],
   editor: [
