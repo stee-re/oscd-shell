@@ -3,7 +3,7 @@ import { OscdFilledIconButton } from '@omicronenergy/oscd-ui/iconbutton/OscdFill
 import { OscdIcon } from '@omicronenergy/oscd-ui/icon/OscdIcon.js';
 import { OscdMenu } from '@omicronenergy/oscd-ui/menu/OscdMenu.js';
 import { OscdMenuItem } from '@omicronenergy/oscd-ui/menu/OscdMenuItem.js';
-import { LocaleTag } from '../utils/localization.js';
+import { LocaleTag } from '../localization.js';
 import { PluginEntry } from '../oscd-shell.js';
 declare global {
     interface HTMLElementTagNameMap {

@@ -3,7 +3,7 @@ import { OscdIconButton } from '@omicronenergy/oscd-ui/iconbutton/OscdIconButton
 import { OscdIcon } from '@omicronenergy/oscd-ui/icon/OscdIcon.js';
 import { OscdList } from '@omicronenergy/oscd-ui/list/OscdList.js';
 import { OscdListItem } from '@omicronenergy/oscd-ui/list/OscdListItem.js';
-import { LocaleTag } from '../utils/localization.js';
+import { LocaleTag } from '../localization.js';
 import { PluginEntry } from '../oscd-shell.js';
 declare global {
     interface HTMLElementTagNameMap {

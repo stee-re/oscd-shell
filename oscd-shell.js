@@ -2606,9 +2606,7 @@ const { getLocale, setLocale } = window.localization ??
         sourceLocale,
         targetLocales,
         loadLocale: _locale => {
-            const importPath = import.meta.resolve(`@omicronenergy/oscd-shell/locales/${_locale}.js`);
-            console.log(`Loading locale from ${importPath}`);
-            return import(`@omicronenergy/oscd-shell/locales/${_locale}.js`);
+            return import(`./locales/${_locale}.js`);
         },
     });
 /*
