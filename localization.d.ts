@@ -1,4 +1,4 @@
-import { allLocales, sourceLocale, targetLocales } from '../locales.js';
+import { allLocales, sourceLocale, targetLocales } from './locales.js';
 export type LocaleTag = (typeof allLocales)[number];
 export type Translation = (typeof targetLocales)[number];
 export type Translations = Record<Translation, string>;
