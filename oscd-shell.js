@@ -2606,9 +2606,7 @@ const { getLocale, setLocale } = window.localization ??
         sourceLocale,
         targetLocales,
         loadLocale: _locale => {
-            return import(
-            /* @vite-ignore */ new URL(`./locales/${_locale}.js`, import.meta.url)
-                .href);
+            return import(new URL(`./locales/de.js`, import.meta.url).href);
         },
     });
 /*

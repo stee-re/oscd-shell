@@ -1,14 +1,3 @@
-function __variableDynamicURLRuntime0__(path) {
-  switch (path) {
-
-    default: return new Promise(function(resolve, reject) {
-      (typeof queueMicrotask === 'function' ? queueMicrotask : setTimeout)(
-        reject.bind(null, new Error("Unknown variable dynamic new URL statement: " + path))
-      );
-    })
-   }
- }
-
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
 
@@ -2614,9 +2603,7 @@ const { getLocale, setLocale } = window.localization ??
         sourceLocale,
         targetLocales,
         loadLocale: _locale => {
-            return import(
-            /* @vite-ignore */ __variableDynamicURLRuntime0__(`./locales/${_locale}.js`)
-                .href);
+            return import(new URL(new URL('assets/de-D12oYo34.js', import.meta.url).href).href);
         },
     });
 /*
@@ -7450,4 +7437,3 @@ OscdShell = __decorate([
 ], OscdShell);
 
 export { OscdShell };
-//# sourceMappingURL=oscd-shell-L6phO7cr.js.map
