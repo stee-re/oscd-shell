@@ -2601,12 +2601,22 @@ const targetLocales = [
     `de`,
 ];
 
+function __variableDynamicURLRuntime0__(path) {
+  switch (path) {
+
+    default: return new Promise(function(resolve, reject) {
+      (typeof queueMicrotask === 'function' ? queueMicrotask : setTimeout)(
+        reject.bind(null, new Error("Unknown variable dynamic new URL statement: " + path))
+      );
+    })
+   }
+ }
 const { getLocale, setLocale } = window.localization ??
     configureLocalization({
         sourceLocale,
         targetLocales,
         loadLocale: _locale => {
-            const importPath = new URL(`../locales/${_locale}.js`, import.meta.url)
+            const importPath = __variableDynamicURLRuntime0__(`../locales/${_locale}.js`)
                 .href;
             console.log(`Loading locale from ${importPath}`);
             return import(importPath);
