@@ -2603,7 +2603,7 @@ const { getLocale, setLocale } = window.localization ??
         sourceLocale,
         targetLocales,
         loadLocale: _locale => {
-            return import(new URL(new URL(new URL('assets/de-D12oYo34-D12oYo34.js', import.meta.url).href).href).href);
+            return import(new URL(new URL('assets/de-D12oYo34.js', import.meta.url).href).href);
         },
     });
 /*
@@ -7437,4 +7437,4 @@ OscdShell = __decorate([
 ], OscdShell);
 
 export { OscdShell };
-//# sourceMappingURL=oscd-shell-DANlwsvi.js.map
+//# sourceMappingURL=oscd-shell-BZSJXEDe.js.map
