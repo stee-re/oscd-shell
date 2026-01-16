@@ -111,12 +111,12 @@ export class EditorPluginsPanel extends ScopedElementsMixin(LitElement) {
       --md-list-item-trailing-space: 10px;
       --md-icon-size: 28px;
       --md-list-container-color: rgba(0, 0, 0, 0);
-      --md-list-item-label-text-color: var(--oscd-theme-base3);
-      --md-list-item-leading-icon-color: var(--oscd-theme-base3);
+      --md-list-item-label-text-color: var(--oscd-base3);
+      --md-list-item-leading-icon-color: var(--oscd-base3);
     }
 
     .editors-list .active {
-      background-color: var(--oscd-theme-primary);
+      background-color: var(--oscd-primary);
     }
 
     .editors-list oscd-list-item span {
@@ -133,14 +133,14 @@ export class EditorPluginsPanel extends ScopedElementsMixin(LitElement) {
     }
 
     .toggle-button {
-      --md-icon-color: var(--oscd-theme-base3);
+      --md-icon-color: var(--oscd-base3);
       --md-icon-button-icon-size: 32px;
-      --md-icon-button-hover-state-layer-color: var(--oscd-theme-base3);
+      --md-icon-button-hover-state-layer-color: var(--oscd-base3);
       --md-icon-button-hover-state-layer-opacity: 0.08;
-      --md-icon-button-icon-color: var(--oscd-theme-base3);
-      --md-icon-button-hover-icon-color: var(--oscd-theme-base3);
-      --md-icon-button-focus-icon-color: var(--oscd-theme-base3);
-      --md-icon-button-pressed-icon-color: var(--oscd-theme-base3);
+      --md-icon-button-icon-color: var(--oscd-base3);
+      --md-icon-button-hover-icon-color: var(--oscd-base3);
+      --md-icon-button-focus-icon-color: var(--oscd-base3);
+      --md-icon-button-pressed-icon-color: var(--oscd-base3);
       --md-icon-button-state-layer-height: 48px;
       --md-icon-button-state-layer-width: 48px;
     }
