@@ -77,7 +77,7 @@ export class LandingPage extends ScopedElementsMixin(LitElement) {
     }
 
     .heading {
-      color: var(--oscd-base3);
+      color: var(--oscd-theme-base3);
       text-align: center;
       font-family: 'Roboto';
       font-size: 50px;
@@ -92,7 +92,7 @@ export class LandingPage extends ScopedElementsMixin(LitElement) {
     }
 
     .sub-heading {
-      color: var(--oscd-base3);
+      color: var(--oscd-theme-base3);
       text-align: center;
       font-family: Roboto;
       font-size: 16.909px;
@@ -120,8 +120,8 @@ export class LandingPage extends ScopedElementsMixin(LitElement) {
       align-items: center;
       text-align: center;
       padding: 8px;
-      color: var(--oscd-base3);
-      background: var(--oscd-primary);
+      color: var(--oscd-theme-base3);
+      background: var(--oscd-theme-primary);
       transition: background-color 0.3s;
       cursor: pointer;
     }
@@ -131,7 +131,7 @@ export class LandingPage extends ScopedElementsMixin(LitElement) {
     }
 
     .menu-plugin-item-content {
-      color: var(--oscd-base3);
+      color: var(--oscd-theme-base3);
       width: 240px;
       height: 180px;
       display: flex;

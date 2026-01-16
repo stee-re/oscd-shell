@@ -8,6 +8,7 @@ import {
   OscdMenuNew,
 } from '@omicronenergy/oscd-menu-commons';
 import OscdBackgroundEditV1 from '@omicronenergy/oscd-background-editv1';
+import OscdEditorSource from '@omicronenergy/oscd-editor-source';
 
 const plugins = {
   menu: [
@@ -63,14 +64,11 @@ const plugins = {
     },
 
     {
-      name: 'Engineering Workflows',
-      translations: {
-        de: 'Engineering-Workflows',
-      },
-      icon: 'automation',
-      active: true,
+      name: 'Source Editor',
+      translations: { de: 'Source Editor' },
+      icon: 'code',
       requireDoc: true,
-      src: 'https://ase-compas.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/engineering-wizard/index.js',
+      tagName: 'oscd-editor-source',
     },
   ],
   background: [
@@ -97,6 +95,7 @@ registry.define('oscd-menu-new', OscdMenuNew);
 registry.define('oscd-menu-file-rename', OscdMenuFileRename);
 registry.define('oscd-menu-file-close', OscdMenuFileClose);
 registry.define('oscd-background-editv1', OscdBackgroundEditV1);
+registry.define('oscd-editor-source', OscdEditorSource);
 
 oscdShell.plugins = plugins;
 
