@@ -92,7 +92,7 @@ export class FilesMenu extends ScopedElementsMixin(LitElement) {
       --md-text-button-label-text-weight: 500;
       --md-text-button-label-text-size: 18px;
       --md-text-button-label-text-style: normal;
-      --md-sys-color-primary: var(--oscd-base3);
+      --md-sys-color-primary: var(--oscd-theme-base3);
       display: inline;
     }
 

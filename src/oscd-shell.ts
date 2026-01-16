@@ -21,7 +21,6 @@ import {
   setLocale,
   Translations,
 } from './localization.js';
-import { theming } from './theming.js';
 import { EditorPluginsPanel } from './side-panel/editor-plugins-panel.js';
 import { PluginsMenu } from './menus/plugins-menu.js';
 import { LandingPage } from './landing-page/landing-page.js';
@@ -484,8 +483,6 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
   }
 
   static styles = css`
-    ${theming}
-
     * {
       --app-bar-height: 54px;
       --side-panel-width: 280px;
@@ -534,7 +531,7 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
 
     section.editor-container {
       grid-area: editor;
-      background-color: var(--slate-100);
+      background-color: var(--oscd-theme-base3);
       padding: 8px;
       overflow: auto;
       position: relative;
@@ -563,16 +560,16 @@ export class OscdShell extends ScopedElementsMixin(LitElement) {
     }
 
     .edit-dialog-remove-button {
-      --md-text-button-icon-color: var(--oscd-error);
-      --md-text-button-label-text-color: var(--oscd-error);
-      --md-text-button-focus-label-text-color: var(--oscd-error);
-      --md-text-button-focus-icon-color: var(--oscd-error);
-      --md-text-button-hover-label-text-color: var(--oscd-error);
-      --md-text-button-hover-state-layer-color: var(--oscd-error);
-      --md-text-button-hover-icon-color: var(--oscd-error);
-      --md-text-button-pressed-label-text-color: var(--oscd-error);
-      --md-text-button-pressed-state-layer-color: var(--oscd-error);
-      --md-text-button-pressed-icon-color: var(--oscd-error);
+      --md-text-button-icon-color: var(--oscd-theme-error);
+      --md-text-button-label-text-color: var(--oscd-theme-error);
+      --md-text-button-focus-label-text-color: var(--oscd-theme-error);
+      --md-text-button-focus-icon-color: var(--oscd-theme-error);
+      --md-text-button-hover-label-text-color: var(--oscd-theme-error);
+      --md-text-button-hover-state-layer-color: var(--oscd-theme-error);
+      --md-text-button-hover-icon-color: var(--oscd-theme-error);
+      --md-text-button-pressed-label-text-color: var(--oscd-theme-error);
+      --md-text-button-pressed-state-layer-color: var(--oscd-theme-error);
+      --md-text-button-pressed-icon-color: var(--oscd-theme-error);
     }
     #title {
       position: relative;
