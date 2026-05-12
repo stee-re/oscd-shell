@@ -54490,12 +54490,12 @@ const plugins = {
           requireDoc: true,
           src: 'https://danyill.github.io/scl-communication-editor/scl-communication-editor.js',
         },
-        {
-          name: 'Explore Communication',
-          icon: 'lan',
-          requireDoc: true,
-          src: 'https://sprinteins.github.io/oscd-plugins/oscd-plugins.js',
-        },
+        // {
+        //   name: 'Explore Communication',
+        //   icon: 'lan',
+        //   requireDoc: true,
+        //   src: 'https://sprinteins.github.io/oscd-plugins/oscd-plugins.js',
+        // },
       ],
     },
     {
@@ -54604,4 +54604,4 @@ for (const [name, value] of params) {
 //   ),
 // };
 // oscdShell.docName = 'sample.scd';
-//# sourceMappingURL=index-BXsTQYSS.js.map
+//# sourceMappingURL=index-DMcV4VSp.js.map

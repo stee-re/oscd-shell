@@ -2,7 +2,7 @@
       // To safeguard, we await the polyfill first, then load the rest.
       await import('./scoped-custom-element-registry.min-rSxJSIou.js');
       await import('./oscd-shell-XjSTTv8y.js');
-      await import('./index-BXsTQYSS.js');
+      await import('./index-DMcV4VSp.js');
 
       const _customElementsDefine = window.customElements.define;
       window.customElements.define = (name, cl, conf) => {
