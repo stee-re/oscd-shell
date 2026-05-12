@@ -45,26 +45,26 @@ typeof SuppressedError === "function" ? SuppressedError : function (error, suppr
  * Copyright 2019 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t$3=globalThis,e$7=t$3.ShadowRoot&&(void 0===t$3.ShadyCSS||t$3.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,s$3=Symbol(),o$7=new WeakMap;let n$6 = class n{constructor(t,e,o){if(this._$cssResult$=true,o!==s$3)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e;}get styleSheet(){let t=this.o;const s=this.t;if(e$7&&void 0===t){const e=void 0!==s&&1===s.length;e&&(t=o$7.get(s)),void 0===t&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),e&&o$7.set(s,t));}return t}toString(){return this.cssText}};const r$5=t=>new n$6("string"==typeof t?t:t+"",void 0,s$3),i$6=(t,...e)=>{const o=1===t.length?t[0]:e.reduce(((e,s,o)=>e+(t=>{if(true===t._$cssResult$)return t.cssText;if("number"==typeof t)return t;throw Error("Value passed to 'css' function must be a 'css' function result: "+t+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(s)+t[o+1]),t[0]);return new n$6(o,t,s$3)},S$1=(s,o)=>{if(e$7)s.adoptedStyleSheets=o.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet));else for(const e of o){const o=document.createElement("style"),n=t$3.litNonce;void 0!==n&&o.setAttribute("nonce",n),o.textContent=e.cssText,s.appendChild(o);}},c$2=e$7?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const s of t.cssRules)e+=s.cssText;return r$5(e)})(t):t;
+const t$3=globalThis,e$8=t$3.ShadowRoot&&(void 0===t$3.ShadyCSS||t$3.ShadyCSS.nativeShadow)&&"adoptedStyleSheets"in Document.prototype&&"replace"in CSSStyleSheet.prototype,s$4=Symbol(),o$a=new WeakMap;let n$8 = class n{constructor(t,e,o){if(this._$cssResult$=true,o!==s$4)throw Error("CSSResult is not constructable. Use `unsafeCSS` or `css` instead.");this.cssText=t,this.t=e;}get styleSheet(){let t=this.o;const s=this.t;if(e$8&&void 0===t){const e=void 0!==s&&1===s.length;e&&(t=o$a.get(s)),void 0===t&&((this.o=t=new CSSStyleSheet).replaceSync(this.cssText),e&&o$a.set(s,t));}return t}toString(){return this.cssText}};const r$6=t=>new n$8("string"==typeof t?t:t+"",void 0,s$4),i$6=(t,...e)=>{const o=1===t.length?t[0]:e.reduce(((e,s,o)=>e+(t=>{if(true===t._$cssResult$)return t.cssText;if("number"==typeof t)return t;throw Error("Value passed to 'css' function must be a 'css' function result: "+t+". Use 'unsafeCSS' to pass non-literal values, but take care to ensure page security.")})(s)+t[o+1]),t[0]);return new n$8(o,t,s$4)},S$1=(s,o)=>{if(e$8)s.adoptedStyleSheets=o.map((t=>t instanceof CSSStyleSheet?t:t.styleSheet));else for(const e of o){const o=document.createElement("style"),n=t$3.litNonce;void 0!==n&&o.setAttribute("nonce",n),o.textContent=e.cssText,s.appendChild(o);}},c$3=e$8?t=>t:t=>t instanceof CSSStyleSheet?(t=>{let e="";for(const s of t.cssRules)e+=s.cssText;return r$6(e)})(t):t;
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const{is:i$5,defineProperty:e$6,getOwnPropertyDescriptor:h$1,getOwnPropertyNames:r$4,getOwnPropertySymbols:o$6,getPrototypeOf:n$5}=Object,a$2=globalThis,c$1=a$2.trustedTypes,l$2=c$1?c$1.emptyScript:"",p$1=a$2.reactiveElementPolyfillSupport,d$1=(t,s)=>t,u$2={toAttribute(t,s){switch(s){case Boolean:t=t?l$2:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t);}return t},fromAttribute(t,s){let i=t;switch(s){case Boolean:i=null!==t;break;case Number:i=null===t?null:Number(t);break;case Object:case Array:try{i=JSON.parse(t);}catch(t){i=null;}}return i}},f$1=(t,s)=>!i$5(t,s),b={attribute:true,type:String,converter:u$2,reflect:false,useDefault:false,hasChanged:f$1};Symbol.metadata??=Symbol("metadata"),a$2.litPropertyMetadata??=new WeakMap;let y$1 = class y extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t);}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,s=b){if(s.state&&(s.attribute=false),this._$Ei(),this.prototype.hasOwnProperty(t)&&((s=Object.create(s)).wrapped=true),this.elementProperties.set(t,s),!s.noAccessor){const i=Symbol(),h=this.getPropertyDescriptor(t,i,s);void 0!==h&&e$6(this.prototype,t,h);}}static getPropertyDescriptor(t,s,i){const{get:e,set:r}=h$1(this.prototype,t)??{get(){return this[s]},set(t){this[s]=t;}};return {get:e,set(s){const h=e?.call(this);r?.call(this,s),this.requestUpdate(t,h,i);},configurable:true,enumerable:true}}static getPropertyOptions(t){return this.elementProperties.get(t)??b}static _$Ei(){if(this.hasOwnProperty(d$1("elementProperties")))return;const t=n$5(this);t.finalize(),void 0!==t.l&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties);}static finalize(){if(this.hasOwnProperty(d$1("finalized")))return;if(this.finalized=true,this._$Ei(),this.hasOwnProperty(d$1("properties"))){const t=this.properties,s=[...r$4(t),...o$6(t)];for(const i of s)this.createProperty(i,t[i]);}const t=this[Symbol.metadata];if(null!==t){const s=litPropertyMetadata.get(t);if(void 0!==s)for(const[t,i]of s)this.elementProperties.set(t,i);}this._$Eh=new Map;for(const[t,s]of this.elementProperties){const i=this._$Eu(t,s);void 0!==i&&this._$Eh.set(i,t);}this.elementStyles=this.finalizeStyles(this.styles);}static finalizeStyles(s){const i=[];if(Array.isArray(s)){const e=new Set(s.flat(1/0).reverse());for(const s of e)i.unshift(c$2(s));}else void 0!==s&&i.push(c$2(s));return i}static _$Eu(t,s){const i=s.attribute;return  false===i?void 0:"string"==typeof i?i:"string"==typeof t?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=false,this.hasUpdated=false,this._$Em=null,this._$Ev();}_$Ev(){this._$ES=new Promise((t=>this.enableUpdating=t)),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach((t=>t(this)));}addController(t){(this._$EO??=new Set).add(t),void 0!==this.renderRoot&&this.isConnected&&t.hostConnected?.();}removeController(t){this._$EO?.delete(t);}_$E_(){const t=new Map,s=this.constructor.elementProperties;for(const i of s.keys())this.hasOwnProperty(i)&&(t.set(i,this[i]),delete this[i]);t.size>0&&(this._$Ep=t);}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return S$1(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(true),this._$EO?.forEach((t=>t.hostConnected?.()));}enableUpdating(t){}disconnectedCallback(){this._$EO?.forEach((t=>t.hostDisconnected?.()));}attributeChangedCallback(t,s,i){this._$AK(t,i);}_$ET(t,s){const i=this.constructor.elementProperties.get(t),e=this.constructor._$Eu(t,i);if(void 0!==e&&true===i.reflect){const h=(void 0!==i.converter?.toAttribute?i.converter:u$2).toAttribute(s,i.type);this._$Em=t,null==h?this.removeAttribute(e):this.setAttribute(e,h),this._$Em=null;}}_$AK(t,s){const i=this.constructor,e=i._$Eh.get(t);if(void 0!==e&&this._$Em!==e){const t=i.getPropertyOptions(e),h="function"==typeof t.converter?{fromAttribute:t.converter}:void 0!==t.converter?.fromAttribute?t.converter:u$2;this._$Em=e;const r=h.fromAttribute(s,t.type);this[e]=r??this._$Ej?.get(e)??r,this._$Em=null;}}requestUpdate(t,s,i){if(void 0!==t){const e=this.constructor,h=this[t];if(i??=e.getPropertyOptions(t),!((i.hasChanged??f$1)(h,s)||i.useDefault&&i.reflect&&h===this._$Ej?.get(t)&&!this.hasAttribute(e._$Eu(t,i))))return;this.C(t,s,i);} false===this.isUpdatePending&&(this._$ES=this._$EP());}C(t,s,{useDefault:i,reflect:e,wrapped:h},r){i&&!(this._$Ej??=new Map).has(t)&&(this._$Ej.set(t,r??s??this[t]),true!==h||void 0!==r)||(this._$AL.has(t)||(this.hasUpdated||i||(s=void 0),this._$AL.set(t,s)),true===e&&this._$Em!==t&&(this._$Eq??=new Set).add(t));}async _$EP(){this.isUpdatePending=true;try{await this._$ES;}catch(t){Promise.reject(t);}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(const[t,s]of this._$Ep)this[t]=s;this._$Ep=void 0;}const t=this.constructor.elementProperties;if(t.size>0)for(const[s,i]of t){const{wrapped:t}=i,e=this[s];true!==t||this._$AL.has(s)||void 0===e||this.C(s,void 0,i,e);}}let t=false;const s=this._$AL;try{t=this.shouldUpdate(s),t?(this.willUpdate(s),this._$EO?.forEach((t=>t.hostUpdate?.())),this.update(s)):this._$EM();}catch(s){throw t=false,this._$EM(),s}t&&this._$AE(s);}willUpdate(t){}_$AE(t){this._$EO?.forEach((t=>t.hostUpdated?.())),this.hasUpdated||(this.hasUpdated=true,this.firstUpdated(t)),this.updated(t);}_$EM(){this._$AL=new Map,this.isUpdatePending=false;}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return  true}update(t){this._$Eq&&=this._$Eq.forEach((t=>this._$ET(t,this[t]))),this._$EM();}updated(t){}firstUpdated(t){}};y$1.elementStyles=[],y$1.shadowRootOptions={mode:"open"},y$1[d$1("elementProperties")]=new Map,y$1[d$1("finalized")]=new Map,p$1?.({ReactiveElement:y$1}),(a$2.reactiveElementVersions??=[]).push("2.1.1");
+ */const{is:i$5,defineProperty:e$7,getOwnPropertyDescriptor:h$3,getOwnPropertyNames:r$5,getOwnPropertySymbols:o$9,getPrototypeOf:n$7}=Object,a$2=globalThis,c$2=a$2.trustedTypes,l$2=c$2?c$2.emptyScript:"",p$1=a$2.reactiveElementPolyfillSupport,d$1=(t,s)=>t,u$2={toAttribute(t,s){switch(s){case Boolean:t=t?l$2:null;break;case Object:case Array:t=null==t?t:JSON.stringify(t);}return t},fromAttribute(t,s){let i=t;switch(s){case Boolean:i=null!==t;break;case Number:i=null===t?null:Number(t);break;case Object:case Array:try{i=JSON.parse(t);}catch(t){i=null;}}return i}},f$3=(t,s)=>!i$5(t,s),b={attribute:true,type:String,converter:u$2,reflect:false,useDefault:false,hasChanged:f$3};Symbol.metadata??=Symbol("metadata"),a$2.litPropertyMetadata??=new WeakMap;let y$1 = class y extends HTMLElement{static addInitializer(t){this._$Ei(),(this.l??=[]).push(t);}static get observedAttributes(){return this.finalize(),this._$Eh&&[...this._$Eh.keys()]}static createProperty(t,s=b){if(s.state&&(s.attribute=false),this._$Ei(),this.prototype.hasOwnProperty(t)&&((s=Object.create(s)).wrapped=true),this.elementProperties.set(t,s),!s.noAccessor){const i=Symbol(),h=this.getPropertyDescriptor(t,i,s);void 0!==h&&e$7(this.prototype,t,h);}}static getPropertyDescriptor(t,s,i){const{get:e,set:r}=h$3(this.prototype,t)??{get(){return this[s]},set(t){this[s]=t;}};return {get:e,set(s){const h=e?.call(this);r?.call(this,s),this.requestUpdate(t,h,i);},configurable:true,enumerable:true}}static getPropertyOptions(t){return this.elementProperties.get(t)??b}static _$Ei(){if(this.hasOwnProperty(d$1("elementProperties")))return;const t=n$7(this);t.finalize(),void 0!==t.l&&(this.l=[...t.l]),this.elementProperties=new Map(t.elementProperties);}static finalize(){if(this.hasOwnProperty(d$1("finalized")))return;if(this.finalized=true,this._$Ei(),this.hasOwnProperty(d$1("properties"))){const t=this.properties,s=[...r$5(t),...o$9(t)];for(const i of s)this.createProperty(i,t[i]);}const t=this[Symbol.metadata];if(null!==t){const s=litPropertyMetadata.get(t);if(void 0!==s)for(const[t,i]of s)this.elementProperties.set(t,i);}this._$Eh=new Map;for(const[t,s]of this.elementProperties){const i=this._$Eu(t,s);void 0!==i&&this._$Eh.set(i,t);}this.elementStyles=this.finalizeStyles(this.styles);}static finalizeStyles(s){const i=[];if(Array.isArray(s)){const e=new Set(s.flat(1/0).reverse());for(const s of e)i.unshift(c$3(s));}else void 0!==s&&i.push(c$3(s));return i}static _$Eu(t,s){const i=s.attribute;return  false===i?void 0:"string"==typeof i?i:"string"==typeof t?t.toLowerCase():void 0}constructor(){super(),this._$Ep=void 0,this.isUpdatePending=false,this.hasUpdated=false,this._$Em=null,this._$Ev();}_$Ev(){this._$ES=new Promise((t=>this.enableUpdating=t)),this._$AL=new Map,this._$E_(),this.requestUpdate(),this.constructor.l?.forEach((t=>t(this)));}addController(t){(this._$EO??=new Set).add(t),void 0!==this.renderRoot&&this.isConnected&&t.hostConnected?.();}removeController(t){this._$EO?.delete(t);}_$E_(){const t=new Map,s=this.constructor.elementProperties;for(const i of s.keys())this.hasOwnProperty(i)&&(t.set(i,this[i]),delete this[i]);t.size>0&&(this._$Ep=t);}createRenderRoot(){const t=this.shadowRoot??this.attachShadow(this.constructor.shadowRootOptions);return S$1(t,this.constructor.elementStyles),t}connectedCallback(){this.renderRoot??=this.createRenderRoot(),this.enableUpdating(true),this._$EO?.forEach((t=>t.hostConnected?.()));}enableUpdating(t){}disconnectedCallback(){this._$EO?.forEach((t=>t.hostDisconnected?.()));}attributeChangedCallback(t,s,i){this._$AK(t,i);}_$ET(t,s){const i=this.constructor.elementProperties.get(t),e=this.constructor._$Eu(t,i);if(void 0!==e&&true===i.reflect){const h=(void 0!==i.converter?.toAttribute?i.converter:u$2).toAttribute(s,i.type);this._$Em=t,null==h?this.removeAttribute(e):this.setAttribute(e,h),this._$Em=null;}}_$AK(t,s){const i=this.constructor,e=i._$Eh.get(t);if(void 0!==e&&this._$Em!==e){const t=i.getPropertyOptions(e),h="function"==typeof t.converter?{fromAttribute:t.converter}:void 0!==t.converter?.fromAttribute?t.converter:u$2;this._$Em=e;const r=h.fromAttribute(s,t.type);this[e]=r??this._$Ej?.get(e)??r,this._$Em=null;}}requestUpdate(t,s,i){if(void 0!==t){const e=this.constructor,h=this[t];if(i??=e.getPropertyOptions(t),!((i.hasChanged??f$3)(h,s)||i.useDefault&&i.reflect&&h===this._$Ej?.get(t)&&!this.hasAttribute(e._$Eu(t,i))))return;this.C(t,s,i);} false===this.isUpdatePending&&(this._$ES=this._$EP());}C(t,s,{useDefault:i,reflect:e,wrapped:h},r){i&&!(this._$Ej??=new Map).has(t)&&(this._$Ej.set(t,r??s??this[t]),true!==h||void 0!==r)||(this._$AL.has(t)||(this.hasUpdated||i||(s=void 0),this._$AL.set(t,s)),true===e&&this._$Em!==t&&(this._$Eq??=new Set).add(t));}async _$EP(){this.isUpdatePending=true;try{await this._$ES;}catch(t){Promise.reject(t);}const t=this.scheduleUpdate();return null!=t&&await t,!this.isUpdatePending}scheduleUpdate(){return this.performUpdate()}performUpdate(){if(!this.isUpdatePending)return;if(!this.hasUpdated){if(this.renderRoot??=this.createRenderRoot(),this._$Ep){for(const[t,s]of this._$Ep)this[t]=s;this._$Ep=void 0;}const t=this.constructor.elementProperties;if(t.size>0)for(const[s,i]of t){const{wrapped:t}=i,e=this[s];true!==t||this._$AL.has(s)||void 0===e||this.C(s,void 0,i,e);}}let t=false;const s=this._$AL;try{t=this.shouldUpdate(s),t?(this.willUpdate(s),this._$EO?.forEach((t=>t.hostUpdate?.())),this.update(s)):this._$EM();}catch(s){throw t=false,this._$EM(),s}t&&this._$AE(s);}willUpdate(t){}_$AE(t){this._$EO?.forEach((t=>t.hostUpdated?.())),this.hasUpdated||(this.hasUpdated=true,this.firstUpdated(t)),this.updated(t);}_$EM(){this._$AL=new Map,this.isUpdatePending=false;}get updateComplete(){return this.getUpdateComplete()}getUpdateComplete(){return this._$ES}shouldUpdate(t){return  true}update(t){this._$Eq&&=this._$Eq.forEach((t=>this._$ET(t,this[t]))),this._$EM();}updated(t){}firstUpdated(t){}};y$1.elementStyles=[],y$1.shadowRootOptions={mode:"open"},y$1[d$1("elementProperties")]=new Map,y$1[d$1("finalized")]=new Map,p$1?.({ReactiveElement:y$1}),(a$2.reactiveElementVersions??=[]).push("2.1.1");
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t$2=globalThis,i$4=t$2.trustedTypes,s$2=i$4?i$4.createPolicy("lit-html",{createHTML:t=>t}):void 0,e$5="$lit$",h=`lit$${Math.random().toFixed(9).slice(2)}$`,o$5="?"+h,n$4=`<${o$5}>`,r$3=document,l$1=()=>r$3.createComment(""),c=t=>null===t||"object"!=typeof t&&"function"!=typeof t,a$1=Array.isArray,u$1=t=>a$1(t)||"function"==typeof t?.[Symbol.iterator],d="[ \t\n\f\r]",f=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,v=/-->/g,_=/>/g,m=RegExp(`>|${d}(?:([^\\s"'>=/]+)(${d}*=${d}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),p=/'/g,g=/"/g,$=/^(?:script|style|textarea|title)$/i,y=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),x=y(1),T=Symbol.for("lit-noChange"),E=Symbol.for("lit-nothing"),A=new WeakMap,C=r$3.createTreeWalker(r$3,129);function P(t,i){if(!a$1(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==s$2?s$2.createHTML(i):i}const V=(t,i)=>{const s=t.length-1,o=[];let r,l=2===i?"<svg>":3===i?"<math>":"",c=f;for(let i=0;i<s;i++){const s=t[i];let a,u,d=-1,y=0;for(;y<s.length&&(c.lastIndex=y,u=c.exec(s),null!==u);)y=c.lastIndex,c===f?"!--"===u[1]?c=v:void 0!==u[1]?c=_:void 0!==u[2]?($.test(u[2])&&(r=RegExp("</"+u[2],"g")),c=m):void 0!==u[3]&&(c=m):c===m?">"===u[0]?(c=r??f,d=-1):void 0===u[1]?d=-2:(d=c.lastIndex-u[2].length,a=u[1],c=void 0===u[3]?m:'"'===u[3]?g:p):c===g||c===p?c=m:c===v||c===_?c=f:(c=m,r=void 0);const x=c===m&&t[i+1].startsWith("/>")?" ":"";l+=c===f?s+n$4:d>=0?(o.push(a),s.slice(0,d)+e$5+s.slice(d)+h+x):s+h+(-2===d?i:x);}return [P(t,l+(t[s]||"<?>")+(2===i?"</svg>":3===i?"</math>":"")),o]};class N{constructor({strings:t,_$litType$:s},n){let r;this.parts=[];let c=0,a=0;const u=t.length-1,d=this.parts,[f,v]=V(t,s);if(this.el=N.createElement(f,n),C.currentNode=this.el.content,2===s||3===s){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes);}for(;null!==(r=C.nextNode())&&d.length<u;){if(1===r.nodeType){if(r.hasAttributes())for(const t of r.getAttributeNames())if(t.endsWith(e$5)){const i=v[a++],s=r.getAttribute(t).split(h),e=/([.?@])?(.*)/.exec(i);d.push({type:1,index:c,name:e[2],strings:s,ctor:"."===e[1]?H:"?"===e[1]?I:"@"===e[1]?L:k}),r.removeAttribute(t);}else t.startsWith(h)&&(d.push({type:6,index:c}),r.removeAttribute(t));if($.test(r.tagName)){const t=r.textContent.split(h),s=t.length-1;if(s>0){r.textContent=i$4?i$4.emptyScript:"";for(let i=0;i<s;i++)r.append(t[i],l$1()),C.nextNode(),d.push({type:2,index:++c});r.append(t[s],l$1());}}}else if(8===r.nodeType)if(r.data===o$5)d.push({type:2,index:c});else {let t=-1;for(;-1!==(t=r.data.indexOf(h,t+1));)d.push({type:7,index:c}),t+=h.length-1;}c++;}}static createElement(t,i){const s=r$3.createElement("template");return s.innerHTML=t,s}}function S(t,i,s=t,e){if(i===T)return i;let h=void 0!==e?s._$Co?.[e]:s._$Cl;const o=c(i)?void 0:i._$litDirective$;return h?.constructor!==o&&(h?._$AO?.(false),void 0===o?h=void 0:(h=new o(t),h._$AT(t,s,e)),void 0!==e?(s._$Co??=[])[e]=h:s._$Cl=h),void 0!==h&&(i=S(t,h._$AS(t,i.values),h,e)),i}class M{constructor(t,i){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:i},parts:s}=this._$AD,e=(t?.creationScope??r$3).importNode(i,true);C.currentNode=e;let h=C.nextNode(),o=0,n=0,l=s[0];for(;void 0!==l;){if(o===l.index){let i;2===l.type?i=new R(h,h.nextSibling,this,t):1===l.type?i=new l.ctor(h,l.name,l.strings,this,t):6===l.type&&(i=new z(h,this,t)),this._$AV.push(i),l=s[++n];}o!==l?.index&&(h=C.nextNode(),o++);}return C.currentNode=r$3,e}p(t){let i=0;for(const s of this._$AV) void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}}class R{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,i,s,e){this.type=2,this._$AH=E,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cv=e?.isConnected??true;}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===t?.nodeType&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=S(this,t,i),c(t)?t===E||null==t||""===t?(this._$AH!==E&&this._$AR(),this._$AH=E):t!==this._$AH&&t!==T&&this._(t):void 0!==t._$litType$?this.$(t):void 0!==t.nodeType?this.T(t):u$1(t)?this.k(t):this._(t);}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t));}_(t){this._$AH!==E&&c(this._$AH)?this._$AA.nextSibling.data=t:this.T(r$3.createTextNode(t)),this._$AH=t;}$(t){const{values:i,_$litType$:s}=t,e="number"==typeof s?this._$AC(t):(void 0===s.el&&(s.el=N.createElement(P(s.h,s.h[0]),this.options)),s);if(this._$AH?._$AD===e)this._$AH.p(i);else {const t=new M(e,this),s=t.u(this.options);t.p(i),this.T(s),this._$AH=t;}}_$AC(t){let i=A.get(t.strings);return void 0===i&&A.set(t.strings,i=new N(t)),i}k(t){a$1(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const h of t)e===i.length?i.push(s=new R(this.O(l$1()),this.O(l$1()),this,this.options)):s=i[e],s._$AI(h),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,i){for(this._$AP?.(false,true,i);t!==this._$AB;){const i=t.nextSibling;t.remove(),t=i;}}setConnected(t){ void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t));}}class k{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,i,s,e,h){this.type=1,this._$AH=E,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=h,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=E;}_$AI(t,i=this,s,e){const h=this.strings;let o=false;if(void 0===h)t=S(this,t,i,0),o=!c(t)||t!==this._$AH&&t!==T,o&&(this._$AH=t);else {const e=t;let n,r;for(t=h[0],n=0;n<h.length-1;n++)r=S(this,e[s+n],i,n),r===T&&(r=this._$AH[n]),o||=!c(r)||r!==this._$AH[n],r===E?t=E:t!==E&&(t+=(r??"")+h[n+1]),this._$AH[n]=r;}o&&!e&&this.j(t);}j(t){t===E?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"");}}class H extends k{constructor(){super(...arguments),this.type=3;}j(t){this.element[this.name]=t===E?void 0:t;}}class I extends k{constructor(){super(...arguments),this.type=4;}j(t){this.element.toggleAttribute(this.name,!!t&&t!==E);}}class L extends k{constructor(t,i,s,e,h){super(t,i,s,e,h),this.type=5;}_$AI(t,i=this){if((t=S(this,t,i,0)??E)===T)return;const s=this._$AH,e=t===E&&s!==E||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,h=t!==E&&(s===E||e);e&&this.element.removeEventListener(this.name,this,s),h&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t);}}class z{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){S(this,t);}}const j=t$2.litHtmlPolyfillSupport;j?.(N,R),(t$2.litHtmlVersions??=[]).push("3.3.1");const B=(t,i,s)=>{const e=s?.renderBefore??i;let h=e._$litPart$;if(void 0===h){const t=s?.renderBefore??null;e._$litPart$=h=new R(i.insertBefore(l$1(),t),t,void 0,s??{});}return h._$AI(t),h};
+const t$2=globalThis,i$4=t$2.trustedTypes,s$3=i$4?i$4.createPolicy("lit-html",{createHTML:t=>t}):void 0,e$6="$lit$",h$2=`lit$${Math.random().toFixed(9).slice(2)}$`,o$8="?"+h$2,n$6=`<${o$8}>`,r$4=document,l$1=()=>r$4.createComment(""),c$1=t=>null===t||"object"!=typeof t&&"function"!=typeof t,a$1=Array.isArray,u$1=t=>a$1(t)||"function"==typeof t?.[Symbol.iterator],d="[ \t\n\f\r]",f$2=/<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g,v=/-->/g,_=/>/g,m=RegExp(`>|${d}(?:([^\\s"'>=/]+)(${d}*=${d}*(?:[^ \t\n\f\r"'\`<>=]|("|')|))|$)`,"g"),p=/'/g,g=/"/g,$=/^(?:script|style|textarea|title)$/i,y=t=>(i,...s)=>({_$litType$:t,strings:i,values:s}),x=y(1),T=Symbol.for("lit-noChange"),E=Symbol.for("lit-nothing"),A=new WeakMap,C=r$4.createTreeWalker(r$4,129);function P(t,i){if(!a$1(t)||!t.hasOwnProperty("raw"))throw Error("invalid template strings array");return void 0!==s$3?s$3.createHTML(i):i}const V=(t,i)=>{const s=t.length-1,o=[];let r,l=2===i?"<svg>":3===i?"<math>":"",c=f$2;for(let i=0;i<s;i++){const s=t[i];let a,u,d=-1,y=0;for(;y<s.length&&(c.lastIndex=y,u=c.exec(s),null!==u);)y=c.lastIndex,c===f$2?"!--"===u[1]?c=v:void 0!==u[1]?c=_:void 0!==u[2]?($.test(u[2])&&(r=RegExp("</"+u[2],"g")),c=m):void 0!==u[3]&&(c=m):c===m?">"===u[0]?(c=r??f$2,d=-1):void 0===u[1]?d=-2:(d=c.lastIndex-u[2].length,a=u[1],c=void 0===u[3]?m:'"'===u[3]?g:p):c===g||c===p?c=m:c===v||c===_?c=f$2:(c=m,r=void 0);const x=c===m&&t[i+1].startsWith("/>")?" ":"";l+=c===f$2?s+n$6:d>=0?(o.push(a),s.slice(0,d)+e$6+s.slice(d)+h$2+x):s+h$2+(-2===d?i:x);}return [P(t,l+(t[s]||"<?>")+(2===i?"</svg>":3===i?"</math>":"")),o]};class N{constructor({strings:t,_$litType$:s},n){let r;this.parts=[];let c=0,a=0;const u=t.length-1,d=this.parts,[f,v]=V(t,s);if(this.el=N.createElement(f,n),C.currentNode=this.el.content,2===s||3===s){const t=this.el.content.firstChild;t.replaceWith(...t.childNodes);}for(;null!==(r=C.nextNode())&&d.length<u;){if(1===r.nodeType){if(r.hasAttributes())for(const t of r.getAttributeNames())if(t.endsWith(e$6)){const i=v[a++],s=r.getAttribute(t).split(h$2),e=/([.?@])?(.*)/.exec(i);d.push({type:1,index:c,name:e[2],strings:s,ctor:"."===e[1]?H:"?"===e[1]?I:"@"===e[1]?L:k}),r.removeAttribute(t);}else t.startsWith(h$2)&&(d.push({type:6,index:c}),r.removeAttribute(t));if($.test(r.tagName)){const t=r.textContent.split(h$2),s=t.length-1;if(s>0){r.textContent=i$4?i$4.emptyScript:"";for(let i=0;i<s;i++)r.append(t[i],l$1()),C.nextNode(),d.push({type:2,index:++c});r.append(t[s],l$1());}}}else if(8===r.nodeType)if(r.data===o$8)d.push({type:2,index:c});else {let t=-1;for(;-1!==(t=r.data.indexOf(h$2,t+1));)d.push({type:7,index:c}),t+=h$2.length-1;}c++;}}static createElement(t,i){const s=r$4.createElement("template");return s.innerHTML=t,s}}function S(t,i,s=t,e){if(i===T)return i;let h=void 0!==e?s._$Co?.[e]:s._$Cl;const o=c$1(i)?void 0:i._$litDirective$;return h?.constructor!==o&&(h?._$AO?.(false),void 0===o?h=void 0:(h=new o(t),h._$AT(t,s,e)),void 0!==e?(s._$Co??=[])[e]=h:s._$Cl=h),void 0!==h&&(i=S(t,h._$AS(t,i.values),h,e)),i}class M{constructor(t,i){this._$AV=[],this._$AN=void 0,this._$AD=t,this._$AM=i;}get parentNode(){return this._$AM.parentNode}get _$AU(){return this._$AM._$AU}u(t){const{el:{content:i},parts:s}=this._$AD,e=(t?.creationScope??r$4).importNode(i,true);C.currentNode=e;let h=C.nextNode(),o=0,n=0,l=s[0];for(;void 0!==l;){if(o===l.index){let i;2===l.type?i=new R(h,h.nextSibling,this,t):1===l.type?i=new l.ctor(h,l.name,l.strings,this,t):6===l.type&&(i=new z(h,this,t)),this._$AV.push(i),l=s[++n];}o!==l?.index&&(h=C.nextNode(),o++);}return C.currentNode=r$4,e}p(t){let i=0;for(const s of this._$AV) void 0!==s&&(void 0!==s.strings?(s._$AI(t,s,i),i+=s.strings.length-2):s._$AI(t[i])),i++;}}class R{get _$AU(){return this._$AM?._$AU??this._$Cv}constructor(t,i,s,e){this.type=2,this._$AH=E,this._$AN=void 0,this._$AA=t,this._$AB=i,this._$AM=s,this.options=e,this._$Cv=e?.isConnected??true;}get parentNode(){let t=this._$AA.parentNode;const i=this._$AM;return void 0!==i&&11===t?.nodeType&&(t=i.parentNode),t}get startNode(){return this._$AA}get endNode(){return this._$AB}_$AI(t,i=this){t=S(this,t,i),c$1(t)?t===E||null==t||""===t?(this._$AH!==E&&this._$AR(),this._$AH=E):t!==this._$AH&&t!==T&&this._(t):void 0!==t._$litType$?this.$(t):void 0!==t.nodeType?this.T(t):u$1(t)?this.k(t):this._(t);}O(t){return this._$AA.parentNode.insertBefore(t,this._$AB)}T(t){this._$AH!==t&&(this._$AR(),this._$AH=this.O(t));}_(t){this._$AH!==E&&c$1(this._$AH)?this._$AA.nextSibling.data=t:this.T(r$4.createTextNode(t)),this._$AH=t;}$(t){const{values:i,_$litType$:s}=t,e="number"==typeof s?this._$AC(t):(void 0===s.el&&(s.el=N.createElement(P(s.h,s.h[0]),this.options)),s);if(this._$AH?._$AD===e)this._$AH.p(i);else {const t=new M(e,this),s=t.u(this.options);t.p(i),this.T(s),this._$AH=t;}}_$AC(t){let i=A.get(t.strings);return void 0===i&&A.set(t.strings,i=new N(t)),i}k(t){a$1(this._$AH)||(this._$AH=[],this._$AR());const i=this._$AH;let s,e=0;for(const h of t)e===i.length?i.push(s=new R(this.O(l$1()),this.O(l$1()),this,this.options)):s=i[e],s._$AI(h),e++;e<i.length&&(this._$AR(s&&s._$AB.nextSibling,e),i.length=e);}_$AR(t=this._$AA.nextSibling,i){for(this._$AP?.(false,true,i);t!==this._$AB;){const i=t.nextSibling;t.remove(),t=i;}}setConnected(t){ void 0===this._$AM&&(this._$Cv=t,this._$AP?.(t));}}class k{get tagName(){return this.element.tagName}get _$AU(){return this._$AM._$AU}constructor(t,i,s,e,h){this.type=1,this._$AH=E,this._$AN=void 0,this.element=t,this.name=i,this._$AM=e,this.options=h,s.length>2||""!==s[0]||""!==s[1]?(this._$AH=Array(s.length-1).fill(new String),this.strings=s):this._$AH=E;}_$AI(t,i=this,s,e){const h=this.strings;let o=false;if(void 0===h)t=S(this,t,i,0),o=!c$1(t)||t!==this._$AH&&t!==T,o&&(this._$AH=t);else {const e=t;let n,r;for(t=h[0],n=0;n<h.length-1;n++)r=S(this,e[s+n],i,n),r===T&&(r=this._$AH[n]),o||=!c$1(r)||r!==this._$AH[n],r===E?t=E:t!==E&&(t+=(r??"")+h[n+1]),this._$AH[n]=r;}o&&!e&&this.j(t);}j(t){t===E?this.element.removeAttribute(this.name):this.element.setAttribute(this.name,t??"");}}class H extends k{constructor(){super(...arguments),this.type=3;}j(t){this.element[this.name]=t===E?void 0:t;}}class I extends k{constructor(){super(...arguments),this.type=4;}j(t){this.element.toggleAttribute(this.name,!!t&&t!==E);}}class L extends k{constructor(t,i,s,e,h){super(t,i,s,e,h),this.type=5;}_$AI(t,i=this){if((t=S(this,t,i,0)??E)===T)return;const s=this._$AH,e=t===E&&s!==E||t.capture!==s.capture||t.once!==s.once||t.passive!==s.passive,h=t!==E&&(s===E||e);e&&this.element.removeEventListener(this.name,this,s),h&&this.element.addEventListener(this.name,this,t),this._$AH=t;}handleEvent(t){"function"==typeof this._$AH?this._$AH.call(this.options?.host??this.element,t):this._$AH.handleEvent(t);}}class z{constructor(t,i,s){this.element=t,this.type=6,this._$AN=void 0,this._$AM=i,this.options=s;}get _$AU(){return this._$AM._$AU}_$AI(t){S(this,t);}}const j=t$2.litHtmlPolyfillSupport;j?.(N,R),(t$2.litHtmlVersions??=[]).push("3.3.1");const B=(t,i,s)=>{const e=s?.renderBefore??i;let h=e._$litPart$;if(void 0===h){const t=s?.renderBefore??null;e._$litPart$=h=new R(i.insertBefore(l$1(),t),t,void 0,s??{});}return h._$AI(t),h};
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const s$1=globalThis;let i$3 = class i extends y$1{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0;}createRenderRoot(){const t=super.createRenderRoot();return this.renderOptions.renderBefore??=t.firstChild,t}update(t){const r=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=B(r,this.renderRoot,this.renderOptions);}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(true);}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(false);}render(){return T}};i$3._$litElement$=true,i$3["finalized"]=true,s$1.litElementHydrateSupport?.({LitElement:i$3});const o$4=s$1.litElementPolyfillSupport;o$4?.({LitElement:i$3});(s$1.litElementVersions??=[]).push("4.2.1");
+ */const s$2=globalThis;let i$3 = class i extends y$1{constructor(){super(...arguments),this.renderOptions={host:this},this._$Do=void 0;}createRenderRoot(){const t=super.createRenderRoot();return this.renderOptions.renderBefore??=t.firstChild,t}update(t){const r=this.render();this.hasUpdated||(this.renderOptions.isConnected=this.isConnected),super.update(t),this._$Do=B(r,this.renderRoot,this.renderOptions);}connectedCallback(){super.connectedCallback(),this._$Do?.setConnected(true);}disconnectedCallback(){super.disconnectedCallback(),this._$Do?.setConnected(false);}render(){return T}};i$3._$litElement$=true,i$3["finalized"]=true,s$2.litElementHydrateSupport?.({LitElement:i$3});const o$7=s$2.litElementPolyfillSupport;o$7?.({LitElement:i$3});(s$2.litElementVersions??=[]).push("4.2.1");
 
 /**
  * @license
@@ -77,45 +77,45 @@ const t$1=t=>(e,o)=>{ void 0!==o?o.addInitializer((()=>{customElements.define(t,
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const o$3={attribute:true,type:String,converter:u$2,reflect:false,hasChanged:f$1},r$2=(t=o$3,e,r)=>{const{kind:n,metadata:i}=r;let s=globalThis.litPropertyMetadata.get(i);if(void 0===s&&globalThis.litPropertyMetadata.set(i,s=new Map),"setter"===n&&((t=Object.create(t)).wrapped=true),s.set(r.name,t),"accessor"===n){const{name:o}=r;return {set(r){const n=e.get.call(this);e.set.call(this,r),this.requestUpdate(o,n,t);},init(e){return void 0!==e&&this.C(o,void 0,t,e),e}}}if("setter"===n){const{name:o}=r;return function(r){const n=this[o];e.call(this,r),this.requestUpdate(o,n,t);}}throw Error("Unsupported decorator location: "+n)};function n$3(t){return (e,o)=>"object"==typeof o?r$2(t,e,o):((t,e,o)=>{const r=e.hasOwnProperty(o);return e.constructor.createProperty(o,t),r?Object.getOwnPropertyDescriptor(e,o):void 0})(t,e,o)}
+ */const o$6={attribute:true,type:String,converter:u$2,reflect:false,hasChanged:f$3},r$3=(t=o$6,e,r)=>{const{kind:n,metadata:i}=r;let s=globalThis.litPropertyMetadata.get(i);if(void 0===s&&globalThis.litPropertyMetadata.set(i,s=new Map),"setter"===n&&((t=Object.create(t)).wrapped=true),s.set(r.name,t),"accessor"===n){const{name:o}=r;return {set(r){const n=e.get.call(this);e.set.call(this,r),this.requestUpdate(o,n,t);},init(e){return void 0!==e&&this.C(o,void 0,t,e),e}}}if("setter"===n){const{name:o}=r;return function(r){const n=this[o];e.call(this,r),this.requestUpdate(o,n,t);}}throw Error("Unsupported decorator location: "+n)};function n$5(t){return (e,o)=>"object"==typeof o?r$3(t,e,o):((t,e,o)=>{const r=e.hasOwnProperty(o);return e.constructor.createProperty(o,t),r?Object.getOwnPropertyDescriptor(e,o):void 0})(t,e,o)}
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function r$1(r){return n$3({...r,state:true,attribute:false})}
-
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */
-const e$4=(e,t,c)=>(c.configurable=true,c.enumerable=true,Reflect.decorate&&"object"!=typeof t&&Object.defineProperty(e,t,c),c);
-
-/**
- * @license
- * Copyright 2017 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */function e$3(e,r){return (n,s,i)=>{const o=t=>t.renderRoot?.querySelector(e)??null;return e$4(n,s,{get(){return o(this)}})}}
+ */function r$2(r){return n$5({...r,state:true,attribute:false})}
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-let e$2;function r(r){return (n,o)=>e$4(n,o,{get(){return (this.renderRoot??(e$2??=document.createDocumentFragment())).querySelectorAll(r)}})}
+const e$5=(e,t,c)=>(c.configurable=true,c.enumerable=true,Reflect.decorate&&"object"!=typeof t&&Object.defineProperty(e,t,c),c);
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */function e$4(e,r){return (n,s,i)=>{const o=t=>t.renderRoot?.querySelector(e)??null;return e$5(n,s,{get(){return o(this)}})}}
+
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */
+let e$3;function r$1(r){return (n,o)=>e$5(n,o,{get(){return (this.renderRoot??(e$3??=document.createDocumentFragment())).querySelectorAll(r)}})}
 
 /**
  * @license
  * Copyright 2021 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function o$2(o){return (e,n)=>{const{slot:r,selector:s}=o??{},c="slot"+(r?`[name=${r}]`:":not([name])");return e$4(e,n,{get(){const t=this.renderRoot?.querySelector(c),e=t?.assignedElements(o)??[];return void 0===s?e:e.filter((t=>t.matches(s)))}})}}
+ */function o$5(o){return (e,n)=>{const{slot:r,selector:s}=o??{},c="slot"+(r?`[name=${r}]`:":not([name])");return e$5(e,n,{get(){const t=this.renderRoot?.querySelector(c),e=t?.assignedElements(o)??[];return void 0===s?e:e.filter((t=>t.matches(s)))}})}}
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function n$2(n){return (o,r)=>{const{slot:e}=n??{},s="slot"+(e?`[name=${e}]`:":not([name])");return e$4(o,r,{get(){const t=this.renderRoot?.querySelector(s);return t?.assignedNodes(n)??[]}})}}
+ */function n$4(n){return (o,r)=>{const{slot:e}=n??{},s="slot"+(e?`[name=${e}]`:":not([name])");return e$5(o,r,{get(){const t=this.renderRoot?.querySelector(s);return t?.assignedNodes(n)??[]}})}}
 
 const appliedClassMixins = new WeakMap();
 
@@ -753,20 +753,20 @@ const setLocale$1 = (newLocale) => {
  * Copyright 2020 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const a=Symbol.for(""),o$1=t=>{if(t?.r===a)return t?._$litStatic$},s=t=>({_$litStatic$:t,r:a}),i$2=(t,...r)=>({_$litStatic$:r.reduce(((r,e,a)=>r+(t=>{if(void 0!==t._$litStatic$)return t._$litStatic$;throw Error(`Value passed to 'literal' function must be a 'literal' result: ${t}. Use 'unsafeStatic' to pass non-literal values, but\n            take care to ensure page security.`)})(e)+t[a+1]),t[0]),r:a}),l=new Map,n$1=t=>(r,...e)=>{const a=e.length;let s,i;const n=[],u=[];let c,$=0,f=false;for(;$<a;){for(c=r[$];$<a&&void 0!==(i=e[$],s=o$1(i));)c+=s+r[++$],f=true;$!==a&&u.push(i),n.push(c),$++;}if($===a&&n.push(r[a]),f){const t=n.join("$$lit$$");void 0===(r=l.get(t))&&(n.raw=n,l.set(t,r=n)),e=u;}return t(r,...e)},u=n$1(x);
+const a=Symbol.for(""),o$4=t=>{if(t?.r===a)return t?._$litStatic$},s$1=t=>({_$litStatic$:t,r:a}),i$2=(t,...r)=>({_$litStatic$:r.reduce(((r,e,a)=>r+(t=>{if(void 0!==t._$litStatic$)return t._$litStatic$;throw Error(`Value passed to 'literal' function must be a 'literal' result: ${t}. Use 'unsafeStatic' to pass non-literal values, but\n            take care to ensure page security.`)})(e)+t[a+1]),t[0]),r:a}),l=new Map,n$3=t=>(r,...e)=>{const a=e.length;let s,i;const n=[],u=[];let c,$=0,f=false;for(;$<a;){for(c=r[$];$<a&&void 0!==(i=e[$],s=o$4(i));)c+=s+r[++$],f=true;$!==a&&u.push(i),n.push(c),$++;}if($===a&&n.push(r[a]),f){const t=n.join("$$lit$$");void 0===(r=l.get(t))&&(n.raw=n,l.set(t,r=n)),e=u;}return t(r,...e)},u=n$3(x);
 
 /**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
  */
-const t={ATTRIBUTE:1},e$1=t=>(...e)=>({_$litDirective$:t,values:e});let i$1 = class i{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,i){this._$Ct=t,this._$AM=e,this._$Ci=i;}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}};
+const t={ATTRIBUTE:1,CHILD:2},e$2=t=>(...e)=>({_$litDirective$:t,values:e});let i$1 = class i{constructor(t){}get _$AU(){return this._$AM._$AU}_$AT(t,e,i){this._$Ct=t,this._$AM=e,this._$Ci=i;}_$AS(t,e){return this.update(t,e)}update(t,e){return this.render(...e)}};
 
 /**
  * @license
  * Copyright 2018 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const e=e$1(class extends i$1{constructor(t$1){if(super(t$1),t$1.type!==t.ATTRIBUTE||"class"!==t$1.name||t$1.strings?.length>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(t){return " "+Object.keys(t).filter((s=>t[s])).join(" ")+" "}update(s,[i]){if(void 0===this.st){this.st=new Set,void 0!==s.strings&&(this.nt=new Set(s.strings.join(" ").split(/\s/).filter((t=>""!==t))));for(const t in i)i[t]&&!this.nt?.has(t)&&this.st.add(t);return this.render(i)}const r=s.element.classList;for(const t of this.st)t in i||(r.remove(t),this.st.delete(t));for(const t in i){const s=!!i[t];s===this.st.has(t)||this.nt?.has(t)||(s?(r.add(t),this.st.add(t)):(r.remove(t),this.st.delete(t)));}return T}});
+ */const e$1=e$2(class extends i$1{constructor(t$1){if(super(t$1),t$1.type!==t.ATTRIBUTE||"class"!==t$1.name||t$1.strings?.length>2)throw Error("`classMap()` can only be used in the `class` attribute and must be the only part in the attribute.")}render(t){return " "+Object.keys(t).filter((s=>t[s])).join(" ")+" "}update(s,[i]){if(void 0===this.st){this.st=new Set,void 0!==s.strings&&(this.nt=new Set(s.strings.join(" ").split(/\s/).filter((t=>""!==t))));for(const t in i)i[t]&&!this.nt?.has(t)&&this.st.add(t);return this.render(i)}const r=s.element.classList;for(const t of this.st)t in i||(r.remove(t),this.st.delete(t));for(const t in i){const s=!!i[t];s===this.st.has(t)||this.nt?.has(t)||(s?(r.add(t),this.st.add(t)):(r.remove(t),this.st.delete(t)));}return T}});
 
 /**
  * @license
@@ -1083,7 +1083,7 @@ class Ripple extends i$3 {
             'hovered': this.hovered,
             'pressed': this.pressed,
         };
-        return x `<div class="surface ${e(classes)}"></div>`;
+        return x `<div class="surface ${e$1(classes)}"></div>`;
     }
     update(changedProps) {
         if (changedProps.has('disabled') && this.disabled) {
@@ -1349,16 +1349,16 @@ class Ripple extends i$3 {
     }
 }
 __decorate([
-    n$3({ type: Boolean, reflect: true })
+    n$5({ type: Boolean, reflect: true })
 ], Ripple.prototype, "disabled", void 0);
 __decorate([
-    r$1()
+    r$2()
 ], Ripple.prototype, "hovered", void 0);
 __decorate([
-    r$1()
+    r$2()
 ], Ripple.prototype, "pressed", void 0);
 __decorate([
-    e$3('.surface')
+    e$4('.surface')
 ], Ripple.prototype, "mdRoot", void 0);
 
 /**
@@ -1367,7 +1367,7 @@ __decorate([
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./ripple/internal/ripple-styles.css.
-const styles$d = i$6 `:host{display:flex;margin:auto;pointer-events:none}:host([disabled]){display:none}@media(forced-colors: active){:host{display:none}}:host,.surface{border-radius:inherit;position:absolute;inset:0;overflow:hidden}.surface{-webkit-tap-highlight-color:rgba(0,0,0,0)}.surface::before,.surface::after{content:"";opacity:0;position:absolute}.surface::before{background-color:var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));inset:0;transition:opacity 15ms linear,background-color 15ms linear}.surface::after{background:radial-gradient(closest-side, var(--md-ripple-pressed-color, var(--md-sys-color-on-surface, #1d1b20)) max(100% - 70px, 65%), transparent 100%);transform-origin:center center;transition:opacity 375ms linear}.hovered::before{background-color:var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));opacity:var(--md-ripple-hover-opacity, 0.08)}.pressed::after{opacity:var(--md-ripple-pressed-opacity, 0.12);transition-duration:105ms}
+const styles$b = i$6 `:host{display:flex;margin:auto;pointer-events:none}:host([disabled]){display:none}@media(forced-colors: active){:host{display:none}}:host,.surface{border-radius:inherit;position:absolute;inset:0;overflow:hidden}.surface{-webkit-tap-highlight-color:rgba(0,0,0,0)}.surface::before,.surface::after{content:"";opacity:0;position:absolute}.surface::before{background-color:var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));inset:0;transition:opacity 15ms linear,background-color 15ms linear}.surface::after{background:radial-gradient(closest-side, var(--md-ripple-pressed-color, var(--md-sys-color-on-surface, #1d1b20)) max(100% - 70px, 65%), transparent 100%);transform-origin:center center;transition:opacity 375ms linear}.hovered::before{background-color:var(--md-ripple-hover-color, var(--md-sys-color-on-surface, #1d1b20));opacity:var(--md-ripple-hover-opacity, 0.08)}.pressed::after{opacity:var(--md-ripple-pressed-opacity, 0.12);transition-duration:105ms}
 `;
 
 /**
@@ -1390,7 +1390,7 @@ const styles$d = i$6 `:host{display:flex;margin:auto;pointer-events:none}:host([
  */
 class MdRipple extends Ripple {
 }
-MdRipple.styles = [styles$d];
+MdRipple.styles = [styles$b];
 
 /**
  * @license
@@ -1479,10 +1479,10 @@ class FocusRing extends i$3 {
     }
 }
 __decorate([
-    n$3({ type: Boolean, reflect: true })
+    n$5({ type: Boolean, reflect: true })
 ], FocusRing.prototype, "visible", void 0);
 __decorate([
-    n$3({ type: Boolean, reflect: true })
+    n$5({ type: Boolean, reflect: true })
 ], FocusRing.prototype, "inward", void 0);
 const HANDLED_BY_FOCUS_RING = Symbol('handledByFocusRing');
 
@@ -1492,7 +1492,7 @@ const HANDLED_BY_FOCUS_RING = Symbol('handledByFocusRing');
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./focus/internal/focus-ring-styles.css.
-const styles$c = i$6 `:host{animation-delay:0s,calc(var(--md-focus-ring-duration, 600ms)*.25);animation-duration:calc(var(--md-focus-ring-duration, 600ms)*.25),calc(var(--md-focus-ring-duration, 600ms)*.75);animation-timing-function:cubic-bezier(0.2, 0, 0, 1);box-sizing:border-box;color:var(--md-focus-ring-color, var(--md-sys-color-secondary, #625b71));display:none;pointer-events:none;position:absolute}:host([visible]){display:flex}:host(:not([inward])){animation-name:outward-grow,outward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));inset:calc(-1*var(--md-focus-ring-outward-offset, 2px));outline:var(--md-focus-ring-width, 3px) solid currentColor}:host([inward]){animation-name:inward-grow,inward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border:var(--md-focus-ring-width, 3px) solid currentColor;inset:var(--md-focus-ring-inward-offset, 0px)}@keyframes outward-grow{from{outline-width:0}to{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes outward-shrink{from{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-grow{from{border-width:0}to{border-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-shrink{from{border-width:var(--md-focus-ring-active-width, 8px)}}@media(prefers-reduced-motion){:host{animation:none}}
+const styles$a = i$6 `:host{animation-delay:0s,calc(var(--md-focus-ring-duration, 600ms)*.25);animation-duration:calc(var(--md-focus-ring-duration, 600ms)*.25),calc(var(--md-focus-ring-duration, 600ms)*.75);animation-timing-function:cubic-bezier(0.2, 0, 0, 1);box-sizing:border-box;color:var(--md-focus-ring-color, var(--md-sys-color-secondary, #625b71));display:none;pointer-events:none;position:absolute}:host([visible]){display:flex}:host(:not([inward])){animation-name:outward-grow,outward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) + var(--md-focus-ring-outward-offset, 2px));inset:calc(-1*var(--md-focus-ring-outward-offset, 2px));outline:var(--md-focus-ring-width, 3px) solid currentColor}:host([inward]){animation-name:inward-grow,inward-shrink;border-end-end-radius:calc(var(--md-focus-ring-shape-end-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border-end-start-radius:calc(var(--md-focus-ring-shape-end-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border-start-end-radius:calc(var(--md-focus-ring-shape-start-end, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border-start-start-radius:calc(var(--md-focus-ring-shape-start-start, var(--md-focus-ring-shape, var(--md-sys-shape-corner-full, 9999px))) - var(--md-focus-ring-inward-offset, 0px));border:var(--md-focus-ring-width, 3px) solid currentColor;inset:var(--md-focus-ring-inward-offset, 0px)}@keyframes outward-grow{from{outline-width:0}to{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes outward-shrink{from{outline-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-grow{from{border-width:0}to{border-width:var(--md-focus-ring-active-width, 8px)}}@keyframes inward-shrink{from{border-width:var(--md-focus-ring-active-width, 8px)}}@media(prefers-reduced-motion){:host{animation:none}}
 `;
 
 /**
@@ -1508,7 +1508,7 @@ const styles$c = i$6 `:host{animation-delay:0s,calc(var(--md-focus-ring-duration
  */
 class MdFocusRing extends FocusRing {
 }
-MdFocusRing.styles = [styles$c];
+MdFocusRing.styles = [styles$a];
 
 /**
  * @license
@@ -1516,7 +1516,7 @@ MdFocusRing.styles = [styles$c];
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./iconbutton/internal/filled-styles.css.
-const styles$b = i$6 `:host{--_container-color: var(--md-filled-icon-button-container-color, var(--md-sys-color-primary, #6750a4));--_container-height: var(--md-filled-icon-button-container-height, 40px);--_container-width: var(--md-filled-icon-button-container-width, 40px);--_disabled-container-color: var(--md-filled-icon-button-disabled-container-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-container-opacity: var(--md-filled-icon-button-disabled-container-opacity, 0.12);--_disabled-icon-color: var(--md-filled-icon-button-disabled-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-icon-opacity: var(--md-filled-icon-button-disabled-icon-opacity, 0.38);--_focus-icon-color: var(--md-filled-icon-button-focus-icon-color, var(--md-sys-color-on-primary, #fff));--_hover-icon-color: var(--md-filled-icon-button-hover-icon-color, var(--md-sys-color-on-primary, #fff));--_hover-state-layer-color: var(--md-filled-icon-button-hover-state-layer-color, var(--md-sys-color-on-primary, #fff));--_hover-state-layer-opacity: var(--md-filled-icon-button-hover-state-layer-opacity, 0.08);--_icon-color: var(--md-filled-icon-button-icon-color, var(--md-sys-color-on-primary, #fff));--_icon-size: var(--md-filled-icon-button-icon-size, 24px);--_pressed-icon-color: var(--md-filled-icon-button-pressed-icon-color, var(--md-sys-color-on-primary, #fff));--_pressed-state-layer-color: var(--md-filled-icon-button-pressed-state-layer-color, var(--md-sys-color-on-primary, #fff));--_pressed-state-layer-opacity: var(--md-filled-icon-button-pressed-state-layer-opacity, 0.12);--_selected-container-color: var(--md-filled-icon-button-selected-container-color, var(--md-sys-color-primary, #6750a4));--_toggle-selected-focus-icon-color: var(--md-filled-icon-button-toggle-selected-focus-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-hover-icon-color: var(--md-filled-icon-button-toggle-selected-hover-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-hover-state-layer-color: var(--md-filled-icon-button-toggle-selected-hover-state-layer-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-icon-color: var(--md-filled-icon-button-toggle-selected-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-pressed-icon-color: var(--md-filled-icon-button-toggle-selected-pressed-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-pressed-state-layer-color: var(--md-filled-icon-button-toggle-selected-pressed-state-layer-color, var(--md-sys-color-on-primary, #fff));--_unselected-container-color: var(--md-filled-icon-button-unselected-container-color, var(--md-sys-color-surface-container-highest, #e6e0e9));--_toggle-focus-icon-color: var(--md-filled-icon-button-toggle-focus-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-hover-icon-color: var(--md-filled-icon-button-toggle-hover-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-hover-state-layer-color: var(--md-filled-icon-button-toggle-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_toggle-icon-color: var(--md-filled-icon-button-toggle-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-pressed-icon-color: var(--md-filled-icon-button-toggle-pressed-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-pressed-state-layer-color: var(--md-filled-icon-button-toggle-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_container-shape-start-start: var(--md-filled-icon-button-container-shape-start-start, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-start-end: var(--md-filled-icon-button-container-shape-start-end, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-end-end: var(--md-filled-icon-button-container-shape-end-end, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-end-start: var(--md-filled-icon-button-container-shape-end-start, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)))}.icon-button{color:var(--_icon-color);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.icon-button:hover{color:var(--_hover-icon-color)}.icon-button:focus{color:var(--_focus-icon-color)}.icon-button:active{color:var(--_pressed-icon-color)}.icon-button:is(:disabled,[aria-disabled=true]){color:var(--_disabled-icon-color)}.icon-button::before{background-color:var(--_container-color);border-radius:inherit;content:"";inset:0;position:absolute;z-index:-1}.icon-button:is(:disabled,[aria-disabled=true])::before{background-color:var(--_disabled-container-color);opacity:var(--_disabled-container-opacity)}.icon-button:is(:disabled,[aria-disabled=true]) .icon{opacity:var(--_disabled-icon-opacity)}.toggle-filled{--md-ripple-hover-color: var(--_toggle-hover-state-layer-color);--md-ripple-pressed-color: var(--_toggle-pressed-state-layer-color)}.toggle-filled:not(:disabled,[aria-disabled=true]){color:var(--_toggle-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true]):hover{color:var(--_toggle-hover-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true]):focus{color:var(--_toggle-focus-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true]):active{color:var(--_toggle-pressed-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true])::before{background-color:var(--_unselected-container-color)}.selected{--md-ripple-hover-color: var(--_toggle-selected-hover-state-layer-color);--md-ripple-pressed-color: var(--_toggle-selected-pressed-state-layer-color)}.selected:not(:disabled,[aria-disabled=true]){color:var(--_toggle-selected-icon-color)}.selected:not(:disabled,[aria-disabled=true]):hover{color:var(--_toggle-selected-hover-icon-color)}.selected:not(:disabled,[aria-disabled=true]):focus{color:var(--_toggle-selected-focus-icon-color)}.selected:not(:disabled,[aria-disabled=true]):active{color:var(--_toggle-selected-pressed-icon-color)}.selected:not(:disabled,[aria-disabled=true])::before{background-color:var(--_selected-container-color)}
+const styles$9 = i$6 `:host{--_container-color: var(--md-filled-icon-button-container-color, var(--md-sys-color-primary, #6750a4));--_container-height: var(--md-filled-icon-button-container-height, 40px);--_container-width: var(--md-filled-icon-button-container-width, 40px);--_disabled-container-color: var(--md-filled-icon-button-disabled-container-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-container-opacity: var(--md-filled-icon-button-disabled-container-opacity, 0.12);--_disabled-icon-color: var(--md-filled-icon-button-disabled-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-icon-opacity: var(--md-filled-icon-button-disabled-icon-opacity, 0.38);--_focus-icon-color: var(--md-filled-icon-button-focus-icon-color, var(--md-sys-color-on-primary, #fff));--_hover-icon-color: var(--md-filled-icon-button-hover-icon-color, var(--md-sys-color-on-primary, #fff));--_hover-state-layer-color: var(--md-filled-icon-button-hover-state-layer-color, var(--md-sys-color-on-primary, #fff));--_hover-state-layer-opacity: var(--md-filled-icon-button-hover-state-layer-opacity, 0.08);--_icon-color: var(--md-filled-icon-button-icon-color, var(--md-sys-color-on-primary, #fff));--_icon-size: var(--md-filled-icon-button-icon-size, 24px);--_pressed-icon-color: var(--md-filled-icon-button-pressed-icon-color, var(--md-sys-color-on-primary, #fff));--_pressed-state-layer-color: var(--md-filled-icon-button-pressed-state-layer-color, var(--md-sys-color-on-primary, #fff));--_pressed-state-layer-opacity: var(--md-filled-icon-button-pressed-state-layer-opacity, 0.12);--_selected-container-color: var(--md-filled-icon-button-selected-container-color, var(--md-sys-color-primary, #6750a4));--_toggle-selected-focus-icon-color: var(--md-filled-icon-button-toggle-selected-focus-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-hover-icon-color: var(--md-filled-icon-button-toggle-selected-hover-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-hover-state-layer-color: var(--md-filled-icon-button-toggle-selected-hover-state-layer-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-icon-color: var(--md-filled-icon-button-toggle-selected-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-pressed-icon-color: var(--md-filled-icon-button-toggle-selected-pressed-icon-color, var(--md-sys-color-on-primary, #fff));--_toggle-selected-pressed-state-layer-color: var(--md-filled-icon-button-toggle-selected-pressed-state-layer-color, var(--md-sys-color-on-primary, #fff));--_unselected-container-color: var(--md-filled-icon-button-unselected-container-color, var(--md-sys-color-surface-container-highest, #e6e0e9));--_toggle-focus-icon-color: var(--md-filled-icon-button-toggle-focus-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-hover-icon-color: var(--md-filled-icon-button-toggle-hover-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-hover-state-layer-color: var(--md-filled-icon-button-toggle-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_toggle-icon-color: var(--md-filled-icon-button-toggle-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-pressed-icon-color: var(--md-filled-icon-button-toggle-pressed-icon-color, var(--md-sys-color-primary, #6750a4));--_toggle-pressed-state-layer-color: var(--md-filled-icon-button-toggle-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_container-shape-start-start: var(--md-filled-icon-button-container-shape-start-start, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-start-end: var(--md-filled-icon-button-container-shape-start-end, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-end-end: var(--md-filled-icon-button-container-shape-end-end, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)));--_container-shape-end-start: var(--md-filled-icon-button-container-shape-end-start, var(--md-filled-icon-button-container-shape, var(--md-sys-shape-corner-full, 9999px)))}.icon-button{color:var(--_icon-color);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.icon-button:hover{color:var(--_hover-icon-color)}.icon-button:focus{color:var(--_focus-icon-color)}.icon-button:active{color:var(--_pressed-icon-color)}.icon-button:is(:disabled,[aria-disabled=true]){color:var(--_disabled-icon-color)}.icon-button::before{background-color:var(--_container-color);border-radius:inherit;content:"";inset:0;position:absolute;z-index:-1}.icon-button:is(:disabled,[aria-disabled=true])::before{background-color:var(--_disabled-container-color);opacity:var(--_disabled-container-opacity)}.icon-button:is(:disabled,[aria-disabled=true]) .icon{opacity:var(--_disabled-icon-opacity)}.toggle-filled{--md-ripple-hover-color: var(--_toggle-hover-state-layer-color);--md-ripple-pressed-color: var(--_toggle-pressed-state-layer-color)}.toggle-filled:not(:disabled,[aria-disabled=true]){color:var(--_toggle-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true]):hover{color:var(--_toggle-hover-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true]):focus{color:var(--_toggle-focus-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true]):active{color:var(--_toggle-pressed-icon-color)}.toggle-filled:not(:disabled,[aria-disabled=true])::before{background-color:var(--_unselected-container-color)}.selected{--md-ripple-hover-color: var(--_toggle-selected-hover-state-layer-color);--md-ripple-pressed-color: var(--_toggle-selected-pressed-state-layer-color)}.selected:not(:disabled,[aria-disabled=true]){color:var(--_toggle-selected-icon-color)}.selected:not(:disabled,[aria-disabled=true]):hover{color:var(--_toggle-selected-hover-icon-color)}.selected:not(:disabled,[aria-disabled=true]):focus{color:var(--_toggle-selected-focus-icon-color)}.selected:not(:disabled,[aria-disabled=true]):active{color:var(--_toggle-selected-pressed-icon-color)}.selected:not(:disabled,[aria-disabled=true])::before{background-color:var(--_selected-container-color)}
 `;
 
 /**
@@ -2011,7 +2011,7 @@ class IconButton extends iconButtonBaseClass {
                     : ariaLabel;
         }
         return u `<${tag}
-        class="icon-button ${e(this.getRenderClasses())}"
+        class="icon-button ${e$1(this.getRenderClasses())}"
         id="button"
         aria-label="${ariaLabelValue || E}"
         aria-haspopup="${(!this.href && ariaHasPopup) || E}"
@@ -2119,40 +2119,40 @@ IconButton.shadowRootOptions = {
     delegatesFocus: true,
 };
 __decorate([
-    n$3({ type: Boolean, reflect: true })
+    n$5({ type: Boolean, reflect: true })
 ], IconButton.prototype, "disabled", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'soft-disabled', reflect: true })
+    n$5({ type: Boolean, attribute: 'soft-disabled', reflect: true })
 ], IconButton.prototype, "softDisabled", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'flip-icon-in-rtl' })
+    n$5({ type: Boolean, attribute: 'flip-icon-in-rtl' })
 ], IconButton.prototype, "flipIconInRtl", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], IconButton.prototype, "href", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], IconButton.prototype, "download", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], IconButton.prototype, "target", void 0);
 __decorate([
-    n$3({ attribute: 'aria-label-selected' })
+    n$5({ attribute: 'aria-label-selected' })
 ], IconButton.prototype, "ariaLabelSelected", void 0);
 __decorate([
-    n$3({ type: Boolean })
+    n$5({ type: Boolean })
 ], IconButton.prototype, "toggle", void 0);
 __decorate([
-    n$3({ type: Boolean, reflect: true })
+    n$5({ type: Boolean, reflect: true })
 ], IconButton.prototype, "selected", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], IconButton.prototype, "type", void 0);
 __decorate([
-    n$3({ reflect: true })
+    n$5({ reflect: true })
 ], IconButton.prototype, "value", void 0);
 __decorate([
-    r$1()
+    r$2()
 ], IconButton.prototype, "flipIcon", void 0);
 
 /**
@@ -2161,7 +2161,7 @@ __decorate([
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./iconbutton/internal/shared-styles.css.
-const styles$a = i$6 `:host{display:inline-flex;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);height:var(--_container-height);width:var(--_container-width);justify-content:center}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-height))/2) max(0px,(48px - var(--_container-width))/2)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_container-shape-start-start);--md-focus-ring-shape-start-end: var(--_container-shape-start-end);--md-focus-ring-shape-end-end: var(--_container-shape-end-end);--md-focus-ring-shape-end-start: var(--_container-shape-end-start)}:host(:is([disabled],[soft-disabled])){pointer-events:none}.icon-button{place-items:center;background:none;border:none;box-sizing:border-box;cursor:pointer;display:flex;place-content:center;outline:none;padding:0;position:relative;text-decoration:none;user-select:none;z-index:0;flex:1;border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.icon ::slotted(*){font-size:var(--_icon-size);height:var(--_icon-size);width:var(--_icon-size);font-weight:inherit}md-ripple{z-index:-1;border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.flip-icon .icon{transform:scaleX(-1)}.icon{display:inline-flex}.link{display:grid;height:100%;outline:none;place-items:center;position:absolute;width:100%}.touch{position:absolute;height:max(48px,100%);width:max(48px,100%)}:host([touch-target=none]) .touch{display:none}@media(forced-colors: active){:host(:is([disabled],[soft-disabled])){--_disabled-icon-color: GrayText;--_disabled-icon-opacity: 1}}
+const styles$8 = i$6 `:host{display:inline-flex;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);height:var(--_container-height);width:var(--_container-width);justify-content:center}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_container-height))/2) max(0px,(48px - var(--_container-width))/2)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_container-shape-start-start);--md-focus-ring-shape-start-end: var(--_container-shape-start-end);--md-focus-ring-shape-end-end: var(--_container-shape-end-end);--md-focus-ring-shape-end-start: var(--_container-shape-end-start)}:host(:is([disabled],[soft-disabled])){pointer-events:none}.icon-button{place-items:center;background:none;border:none;box-sizing:border-box;cursor:pointer;display:flex;place-content:center;outline:none;padding:0;position:relative;text-decoration:none;user-select:none;z-index:0;flex:1;border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.icon ::slotted(*){font-size:var(--_icon-size);height:var(--_icon-size);width:var(--_icon-size);font-weight:inherit}md-ripple{z-index:-1;border-start-start-radius:var(--_container-shape-start-start);border-start-end-radius:var(--_container-shape-start-end);border-end-start-radius:var(--_container-shape-end-start);border-end-end-radius:var(--_container-shape-end-end)}.flip-icon .icon{transform:scaleX(-1)}.icon{display:inline-flex}.link{display:grid;height:100%;outline:none;place-items:center;position:absolute;width:100%}.touch{position:absolute;height:max(48px,100%);width:max(48px,100%)}:host([touch-target=none]) .touch{display:none}@media(forced-colors: active){:host(:is([disabled],[soft-disabled])){--_disabled-icon-color: GrayText;--_disabled-icon-opacity: 1}}
 `;
 
 /**
@@ -2205,7 +2205,7 @@ OscdFilledIconButton.scopedElements = {
     'md-ripple': MdRipple,
     'md-focus-ring': MdFocusRing,
 };
-OscdFilledIconButton.styles = [styles$a, styles$b];
+OscdFilledIconButton.styles = [styles$8, styles$9];
 
 function isAttributesV2(attributes) {
     if (typeof attributes !== 'object' || attributes === null) {
@@ -2489,6 +2489,16 @@ function generateErrorWcClass(plugin) {
     return new Function(classString)();
 }
 /**
+ * Checks if the given object is a PluginGroup (has a `plugins` array child, no `src`/`tagName`).
+ * Works for both input PluginGroup and resolved ResolvedPluginGroup.
+ */
+function isPluginGroup(plugin) {
+    return (typeof plugin === 'object' &&
+        plugin !== null &&
+        'plugins' in plugin &&
+        Array.isArray(plugin.plugins));
+}
+/**
  * Checks if the given object is a valid Plugin.
  * @param plugin - The object to check.
  * @returns true if the object is a Plugin, false otherwise.
@@ -2546,6 +2556,29 @@ function validatePlugin(plugin) {
  * @param plugins - Array of plugins to convert.
  * @returns Array of plugins with tagName included.
  */
+/**
+ * Like `loadSourcedPlugins` but handles the editor array which may contain `PluginGroup` entries.
+ * Groups are resolved by loading their child plugins; flat entries are loaded as-is.
+ */
+function loadEditorPlugins(plugins, registry) {
+    const result = [];
+    for (const plugin of plugins) {
+        if (isPluginGroup(plugin)) {
+            const resolved = {
+                name: plugin.name,
+                translations: plugin.translations,
+                icon: plugin.icon,
+                requireDoc: plugin.requireDoc,
+                plugins: loadSourcedPlugins(plugin.plugins, registry),
+            };
+            result.push(resolved);
+        }
+        else {
+            result.push(...loadSourcedPlugins([plugin], registry));
+        }
+    }
+    return result;
+}
 function loadSourcedPlugins(plugins, registry) {
     return plugins
         .map(plugin => {
@@ -2619,138 +2652,86 @@ if (!window.localization) {
     window.localization = { getLocale, setLocale };
 }
 
-const colors = i$6 `
-  * {
-    --french-blue-15: #0b335b;
-    --french-blue-55: #2485e5;
+/**
+ * @license
+ * Copyright 2018 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const o$3=o=>o??E;
 
-    --omicron-yellow: #f5e214;
+/**
+ * @license
+ * Copyright 2018 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const n$2="important",i=" !"+n$2,o$2=e$2(class extends i$1{constructor(t$1){if(super(t$1),t$1.type!==t.ATTRIBUTE||"style"!==t$1.name||t$1.strings?.length>2)throw Error("The `styleMap` directive must be used in the `style` attribute and must be the only part in the attribute.")}render(t){return Object.keys(t).reduce(((e,r)=>{const s=t[r];return null==s?e:e+`${r=r.includes("-")?r:r.replace(/(?:^(webkit|moz|ms|o)|)(?=[A-Z])/g,"-$&").toLowerCase()}:${s};`}),"")}update(e,[r]){const{style:s}=e.element;if(void 0===this.ft)return this.ft=new Set(Object.keys(r)),this.render(r);for(const t of this.ft)null==r[t]&&(this.ft.delete(t),t.includes("-")?s.removeProperty(t):s[t]=null);for(const t in r){const e=r[t];if(null!=e){this.ft.add(t);const r="string"==typeof e&&e.endsWith(i);t.includes("-")||r?s.setProperty(t,r?e.slice(0,-11):e,r?n$2:""):s[t]=e;}}return T}});
 
-    --slate-0: #121417; /* L* ≈ 7% */
-    --slate-5: #1a1e23; /* L* ≈ 10% */
-    --slate-10: #23282f; /* L* ≈ 14% */
-    --slate-15: #2c323a; /* L* ≈ 18% */
-    --slate-20: #363d47; /* L* ≈ 22% */
-    --slate-25: #3d4651; /* L* ≈ 26% */
-    --slate-30: #46505d; /* L* ≈ 30% */
-    --slate-35: #4f5a69; /* L* ≈ 34% */
-    --slate-40: #586474; /* L* ≈ 38% */
-    --slate-45: #606e80; /* L* ≈ 42% */
-    --slate-50: #69788c; /* L* ≈ 46% */
-    --slate-55: #738296; /* L* ≈ 50% */
-    --slate-60: #7f8c9f; /* L* ≈ 54% */
-    --slate-65: #8b97a7; /* L* ≈ 58% */
-    --slate-70: #96a1b0; /* L* ≈ 62% */
-    --slate-75: #a2abb9; /* L* ≈ 66% */
-    --slate-80: #aeb6c2; /* L* ≈ 70% */
-    --slate-85: #b9c0ca; /* L* ≈ 74% */
-    --slate-90: #c5cbd3; /* L* ≈ 78% */
-    --slate-95: #d0d5dc; /* L* ≈ 82% */
-    --slate-100: #dce0e5; /* L* ≈ 86% */
-    --slate-105: #e8eaed; /* L* ≈ 90% */
-    --slate-110: #f3f5f6; /* L* ≈ 94% */
-    /* --slate-white: #FFF; L* ≈ 100% */
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const f$1=o=>void 0===o.strings;
 
-    --coal-0: #0a0a0a; /* L* ≈ 4% */
-    --coal-5: #141414; /* L* ≈ 8% */
-    --coal-10: #1f1f1f; /* L* ≈ 12% */
-    --coal-15: #292929; /* L* ≈ 16% */
-    --coal-20: #333333; /* L* ≈ 20% */
-    --coal-25: #3d3d3d; /* L* ≈ 24% */
-    --coal-30: #474747; /* L* ≈ 28% */
-    --coal-35: #525252; /* L* ≈ 32% */
-    --coal-40: #5c5c5c; /* L* ≈ 36% */
-    --coal-45: #666666; /* L* ≈ 40% */
-    --coal-50: #707070; /* L* ≈ 44% */
-    --coal-55: #7a7a7a; /* L* ≈ 48% */
-    --coal-60: #858585; /* L* ≈ 52% */
-    --coal-65: #8f8f8f; /* L* ≈ 56% */
-    --coal-70: #999999; /* L* ≈ 60% */
-    --coal-75: #a3a3a3; /* L* ≈ 64% */
-    --coal-80: #adadad; /* L* ≈ 68% */
-    --coal-85: #b8b8b8; /* L* ≈ 72% */
-    --coal-90: #c2c2c2; /* L* ≈ 76% */
-    --coal-95: #cccccc; /* L* ≈ 80% */
-    --coal-100: #d6d6d6; /* L* ≈ 84% */
-    --coal-105: #e0e0e0; /* L* ≈ 88% */
-    --coal-110: #ebebeb; /* L* ≈ 92% */
-    /* --coal-white: #FFF; L* ≈ 100% */
-  }
+/**
+ * @license
+ * Copyright 2017 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const s=(i,t)=>{const e=i._$AN;if(void 0===e)return  false;for(const i of e)i._$AO?.(t,false),s(i,t);return  true},o$1=i=>{let t,e;do{if(void 0===(t=i._$AM))break;e=t._$AN,e.delete(i),i=t;}while(0===e?.size)},r=i=>{for(let t;t=i._$AM;i=t){let e=t._$AN;if(void 0===e)t._$AN=e=new Set;else if(e.has(i))break;e.add(i),c(t);}};function h$1(i){ void 0!==this._$AN?(o$1(this),this._$AM=i,r(this)):this._$AM=i;}function n$1(i,t=false,e=0){const r=this._$AH,h=this._$AN;if(void 0!==h&&0!==h.size)if(t)if(Array.isArray(r))for(let i=e;i<r.length;i++)s(r[i],false),o$1(r[i]);else null!=r&&(s(r,false),o$1(r));else s(this,i);}const c=i=>{i.type==t.CHILD&&(i._$AP??=n$1,i._$AQ??=h$1);};class f extends i$1{constructor(){super(...arguments),this._$AN=void 0;}_$AT(i,t,e){super._$AT(i,t,e),r(this),this.isConnected=i._$AU;}_$AO(i,t=true){i!==this.isConnected&&(this.isConnected=i,i?this.reconnected?.():this.disconnected?.()),t&&(s(this,i),o$1(this));}setValue(t){if(f$1(this._$Ct))this._$Ct._$AI(t,this);else {const i=[...this._$Ct._$AH];i[this._$Ci]=t,this._$Ct._$AI(i,this,0);}}disconnected(){}reconnected(){}}
+
+/**
+ * @license
+ * Copyright 2020 Google LLC
+ * SPDX-License-Identifier: BSD-3-Clause
+ */const e=()=>new h;class h{}const o=new WeakMap,n=e$2(class extends f{render(i){return E}update(i,[s]){const e=s!==this.G;return e&&void 0!==this.G&&this.rt(void 0),(e||this.lt!==this.ct)&&(this.G=s,this.ht=i.options?.host,this.rt(this.ct=i.element)),E}rt(t){if(this.isConnected||(t=void 0),"function"==typeof this.G){const i=this.ht??globalThis;let s=o.get(i);void 0===s&&(s=new WeakMap,o.set(i,s)),void 0!==s.get(this.G)&&this.G.call(this.ht,void 0),s.set(this.G,t),void 0!==t&&this.G.call(this.ht,t);}else this.G.value=t;}get lt(){return "function"==typeof this.G?o.get(this.ht??globalThis)?.get(this.G):this.G?.value}disconnected(){this.lt===this.ct&&this.rt(void 0);}reconnected(){this.rt(this.ct);}});
+
+/**
+ * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * TODO(b/265336902): add docs
+ */
+class Icon extends i$3 {
+    render() {
+        return x `<slot></slot>`;
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        const ariaHidden = this.getAttribute('aria-hidden');
+        if (ariaHidden === 'false') {
+            // Allow the user to set `aria-hidden="false"` to create an icon that is
+            // announced by screenreaders.
+            this.removeAttribute('aria-hidden');
+            return;
+        }
+        // Needed for VoiceOver, which will create a "group" if the element is a
+        // sibling to other content.
+        this.setAttribute('aria-hidden', 'true');
+    }
+}
+
+/**
+ * @license
+ * Copyright 2024 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Generated stylesheet for ./icon/internal/icon-styles.css.
+const styles$7 = i$6 `:host{font-size:var(--md-icon-size, 24px);width:var(--md-icon-size, 24px);height:var(--md-icon-size, 24px);color:inherit;font-variation-settings:inherit;font-weight:400;font-family:var(--md-icon-font, Material Symbols Outlined);display:inline-flex;font-style:normal;place-items:center;place-content:center;line-height:1;overflow:hidden;letter-spacing:normal;text-transform:none;user-select:none;white-space:nowrap;word-wrap:normal;flex-shrink:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale}::slotted(svg){fill:currentColor}::slotted(*){height:100%;width:100%}
 `;
 
-const theming = i$6 `
-  ${colors}
-  * {
-    --oscd-primary: var(--oscd-theme-primary, var(--french-blue-15));
-    --oscd-secondary: var(--oscd-theme-secondary, var(--french-blue-55));
-    --secondary: var(--oscd-secondary);
-    --oscd-theme-error: var(--oscd-theme-error, #dc322f);
-    --oscd-base03: var(--oscd-theme-base03, var(--slate-0));
-    --oscd-base02: var(--oscd-theme-base02, var(--slate-5));
-    --oscd-base01: var(--oscd-theme-base01, var(--slate-25));
-    --oscd-base00: var(--oscd-theme-base00, var(--slate-30));
-    --oscd-base0: var(--oscd-theme-base0, var(--slate-65));
-    --oscd-base1: var(--oscd-theme-base1, var(--slate-70));
-    --oscd-base2: var(--oscd-theme-base2, var(--slate-110));
-    --oscd-base3: var(--oscd-theme-base3, white);
-    --oscd-error: var(--oscd-theme-error, #dc322f);
-    --oscd-text-font: var(--oscd-theme-text-font, 'Roboto');
-    --oscd-icon-font: var(--oscd-theme-icon-font, 'Material Icons');
-    --oscd-text-font-mono: var(--oscd-theme-text-font-mono, 'Roboto Mono');
-    --oscd-warning: var(--oscd-theme-warning, #b58900);
-    --md-sys-color-primary: var(--oscd-primary);
-    --md-sys-color-on-primary: var(--oscd-base3);
-    --md-sys-color-secondary: var(--oscd-secondary);
-    --md-sys-color-on-secondary: var(--oscd-base3);
-    --md-sys-color-secondary-container: var(--oscd-base2);
-    --md-sys-color-surface: var(--oscd-base3);
-    --md-sys-color-on-surface: var(--oscd-base00);
-    --md-sys-color-surface-variant: var(--oscd-base3);
-    --md-sys-color-on-surface-variant: var(--oscd-base00);
-    --md-sys-color-surface-bright: var(--oscd-base2);
-    --md-sys-color-surface-container: var(--oscd-base3);
-    --md-sys-color-surface-container-high: var(--oscd-base3);
-    --md-sys-color-surface-container-highest: var(--oscd-base3);
-    --md-sys-color-outline-variant: var(--oscd-primary);
-    --md-sys-color-scrim: #000000;
-    --md-sys-color-error: var(--oscd-error);
-    --md-sys-color-on-error: var(--oscd-base3);
-    /* --md-menu-item-selected-label-text-color: var(--oscd-base01); */
-    --md-icon-button-disabled-icon-color: var(--oscd-base3);
-    /* MDC Theme Colors 
-       * Needed for supporting any pluggins still using the depricated MWC Components
-       */
-    --mdc-theme-primary: var(--oscd-primary);
-    --mdc-theme-secondary: var(--oscd-secondary);
-    --mdc-theme-background: var(--oscd-base3);
-    --mdc-theme-surface: var(--oscd-base3);
-    --mdc-theme-on-primary: var(--oscd-base2);
-    --mdc-theme-on-secondary: var(--oscd-base3);
-    --mdc-theme-on-background: var(--oscd-base00);
-    --mdc-theme-on-surface: var(--oscd-base00);
-    --mdc-theme-text-primary-on-background: var(--oscd-base01);
-    --mdc-theme-text-secondary-on-background: var(--oscd-base3);
-    --mdc-theme-text-icon-on-background: var(--oscd-base3);
-    --mdc-theme-error: var(--oscd-error);
-    --mdc-button-disabled-ink-color: var(--oscd-base1);
-    --mdc-drawer-heading-ink-color: var(--oscd-base00);
-    --mdc-dialog-heading-ink-color: var(--oscd-base00);
-    --mdc-text-field-fill-color: var(--oscd-base2);
-    --mdc-text-field-ink-color: var(--oscd-base02);
-    --mdc-text-field-label-ink-color: var(--oscd-base01);
-    --mdc-text-field-idle-line-color: var(--oscd-base00);
-    --mdc-text-field-hover-line-color: var(--oscd-base02);
-    --mdc-select-fill-color: var(--oscd-base2);
-    --mdc-select-ink-color: var(--oscd-base02);
-    --mdc-select-label-ink-color: var(--oscd-base01);
-    --mdc-select-idle-line-color: var(--oscd-base00);
-    --mdc-select-hover-line-color: var(--oscd-base02);
-    --mdc-select-dropdown-icon-color: var(--oscd-base01);
-    --mdc-typography-font-family: var(--oscd-text-font);
-    --mdc-icon-font: var(--oscd-icon-font);
-    --mdc-theme-text-disabled-on-light: rgba(255, 255, 255, 0.38);
-  }
-`;
+/*
+ * GENERATED SOURCE FILE. DO NOT MODIFY.
+ * Modifications will be overwritten.
+ * To prevent this file from being overwritten, remove this comment entirely.
+ */
+/**
+ * @tagname oscd-icon
+ * @final
+ * @suppress {visibility}
+ */
+class OscdIcon extends Icon {
+}
+/** @nocollapse */
+OscdIcon.styles = [styles$7];
 
 /**
  * @license
@@ -2758,7 +2739,7 @@ const theming = i$6 `
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./iconbutton/internal/standard-styles.css.
-const styles$9 = i$6 `:host{--_disabled-icon-color: var(--md-icon-button-disabled-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-icon-opacity: var(--md-icon-button-disabled-icon-opacity, 0.38);--_icon-size: var(--md-icon-button-icon-size, 24px);--_selected-focus-icon-color: var(--md-icon-button-selected-focus-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-icon-color: var(--md-icon-button-selected-hover-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-color: var(--md-icon-button-selected-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-opacity: var(--md-icon-button-selected-hover-state-layer-opacity, 0.08);--_selected-icon-color: var(--md-icon-button-selected-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-icon-color: var(--md-icon-button-selected-pressed-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-state-layer-color: var(--md-icon-button-selected-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-state-layer-opacity: var(--md-icon-button-selected-pressed-state-layer-opacity, 0.12);--_state-layer-height: var(--md-icon-button-state-layer-height, 40px);--_state-layer-shape: var(--md-icon-button-state-layer-shape, var(--md-sys-shape-corner-full, 9999px));--_state-layer-width: var(--md-icon-button-state-layer-width, 40px);--_focus-icon-color: var(--md-icon-button-focus-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-icon-color: var(--md-icon-button-hover-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-color: var(--md-icon-button-hover-state-layer-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-opacity: var(--md-icon-button-hover-state-layer-opacity, 0.08);--_icon-color: var(--md-icon-button-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-icon-color: var(--md-icon-button-pressed-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-state-layer-color: var(--md-icon-button-pressed-state-layer-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-state-layer-opacity: var(--md-icon-button-pressed-state-layer-opacity, 0.12);--_container-shape-start-start: 0;--_container-shape-start-end: 0;--_container-shape-end-end: 0;--_container-shape-end-start: 0;--_container-height: 0;--_container-width: 0;height:var(--_state-layer-height);width:var(--_state-layer-width)}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_state-layer-height))/2) max(0px,(48px - var(--_state-layer-width))/2)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_state-layer-shape);--md-focus-ring-shape-start-end: var(--_state-layer-shape);--md-focus-ring-shape-end-end: var(--_state-layer-shape);--md-focus-ring-shape-end-start: var(--_state-layer-shape)}.standard{background-color:rgba(0,0,0,0);color:var(--_icon-color);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.standard:hover{color:var(--_hover-icon-color)}.standard:focus{color:var(--_focus-icon-color)}.standard:active{color:var(--_pressed-icon-color)}.standard:is(:disabled,[aria-disabled=true]){color:var(--_disabled-icon-color)}md-ripple{border-radius:var(--_state-layer-shape)}.standard:is(:disabled,[aria-disabled=true]){opacity:var(--_disabled-icon-opacity)}.selected{--md-ripple-hover-color: var(--_selected-hover-state-layer-color);--md-ripple-hover-opacity: var(--_selected-hover-state-layer-opacity);--md-ripple-pressed-color: var(--_selected-pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_selected-pressed-state-layer-opacity)}.selected:not(:disabled,[aria-disabled=true]){color:var(--_selected-icon-color)}.selected:not(:disabled,[aria-disabled=true]):hover{color:var(--_selected-hover-icon-color)}.selected:not(:disabled,[aria-disabled=true]):focus{color:var(--_selected-focus-icon-color)}.selected:not(:disabled,[aria-disabled=true]):active{color:var(--_selected-pressed-icon-color)}
+const styles$6 = i$6 `:host{--_disabled-icon-color: var(--md-icon-button-disabled-icon-color, var(--md-sys-color-on-surface, #1d1b20));--_disabled-icon-opacity: var(--md-icon-button-disabled-icon-opacity, 0.38);--_icon-size: var(--md-icon-button-icon-size, 24px);--_selected-focus-icon-color: var(--md-icon-button-selected-focus-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-icon-color: var(--md-icon-button-selected-hover-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-color: var(--md-icon-button-selected-hover-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-hover-state-layer-opacity: var(--md-icon-button-selected-hover-state-layer-opacity, 0.08);--_selected-icon-color: var(--md-icon-button-selected-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-icon-color: var(--md-icon-button-selected-pressed-icon-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-state-layer-color: var(--md-icon-button-selected-pressed-state-layer-color, var(--md-sys-color-primary, #6750a4));--_selected-pressed-state-layer-opacity: var(--md-icon-button-selected-pressed-state-layer-opacity, 0.12);--_state-layer-height: var(--md-icon-button-state-layer-height, 40px);--_state-layer-shape: var(--md-icon-button-state-layer-shape, var(--md-sys-shape-corner-full, 9999px));--_state-layer-width: var(--md-icon-button-state-layer-width, 40px);--_focus-icon-color: var(--md-icon-button-focus-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-icon-color: var(--md-icon-button-hover-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-color: var(--md-icon-button-hover-state-layer-color, var(--md-sys-color-on-surface-variant, #49454f));--_hover-state-layer-opacity: var(--md-icon-button-hover-state-layer-opacity, 0.08);--_icon-color: var(--md-icon-button-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-icon-color: var(--md-icon-button-pressed-icon-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-state-layer-color: var(--md-icon-button-pressed-state-layer-color, var(--md-sys-color-on-surface-variant, #49454f));--_pressed-state-layer-opacity: var(--md-icon-button-pressed-state-layer-opacity, 0.12);--_container-shape-start-start: 0;--_container-shape-start-end: 0;--_container-shape-end-end: 0;--_container-shape-end-start: 0;--_container-height: 0;--_container-width: 0;height:var(--_state-layer-height);width:var(--_state-layer-width)}:host([touch-target=wrapper]){margin:max(0px,(48px - var(--_state-layer-height))/2) max(0px,(48px - var(--_state-layer-width))/2)}md-focus-ring{--md-focus-ring-shape-start-start: var(--_state-layer-shape);--md-focus-ring-shape-start-end: var(--_state-layer-shape);--md-focus-ring-shape-end-end: var(--_state-layer-shape);--md-focus-ring-shape-end-start: var(--_state-layer-shape)}.standard{background-color:rgba(0,0,0,0);color:var(--_icon-color);--md-ripple-hover-color: var(--_hover-state-layer-color);--md-ripple-hover-opacity: var(--_hover-state-layer-opacity);--md-ripple-pressed-color: var(--_pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_pressed-state-layer-opacity)}.standard:hover{color:var(--_hover-icon-color)}.standard:focus{color:var(--_focus-icon-color)}.standard:active{color:var(--_pressed-icon-color)}.standard:is(:disabled,[aria-disabled=true]){color:var(--_disabled-icon-color)}md-ripple{border-radius:var(--_state-layer-shape)}.standard:is(:disabled,[aria-disabled=true]){opacity:var(--_disabled-icon-opacity)}.selected{--md-ripple-hover-color: var(--_selected-hover-state-layer-color);--md-ripple-hover-opacity: var(--_selected-hover-state-layer-opacity);--md-ripple-pressed-color: var(--_selected-pressed-state-layer-color);--md-ripple-pressed-opacity: var(--_selected-pressed-state-layer-opacity)}.selected:not(:disabled,[aria-disabled=true]){color:var(--_selected-icon-color)}.selected:not(:disabled,[aria-disabled=true]):hover{color:var(--_selected-hover-icon-color)}.selected:not(:disabled,[aria-disabled=true]):focus{color:var(--_selected-focus-icon-color)}.selected:not(:disabled,[aria-disabled=true]):active{color:var(--_selected-pressed-icon-color)}
 `;
 
 /**
@@ -2801,7 +2782,2117 @@ OscdIconButton.scopedElements = {
     'md-ripple': MdRipple,
     'md-focus-ring': MdFocusRing,
 };
-OscdIconButton.styles = [styles$a, styles$9];
+OscdIconButton.styles = [styles$8, styles$6];
+
+var EditorPluginsPanel_1;
+function loadSet(key) {
+    try {
+        const stored = localStorage.getItem(key);
+        return stored ? new Set(JSON.parse(stored)) : new Set();
+    }
+    catch {
+        return new Set();
+    }
+}
+function saveSet(key, set) {
+    localStorage.setItem(key, JSON.stringify([...set]));
+}
+const PINNED_GROUP_KEY = '__pinned__';
+let EditorPluginsPanel = EditorPluginsPanel_1 = class EditorPluginsPanel extends ScopedElementsMixin(i$3) {
+    constructor() {
+        super(...arguments);
+        this.editors = [];
+        this.editorIndex = 0;
+        this.pinnedPluginKeys = loadSet('editorsPanel.pinnedPlugins');
+        // Tracks whether the active selection was made from the pinned group or elsewhere
+        this.activeFromPinned = false;
+        this.hoveredGroupName = null;
+        this.hoveredRect = null;
+        this.collapsedGroups = loadSet('editorsPanel.collapsedGroups');
+        this.pinnedCollapsed = localStorage.getItem('editorsPanel.pinnedCollapsed') === 'true';
+        this.searchQuery = '';
+        this.showShortcuts = false;
+        this.activeShortcutGroup = null;
+        this.shortcutNumberBuffer = '';
+        this.focusedItem = null;
+        this._shortcutConfirmTimer = null;
+        this.searchInputRef = e();
+        this.editorsListRef = e();
+        this._hoverTimer = null;
+        this.isExpanded = localStorage.getItem('editorsPanel.expanded') !== 'false';
+        this._wasCollapsedForShortcut = false;
+        this._wasCollapsedForSearch = false;
+        this.handleKeyDown = async (e) => {
+            // Don't capture shortcuts while typing in the search input
+            if (e.target?.tagName === 'INPUT' ||
+                e.target?.tagName === 'TEXTAREA') {
+                return;
+            }
+            // Ctrl held down → show all shortcut badges
+            if (e.key === 'Control') {
+                this.showShortcuts = true;
+                this.activeShortcutGroup = null;
+                this.shortcutNumberBuffer = '';
+                return;
+            }
+            // If a group is selected, listen for digit keys without requiring Ctrl
+            if (this.activeShortcutGroup !== null) {
+                if (e.key === 'Escape') {
+                    e.preventDefault();
+                    this.resetShortcuts();
+                    return;
+                }
+                if (e.key >= '0' && e.key <= '9') {
+                    e.preventDefault();
+                    // Leading zero is not valid
+                    if (this.shortcutNumberBuffer === '' && e.key === '0') {
+                        return;
+                    }
+                    this.shortcutNumberBuffer += e.key;
+                    // Restart the confirmation timer
+                    if (this._shortcutConfirmTimer) {
+                        clearTimeout(this._shortcutConfirmTimer);
+                    }
+                    // Auto-confirm after 600ms of no further digits
+                    this._shortcutConfirmTimer = setTimeout(() => {
+                        this.confirmShortcutSelection();
+                    }, 600);
+                    return;
+                }
+                // Enter confirms the current number
+                if (e.key === 'Enter' && this.shortcutNumberBuffer !== '') {
+                    e.preventDefault();
+                    this.confirmShortcutSelection();
+                    return;
+                }
+                // Any other key cancels
+                e.preventDefault();
+                this.resetShortcuts();
+                return;
+            }
+            if (!e.ctrlKey && !e.metaKey) {
+                return;
+            }
+            // Ctrl+F → focus search (expand sidebar if needed)
+            if (e.key === 'f' || e.key === 'F') {
+                e.preventDefault();
+                this.showShortcuts = true;
+                if (!this.expanded) {
+                    this._wasCollapsedForSearch = true;
+                    this.expanded = true;
+                }
+                if (!this.expanded || this._wasCollapsedForSearch) {
+                    await this.updateComplete;
+                }
+                this.searchInputRef.value?.focus();
+                return;
+            }
+            // Ctrl+letter → select group or ungrouped plugin
+            const letter = e.key.toUpperCase();
+            if (letter.length === 1 && letter >= 'A' && letter <= 'Z') {
+                e.preventDefault();
+                const entry = this.shortcutMap.find(s => s.key === letter);
+                if (entry) {
+                    if (entry.type === 'plugin') {
+                        this.selectEditor(this.editors[entry.flatIndex] ??
+                            this.allFlatPlugins.find(f => f.flatIndex === entry.flatIndex)
+                                ?.plugin ??
+                            { name: '', tagName: '' }, entry.flatIndex, false);
+                        this.resetShortcuts();
+                    }
+                    else {
+                        // Group or pinned: enter number-input mode
+                        this.activeShortcutGroup = letter;
+                        this.shortcutNumberBuffer = '';
+                        this.showShortcuts = true;
+                        // Expand sidebar if collapsed so user can see plugin numbers
+                        if (!this.expanded) {
+                            this._wasCollapsedForShortcut = true;
+                            this.expanded = true;
+                        }
+                        // Release Ctrl doesn't dismiss — we're in number-input mode now
+                    }
+                }
+            }
+        };
+        this.handleKeyUp = (e) => {
+            // Only dismiss on Ctrl release if we're NOT in number-input mode
+            if (e.key === 'Control' && this.activeShortcutGroup === null) {
+                this.resetShortcuts();
+            }
+        };
+        this.handleOutsideClick = () => {
+            if (this.activeShortcutGroup !== null || this.showShortcuts) {
+                this.resetShortcuts();
+            }
+        };
+    }
+    get expanded() {
+        return this.isExpanded;
+    }
+    set expanded(value) {
+        const old = this.isExpanded;
+        this.isExpanded = value;
+        localStorage.setItem('editorsPanel.expanded', value.toString());
+        this.requestUpdate('expanded', old);
+        this.dispatchEvent(new CustomEvent('panel-expanded-change', {
+            detail: { expanded: value },
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        if (this._hoverTimer) {
+            clearTimeout(this._hoverTimer);
+            this._hoverTimer = null;
+        }
+        if (this._shortcutConfirmTimer) {
+            clearTimeout(this._shortcutConfirmTimer);
+            this._shortcutConfirmTimer = null;
+        }
+        document.removeEventListener('keydown', this.handleKeyDown);
+        document.removeEventListener('keyup', this.handleKeyUp);
+        this.removeEventListener('click', this.handleOutsideClick);
+    }
+    resetShortcuts() {
+        this.showShortcuts = false;
+        this.activeShortcutGroup = null;
+        this.shortcutNumberBuffer = '';
+        this.focusedItem = null;
+        if (this._shortcutConfirmTimer) {
+            clearTimeout(this._shortcutConfirmTimer);
+            this._shortcutConfirmTimer = null;
+        }
+        if (this._wasCollapsedForShortcut) {
+            this.expanded = false;
+            this._wasCollapsedForShortcut = false;
+        }
+    }
+    collapseAfterSearchIfNeeded() {
+        if (this._wasCollapsedForSearch) {
+            this._wasCollapsedForSearch = false;
+            this.expanded = false;
+        }
+    }
+    confirmShortcutSelection() {
+        if (this.activeShortcutGroup === null || this.shortcutNumberBuffer === '') {
+            this.resetShortcuts();
+            return;
+        }
+        const num = parseInt(this.shortcutNumberBuffer, 10);
+        this.shortcutNumberBuffer = '';
+        if (num < 1) {
+            this.resetShortcuts();
+            return;
+        }
+        const entry = this.shortcutMap.find(s => s.key === this.activeShortcutGroup);
+        if (entry) {
+            if (entry.type === 'pinned') {
+                const pinned = this.pinnedPluginsList;
+                if (num - 1 < pinned.length) {
+                    this.selectEditor(pinned[num - 1].plugin, pinned[num - 1].flatIndex, true);
+                }
+            }
+            else if (entry.type === 'group' && entry.groupName) {
+                const groupPlugins = this.getGroupFlatPlugins(entry.groupName);
+                if (num - 1 < groupPlugins.length) {
+                    this.selectEditor(groupPlugins[num - 1].plugin, groupPlugins[num - 1].flatIndex, false);
+                }
+            }
+        }
+        this.resetShortcuts();
+    }
+    navigatePlugins(direction) {
+        const items = this.visibleNavigableItems;
+        if (items.length === 0) {
+            return;
+        }
+        if (this.focusedItem === null) {
+            this.focusedItem =
+                direction === 'ArrowDown' ? items[0] : items[items.length - 1];
+        }
+        else {
+            const currentPos = items.findIndex(item => this.navigableItemsEqual(item, this.focusedItem));
+            const nextPos = direction === 'ArrowDown'
+                ? (currentPos + 1) % items.length
+                : (currentPos - 1 + items.length) % items.length;
+            this.focusedItem = items[nextPos >= 0 ? nextPos : 0];
+        }
+        this.scrollFocusedIntoView();
+    }
+    confirmFocusedItem() {
+        if (this.focusedItem === null) {
+            return;
+        }
+        if (this.focusedItem.kind === 'plugin') {
+            this.selectEditor(this.focusedItem.plugin, this.focusedItem.flatIndex, false);
+        }
+        else if (this.focusedItem.kind === 'group') {
+            if (this.collapsedGroups.has(this.focusedItem.groupName)) {
+                const groupPlugins = this.getGroupFlatPlugins(this.focusedItem.groupName);
+                this.toggleGroupCollapse(this.focusedItem.groupName);
+                if (groupPlugins.length > 0) {
+                    this.focusedItem = {
+                        kind: 'plugin',
+                        plugin: groupPlugins[0].plugin,
+                        flatIndex: groupPlugins[0].flatIndex,
+                    };
+                    return;
+                }
+            }
+        }
+        else if (this.focusedItem.kind === 'pinned') {
+            this.pinnedCollapsed = false;
+            localStorage.setItem('editorsPanel.pinnedCollapsed', this.pinnedCollapsed.toString());
+            const pinnedPlugins = this.pinnedPluginsList;
+            if (pinnedPlugins.length > 0) {
+                this.focusedItem = {
+                    kind: 'plugin',
+                    plugin: pinnedPlugins[0].plugin,
+                    flatIndex: pinnedPlugins[0].flatIndex,
+                };
+                return;
+            }
+        }
+        this.focusedItem = null;
+    }
+    // eslint-disable-next-line class-methods-use-this
+    navigableItemsEqual(a, b) {
+        if (a === null || b === null) {
+            return a === b;
+        }
+        if (a.kind !== b.kind) {
+            return false;
+        }
+        if (a.kind === 'plugin' && b.kind === 'plugin') {
+            return a.flatIndex === b.flatIndex;
+        }
+        if (a.kind === 'group' && b.kind === 'group') {
+            return a.groupName === b.groupName;
+        }
+        return a.kind === 'pinned' && b.kind === 'pinned';
+    }
+    handleEditorListKeyDown(e) {
+        const items = this.visibleNavigableItems;
+        if (items.length === 0) {
+            return;
+        }
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            e.preventDefault();
+            this.navigatePlugins(e.key);
+            return;
+        }
+        if ((e.key === 'Enter' || e.key === ' ') && this.focusedItem !== null) {
+            e.preventDefault();
+            this.confirmFocusedItem();
+            return;
+        }
+        if (e.key === 'Escape') {
+            this.focusedItem = null;
+        }
+    }
+    scrollFocusedIntoView() {
+        if (this.focusedItem === null) {
+            return;
+        }
+        requestAnimationFrame(() => {
+            const sel = this.focusedItem.kind === 'plugin'
+                ? `.plugin-item[data-flat-index="${this.focusedItem.flatIndex}"]`
+                : this.focusedItem.kind === 'group'
+                    ? `.group-header[data-group-name="${this.focusedItem.groupName}"]`
+                    : '.group-header[data-group-name="__pinned__"]';
+            const el = this.renderRoot?.querySelector(sel);
+            el?.scrollIntoView({ block: 'nearest' });
+        });
+    }
+    connectedCallback() {
+        super.connectedCallback();
+        document.addEventListener('keydown', this.handleKeyDown);
+        document.addEventListener('keyup', this.handleKeyUp);
+        this.addEventListener('click', this.handleOutsideClick);
+    }
+    // eslint-disable-next-line class-methods-use-this
+    pluginKey(plugin) {
+        return `${plugin.name}||${plugin.tagName}`;
+    }
+    get allFlatPlugins() {
+        const result = [];
+        let fi = 0;
+        for (const item of this.editors) {
+            if (isPluginGroup(item)) {
+                for (const p of item.plugins) {
+                    result.push({ plugin: p, flatIndex: fi++ });
+                }
+            }
+            else {
+                result.push({ plugin: item, flatIndex: fi++ });
+            }
+        }
+        return result;
+    }
+    get pinnedPluginsList() {
+        return this.allFlatPlugins.filter(({ plugin }) => this.pinnedPluginKeys.has(this.pluginKey(plugin)));
+    }
+    getGroupFlatPlugins(groupName) {
+        let fi = 0;
+        for (const e of this.editors) {
+            if (isPluginGroup(e)) {
+                const g = e;
+                if (g.name === groupName) {
+                    return g.plugins.map((p, i) => ({ plugin: p, flatIndex: fi + i }));
+                }
+                fi += g.plugins.length;
+            }
+            else {
+                fi++;
+            }
+        }
+        return [];
+    }
+    get visibleNavigableItems() {
+        if (!this.isSearching) {
+            const result = [];
+            if (this.pinnedPluginsList.length > 0 && this.pinnedCollapsed) {
+                result.push({ kind: 'pinned' });
+            }
+            else if (this.pinnedPluginsList.length > 0) {
+                for (const { plugin, flatIndex } of this.pinnedPluginsList) {
+                    result.push({ kind: 'plugin', plugin, flatIndex });
+                }
+            }
+            let fi = 0;
+            for (const item of this.editors) {
+                if (isPluginGroup(item)) {
+                    const g = item;
+                    if (this.collapsedGroups.has(g.name)) {
+                        result.push({ kind: 'group', groupName: g.name });
+                        fi += g.plugins.length;
+                    }
+                    else {
+                        for (const p of g.plugins) {
+                            result.push({ kind: 'plugin', plugin: p, flatIndex: fi++ });
+                        }
+                    }
+                }
+                else {
+                    result.push({
+                        kind: 'plugin',
+                        plugin: item,
+                        flatIndex: fi++,
+                    });
+                }
+            }
+            return result;
+        }
+        const q = this.searchQuery.trim().toLowerCase();
+        const result = [];
+        let fi = 0;
+        for (const item of this.editors) {
+            if (isPluginGroup(item)) {
+                const g = item;
+                const groupMatches = EditorPluginsPanel_1.matchesSearch(this.pluginLabel(g), q);
+                if (groupMatches) {
+                    for (const p of g.plugins) {
+                        result.push({ kind: 'plugin', plugin: p, flatIndex: fi++ });
+                    }
+                }
+                else {
+                    for (const p of g.plugins) {
+                        if (EditorPluginsPanel_1.matchesSearch(this.pluginLabel(p), q)) {
+                            result.push({ kind: 'plugin', plugin: p, flatIndex: fi });
+                        }
+                        fi++;
+                    }
+                }
+            }
+            else {
+                const p = item;
+                if (EditorPluginsPanel_1.matchesSearch(this.pluginLabel(p), q)) {
+                    result.push({ kind: 'plugin', plugin: p, flatIndex: fi });
+                }
+                fi++;
+            }
+        }
+        return result;
+    }
+    togglePluginPin(plugin) {
+        const key = this.pluginKey(plugin);
+        const next = new Set(this.pinnedPluginKeys);
+        if (next.has(key)) {
+            next.delete(key);
+        }
+        else {
+            next.add(key);
+        }
+        this.pinnedPluginKeys = next;
+        saveSet('editorsPanel.pinnedPlugins', next);
+    }
+    toggleExpanded() {
+        this.expanded = !this.expanded;
+    }
+    get hasGroups() {
+        return (this.pinnedPluginsList.length > 0 ||
+            this.editors.some(item => isPluginGroup(item)));
+    }
+    get allSectionsCollapsed() {
+        const pinnedCollapsed = this.pinnedPluginsList.length > 0 ? this.pinnedCollapsed : true;
+        const groups = this.editors.filter(isPluginGroup);
+        const groupsCollapsed = groups.length > 0
+            ? groups.every(g => this.collapsedGroups.has(g.name))
+            : true;
+        const ungroupedCount = this.editors.filter(i => !isPluginGroup(i)).length;
+        return (pinnedCollapsed &&
+            groupsCollapsed &&
+            (groups.length > 0 ||
+                this.pinnedPluginsList.length > 0 ||
+                ungroupedCount === 0));
+    }
+    toggleGroupCollapse(groupName) {
+        const next = new Set(this.collapsedGroups);
+        if (next.has(groupName)) {
+            next.delete(groupName);
+        }
+        else {
+            next.add(groupName);
+        }
+        this.collapsedGroups = next;
+        saveSet('editorsPanel.collapsedGroups', next);
+    }
+    toggleAllGroups() {
+        if (this.allSectionsCollapsed) {
+            this.pinnedCollapsed = false;
+            localStorage.setItem('editorsPanel.pinnedCollapsed', 'false');
+            this.collapsedGroups = new Set();
+            saveSet('editorsPanel.collapsedGroups', new Set());
+        }
+        else {
+            this.pinnedCollapsed = true;
+            localStorage.setItem('editorsPanel.pinnedCollapsed', 'true');
+            const all = new Set();
+            for (const item of this.editors) {
+                if (isPluginGroup(item)) {
+                    all.add(item.name);
+                }
+            }
+            this.collapsedGroups = all;
+            saveSet('editorsPanel.collapsedGroups', all);
+        }
+    }
+    clearSearch() {
+        this.searchQuery = '';
+        this.searchInputRef.value?.focus();
+    }
+    get shortcutMap() {
+        const entries = [];
+        let letterIndex = 0;
+        const pinnedPlugins = this.pinnedPluginsList;
+        if (pinnedPlugins.length > 0) {
+            // Skip 'F' — reserved for search
+            if (letterIndex === 5) {
+                letterIndex++;
+            }
+            entries.push({
+                key: String.fromCharCode(65 + letterIndex),
+                type: 'pinned',
+                flatIndex: pinnedPlugins[0].flatIndex,
+                groupName: '__pinned__',
+            });
+            letterIndex++;
+        }
+        let flatIndex = 0;
+        for (const item of this.editors) {
+            if (isPluginGroup(item)) {
+                const g = item;
+                if (letterIndex < 26) {
+                    if (letterIndex === 5) {
+                        letterIndex++;
+                    } // Skip 'F'
+                    entries.push({
+                        key: String.fromCharCode(65 + letterIndex),
+                        type: 'group',
+                        flatIndex,
+                        groupName: g.name,
+                    });
+                    letterIndex++;
+                }
+                flatIndex += g.plugins.length;
+            }
+            else {
+                if (letterIndex < 26) {
+                    if (letterIndex === 5) {
+                        letterIndex++;
+                    } // Skip 'F'
+                    entries.push({
+                        key: String.fromCharCode(65 + letterIndex),
+                        type: 'plugin',
+                        flatIndex,
+                    });
+                    letterIndex++;
+                }
+                flatIndex++;
+            }
+        }
+        return entries;
+    }
+    static renderShortcutBadge(label) {
+        return x `<span class="shortcut-badge">${label}</span>`;
+    }
+    static levenshteinAtMost1(a, b) {
+        if (Math.abs(a.length - b.length) > 1) {
+            return false;
+        }
+        if (a === b) {
+            return true;
+        }
+        const la = a.length;
+        const lb = b.length;
+        if (la === 0) {
+            return lb <= 1;
+        }
+        if (lb === 0) {
+            return la <= 1;
+        }
+        const row = new Array(la + 1);
+        for (let i = 0; i <= la; i++) {
+            row[i] = i;
+        }
+        for (let j = 1; j <= lb; j++) {
+            let prev = row[0];
+            row[0] = j;
+            let rowMin = j;
+            for (let i = 1; i <= la; i++) {
+                const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+                const val = Math.min(prev + cost, row[i] + 1, row[i - 1] + 1);
+                prev = row[i];
+                row[i] = val;
+                if (val < rowMin) {
+                    rowMin = val;
+                }
+            }
+            if (rowMin > 1) {
+                return false;
+            }
+        }
+        return row[la] <= 1;
+    }
+    static matchesSearch(text, query) {
+        const lower = text.toLowerCase();
+        if (lower.includes(query)) {
+            return true;
+        }
+        const matchLengths = [query.length, query.length + 1];
+        const tokens = lower.split(/[\s\-_/]+/);
+        for (const token of tokens) {
+            if (token.length === 0) {
+                continue;
+            }
+            if (EditorPluginsPanel_1.levenshteinAtMost1(query, token)) {
+                return true;
+            }
+            for (let i = 0; i <= token.length - query.length + 1; i++) {
+                for (const len of matchLengths) {
+                    if (i + len > token.length) {
+                        continue;
+                    }
+                    const sub = token.substring(i, i + len);
+                    if (EditorPluginsPanel_1.levenshteinAtMost1(query, sub)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    get filteredEditors() {
+        const q = this.searchQuery.trim().toLowerCase();
+        if (!q) {
+            return this.editors;
+        }
+        return this.editors.filter(item => {
+            if (isPluginGroup(item)) {
+                const g = item;
+                if (EditorPluginsPanel_1.matchesSearch(this.pluginLabel(g), q)) {
+                    return true;
+                }
+                return g.plugins.some(p => EditorPluginsPanel_1.matchesSearch(this.pluginLabel(p), q));
+            }
+            return EditorPluginsPanel_1.matchesSearch(this.pluginLabel(item), q);
+        });
+    }
+    get isSearching() {
+        return this.searchQuery.trim().length > 0;
+    }
+    showPopup(groupName, el) {
+        if (this._hoverTimer) {
+            clearTimeout(this._hoverTimer);
+            this._hoverTimer = null;
+        }
+        this.hoveredGroupName = groupName;
+        this.hoveredRect = el.getBoundingClientRect();
+    }
+    scheduleHidePopup() {
+        this._hoverTimer = setTimeout(() => {
+            this.hoveredGroupName = null;
+            this.hoveredRect = null;
+            this._hoverTimer = null;
+        }, 120);
+    }
+    cancelHidePopup() {
+        if (this._hoverTimer) {
+            clearTimeout(this._hoverTimer);
+            this._hoverTimer = null;
+        }
+    }
+    pluginLabel(plugin) {
+        return plugin.translations?.[this.locale] ?? plugin.name;
+    }
+    selectEditor(editor, index, fromPinned = false) {
+        this.activeFromPinned = fromPinned;
+        this.searchQuery = '';
+        this.focusedItem = null;
+        this.collapseAfterSearchIfNeeded();
+        this.dispatchEvent(new CustomEvent('editor-select', {
+            detail: { editor, index },
+            bubbles: true,
+            composed: true,
+        }));
+    }
+    // eslint-disable-next-line class-methods-use-this
+    renderPluginIcon(plugin, extraClass = '') {
+        if (plugin.icon) {
+            return x `<oscd-icon class="item-icon ${extraClass}"
+        >${plugin.icon}</oscd-icon
+      >`;
+        }
+        const letter = (plugin.name || '?')[0].toUpperCase();
+        return x `<span class="item-icon plugin-letter-icon ${extraClass}"
+      >${letter}</span
+    >`;
+    }
+    renderPluginItem(plugin, flatIndex, opts = {}) {
+        const isActive = this.editorIndex === flatIndex;
+        const tooltip = !this.expanded ? this.pluginLabel(plugin) : undefined;
+        const isPinned = this.pinnedPluginKeys.has(this.pluginKey(plugin));
+        let shortcutBadge = E;
+        let shortcutHighlight = false;
+        if (this.activeShortcutGroup !== null) {
+            // Level 2: only show badges within the selected group
+            const groupEntry = this.shortcutMap.find(s => s.key === this.activeShortcutGroup);
+            if (groupEntry) {
+                if ((groupEntry.type === 'pinned' && opts.inPinnedGroup) ||
+                    (groupEntry.type === 'group' && opts.inGroup && groupEntry.groupName)) {
+                    let itemList;
+                    if (groupEntry.type === 'pinned') {
+                        itemList = this.pinnedPluginsList;
+                    }
+                    else if (groupEntry.groupName) {
+                        itemList = this.getGroupFlatPlugins(groupEntry.groupName);
+                    }
+                    else {
+                        itemList = [];
+                    }
+                    const idx = itemList.findIndex(f => f.flatIndex === flatIndex);
+                    if (idx >= 0) {
+                        shortcutBadge = EditorPluginsPanel_1.renderShortcutBadge(String(idx + 1));
+                        if (this.shortcutNumberBuffer !== '' &&
+                            String(idx + 1).startsWith(this.shortcutNumberBuffer)) {
+                            shortcutHighlight = true;
+                        }
+                    }
+                }
+            }
+        }
+        else if (this.showShortcuts) {
+            // Level 1: Ctrl held, show letters on top-level items only
+            if (!opts.inGroup && !opts.inPinnedGroup) {
+                const entry = this.shortcutMap.find(s => s.type === 'plugin' && s.flatIndex === flatIndex);
+                if (entry) {
+                    shortcutBadge = EditorPluginsPanel_1.renderShortcutBadge(entry.key);
+                }
+            }
+            // Numbers inside groups are NOT shown at level 1 — only after selecting a group
+        }
+        const isFocused = this.focusedItem?.kind === 'plugin' &&
+            this.focusedItem.flatIndex === flatIndex;
+        return x `
+      <div
+        class=${e$1({
+            'plugin-item': true,
+            'plugin-item--active': isActive,
+            'plugin-item--focused': isFocused,
+            'plugin-item--in-group': !!opts.inGroup,
+            'plugin-item--shortcut-target': shortcutHighlight,
+        })}
+        data-flat-index=${flatIndex}
+        role="button"
+        tabindex="0"
+        title=${o$3(tooltip)}
+        @click=${() => this.selectEditor(plugin, flatIndex, !!opts.inPinnedGroup)}
+        @keydown=${(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                this.selectEditor(plugin, flatIndex, !!opts.inPinnedGroup);
+            }
+        }}
+      >
+        <span class="shortcut-badge-container"
+          >${this.renderPluginIcon(plugin)}${shortcutBadge}</span
+        >
+        ${this.expanded
+            ? x `
+              <span class="plugin-item-label">${this.pluginLabel(plugin)}</span>
+              <button
+                class=${e$1({
+                'plugin-pin-btn': true,
+                'plugin-pin-btn--active': isPinned,
+            })}
+                title=${isPinned ? msg('Unpin plugin') : msg('Pin plugin')}
+                @click=${(e) => {
+                e.stopPropagation();
+                this.togglePluginPin(plugin);
+            }}
+              >
+                <oscd-icon ?filled=${isPinned}>push_pin</oscd-icon>
+              </button>
+            `
+            : E}
+      </div>
+    `;
+    }
+    renderPinnedGroup(flatPlugins) {
+        // Only highlight this group when the user selected from within it
+        const hasActiveChild = this.activeFromPinned &&
+            flatPlugins.some(({ flatIndex }) => flatIndex === this.editorIndex);
+        const isPinnedInShortcutGroup = this.activeShortcutGroup !== null &&
+            this.shortcutMap.find(s => s.key === this.activeShortcutGroup)?.type ===
+                'pinned';
+        const isCollapsed = !this.isSearching && this.pinnedCollapsed && !isPinnedInShortcutGroup;
+        const pinnedShortcut = this.showShortcuts && this.activeShortcutGroup === null
+            ? this.shortcutMap.find(s => s.type === 'pinned')
+            : this.activeShortcutGroup !== null
+                ? this.shortcutMap.find(s => s.key === this.activeShortcutGroup && s.type === 'pinned')
+                : undefined;
+        if (this.expanded) {
+            return x `
+        <div
+          class=${e$1({
+                'group-container': true,
+                'group-container--inactive': !hasActiveChild,
+                'group-container--collapsed': isCollapsed,
+            })}
+        >
+          <div
+            class=${e$1({
+                'group-header': true,
+                'group-active': hasActiveChild,
+                'group-header--clickable': true,
+                'group-header--focused': this.focusedItem?.kind === 'pinned',
+            })}
+            data-group-name="__pinned__"
+            role="button"
+            tabindex="0"
+            @click=${() => {
+                this.pinnedCollapsed = !this.pinnedCollapsed;
+                localStorage.setItem('editorsPanel.pinnedCollapsed', this.pinnedCollapsed.toString());
+            }}
+            @keydown=${(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    this.pinnedCollapsed = !this.pinnedCollapsed;
+                    localStorage.setItem('editorsPanel.pinnedCollapsed', this.pinnedCollapsed.toString());
+                }
+            }}
+          >
+            <span class="shortcut-badge-container"
+              ><oscd-icon class="group-header-icon">push_pin</oscd-icon
+              >${pinnedShortcut
+                ? EditorPluginsPanel_1.renderShortcutBadge(pinnedShortcut.key)
+                : E}</span
+            >
+            <span class="group-name">${msg('Pinned')}</span>
+            <oscd-icon class="group-collapse-chevron"
+              >${isCollapsed ? 'expand_more' : 'expand_less'}</oscd-icon
+            >
+          </div>
+          ${isCollapsed
+                ? E
+                : x `
+                <div class="group-divider"></div>
+                ${flatPlugins.map(({ plugin, flatIndex }, i) => this.renderPluginItem(plugin, flatIndex, {
+                    inGroup: true,
+                    inPinnedGroup: true,
+                    groupPosition: i,
+                }))}
+              `}
+        </div>
+      `;
+        }
+        const isHovered = this.hoveredGroupName === PINNED_GROUP_KEY;
+        const activeChildIndex = hasActiveChild
+            ? flatPlugins.findIndex(({ flatIndex }) => flatIndex === this.editorIndex)
+            : -1;
+        return x `
+      <div
+        class=${e$1({
+            'group-container': true,
+            'group-container--inactive': !hasActiveChild,
+            'group-container--collapsed-active': hasActiveChild,
+            'group-container--hovered': isHovered,
+        })}
+        @mouseenter=${(e) => this.showPopup(PINNED_GROUP_KEY, e.currentTarget)}
+        @mouseleave=${() => this.scheduleHidePopup()}
+      >
+        <div
+          class=${e$1({
+            'group-header-narrow': true,
+            'group-active': hasActiveChild,
+        })}
+        >
+          <span class="shortcut-badge-container"
+            ><oscd-icon class="group-header-icon">push_pin</oscd-icon
+            >${pinnedShortcut
+            ? EditorPluginsPanel_1.renderShortcutBadge(pinnedShortcut.key)
+            : E}</span
+          >
+        </div>
+        ${activeChildIndex >= 0
+            ? this.renderPluginItem(flatPlugins[activeChildIndex].plugin, flatPlugins[activeChildIndex].flatIndex, {
+                inGroup: true,
+                inPinnedGroup: true,
+                groupPosition: activeChildIndex,
+            })
+            : E}
+      </div>
+    `;
+    }
+    renderGroup(group, flatStart, searchFilter) {
+        const label = this.pluginLabel(group);
+        const hasActiveChild = !this.activeFromPinned &&
+            group.plugins.some((_, i) => flatStart + i === this.editorIndex);
+        const groupShortcut = this.showShortcuts && this.activeShortcutGroup === null
+            ? this.shortcutMap.find(s => s.groupName === group.name)
+            : this.activeShortcutGroup !== null
+                ? this.shortcutMap.find(s => s.key === this.activeShortcutGroup &&
+                    s.groupName === group.name)
+                : undefined;
+        if (this.expanded) {
+            const isInShortcutGroup = this.activeShortcutGroup !== null &&
+                this.shortcutMap.find(s => s.key === this.activeShortcutGroup)
+                    ?.groupName === group.name;
+            const isCollapsed = !this.isSearching &&
+                this.collapsedGroups.has(group.name) &&
+                !isInShortcutGroup;
+            return x `
+        <div
+          class=${e$1({
+                'group-container': true,
+                'group-container--inactive': !hasActiveChild,
+                'group-container--collapsed': isCollapsed,
+            })}
+        >
+          <div
+            class=${e$1({
+                'group-header': true,
+                'group-active': hasActiveChild,
+                'group-header--clickable': true,
+                'group-header--focused': this.focusedItem?.kind === 'group' &&
+                    this.focusedItem.groupName === group.name,
+            })}
+            data-group-name=${group.name}
+            role="button"
+            tabindex="0"
+            @click=${() => this.toggleGroupCollapse(group.name)}
+            @keydown=${(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    this.toggleGroupCollapse(group.name);
+                }
+            }}
+          >
+            <span class="shortcut-badge-container"
+              ><oscd-icon class="group-header-icon">${group.icon}</oscd-icon
+              >${groupShortcut
+                ? EditorPluginsPanel_1.renderShortcutBadge(groupShortcut.key)
+                : E}</span
+            >
+            <span class="group-name">${label}</span>
+            <oscd-icon class="group-collapse-chevron"
+              >${isCollapsed ? 'expand_more' : 'expand_less'}</oscd-icon
+            >
+          </div>
+          ${isCollapsed
+                ? E
+                : x `
+                <div class="group-divider"></div>
+                ${group.plugins
+                    .filter((_, i) => searchFilter
+                    ? EditorPluginsPanel_1.matchesSearch(this.pluginLabel(group.plugins[i]), searchFilter)
+                    : true)
+                    .map((plugin, filteredIdx) => {
+                    const originalIndex = searchFilter
+                        ? group.plugins.indexOf(plugin)
+                        : filteredIdx;
+                    return this.renderPluginItem(plugin, flatStart + originalIndex, {
+                        inGroup: true,
+                        groupPosition: originalIndex,
+                    });
+                })}
+              `}
+        </div>
+      `;
+        }
+        // Collapsed: group icon only. Hover → popup. Click → expand sidebar.
+        // When a child plugin is active, also show it below the group icon.
+        const isHovered = this.hoveredGroupName === group.name;
+        const activeChildIndex = hasActiveChild
+            ? group.plugins.findIndex((_, i) => flatStart + i === this.editorIndex)
+            : -1;
+        return x `
+      <div
+        class=${e$1({
+            'group-container': true,
+            'group-container--inactive': !hasActiveChild,
+            'group-container--collapsed-active': hasActiveChild,
+            'group-container--hovered': isHovered,
+        })}
+        @mouseenter=${(e) => this.showPopup(group.name, e.currentTarget)}
+        @mouseleave=${() => this.scheduleHidePopup()}
+      >
+        <div
+          class=${e$1({
+            'group-header-narrow': true,
+            'group-active': hasActiveChild,
+        })}
+          role="button"
+          tabindex="0"
+          title=${label}
+          @click=${() => {
+            this.expanded = true;
+        }}
+          @keydown=${(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                this.expanded = true;
+            }
+        }}
+        >
+          <span class="shortcut-badge-container"
+            ><oscd-icon class="group-header-icon">${group.icon}</oscd-icon
+            >${groupShortcut
+            ? EditorPluginsPanel_1.renderShortcutBadge(groupShortcut.key)
+            : E}</span
+          >
+        </div>
+        ${activeChildIndex >= 0
+            ? this.renderPluginItem(group.plugins[activeChildIndex], flatStart + activeChildIndex, { inGroup: true, groupPosition: activeChildIndex })
+            : E}
+      </div>
+    `;
+    }
+    renderHoverPopup() {
+        if (this.expanded || !this.hoveredGroupName || !this.hoveredRect) {
+            return E;
+        }
+        const rect = this.hoveredRect;
+        let groupLabel;
+        let groupIcon;
+        let plugins;
+        if (this.hoveredGroupName === PINNED_GROUP_KEY) {
+            groupLabel = msg('Pinned');
+            groupIcon = 'push_pin';
+            plugins = this.pinnedPluginsList;
+        }
+        else {
+            const group = this.editors.find(e => isPluginGroup(e) &&
+                e.name === this.hoveredGroupName);
+            if (!group) {
+                return E;
+            }
+            groupLabel = this.pluginLabel(group);
+            groupIcon = group.icon;
+            plugins = this.getGroupFlatPlugins(group.name);
+        }
+        return x `
+      <div
+        class="hover-popup"
+        style=${o$2({ top: `${rect.top}px`, left: `${rect.right}px` })}
+        @mouseenter=${() => this.cancelHidePopup()}
+        @mouseleave=${() => this.scheduleHidePopup()}
+      >
+        <div class="hover-popup-header">
+          <oscd-icon class="hover-popup-group-icon">${groupIcon}</oscd-icon>
+          <span class="hover-popup-group-name">${groupLabel}</span>
+        </div>
+        <div class="group-divider"></div>
+        ${plugins.map(({ plugin, flatIndex }) => {
+            const fromPinnedPopup = this.hoveredGroupName === PINNED_GROUP_KEY;
+            const isActive = this.editorIndex === flatIndex;
+            return x `
+            <button
+              class=${e$1({
+                'hover-popup-item': true,
+                'hover-popup-item--active': isActive,
+            })}
+              @click=${() => {
+                this.selectEditor(plugin, flatIndex, fromPinnedPopup);
+                this.hoveredGroupName = null;
+                this.hoveredRect = null;
+            }}
+            >
+              ${plugin.icon
+                ? x `<oscd-icon class="hover-popup-item-icon"
+                    >${plugin.icon}</oscd-icon
+                  >`
+                : x `<span class="hover-popup-letter-icon"
+                    >${(plugin.name || '?')[0].toUpperCase()}</span
+                  >`}
+              <span class="hover-popup-item-label"
+                >${this.pluginLabel(plugin)}</span
+              >
+            </button>
+          `;
+        })}
+      </div>
+    `;
+    }
+    render() {
+        let flatIndex = 0;
+        const items = this.editors.map(item => {
+            if (isPluginGroup(item)) {
+                const flatStart = flatIndex;
+                flatIndex += item.plugins.length;
+                return this.renderGroup(item, flatStart);
+            }
+            const result = this.renderPluginItem(item, flatIndex);
+            flatIndex++;
+            return result;
+        });
+        const filteredItems = [];
+        if (this.isSearching) {
+            const q = this.searchQuery.trim().toLowerCase();
+            let idx = 0;
+            for (const item of this.editors) {
+                if (isPluginGroup(item)) {
+                    const g = item;
+                    const groupMatches = EditorPluginsPanel_1.matchesSearch(this.pluginLabel(g), q);
+                    const flatStart = idx;
+                    if (groupMatches) {
+                        filteredItems.push(this.renderGroup(g, flatStart));
+                    }
+                    else {
+                        const matchingPlugins = g.plugins.filter(p => EditorPluginsPanel_1.matchesSearch(this.pluginLabel(p), q));
+                        if (matchingPlugins.length > 0) {
+                            filteredItems.push(this.renderGroup(g, flatStart, q));
+                        }
+                    }
+                    idx += g.plugins.length;
+                }
+                else {
+                    const p = item;
+                    if (EditorPluginsPanel_1.matchesSearch(this.pluginLabel(p), q)) {
+                        filteredItems.push(this.renderPluginItem(p, idx));
+                    }
+                    idx++;
+                }
+            }
+        }
+        const pinnedPlugins = this.pinnedPluginsList;
+        return x `
+      ${this.expanded
+            ? x `
+            <div class="panel-toolbar">
+              <div class="search-row">
+                <span class="shortcut-badge-container"
+                  ><oscd-icon class="search-icon">search</oscd-icon>${this
+                .showShortcuts && this.activeShortcutGroup === null
+                ? EditorPluginsPanel_1.renderShortcutBadge('F')
+                : E}</span
+                >
+                <input
+                  ${n(this.searchInputRef)}
+                  class="search-input"
+                  type="text"
+                  placeholder=${msg('Search plugins…')}
+                  .value=${this.searchQuery}
+                  @input=${(e) => {
+                this.searchQuery = e.target.value;
+                this.focusedItem = null;
+            }}
+                  @keydown=${(e) => {
+                if (e.key === 'Escape') {
+                    this.searchQuery = '';
+                    this.focusedItem = null;
+                    this.collapseAfterSearchIfNeeded();
+                    e.target.blur();
+                }
+                else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    this.navigatePlugins(e.key);
+                }
+                else if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    if (this.focusedItem !== null) {
+                        this.confirmFocusedItem();
+                    }
+                    else if (this.isSearching) {
+                        const items = this.visibleNavigableItems;
+                        if (items.length === 1) {
+                            const item = items[0];
+                            if (item.kind === 'plugin') {
+                                this.selectEditor(item.plugin, item.flatIndex, false);
+                            }
+                        }
+                        else if (items.length > 1) {
+                            this.focusedItem = items[0];
+                            this.scrollFocusedIntoView();
+                        }
+                    }
+                }
+            }}
+                />
+                ${this.isSearching
+                ? x `<button
+                      class="search-clear"
+                      title=${msg('Clear search')}
+                      @click=${() => this.clearSearch()}
+                    >
+                      <oscd-icon>close</oscd-icon>
+                    </button>`
+                : E}
+              </div>
+              ${this.hasGroups
+                ? x `
+                    <button
+                      class="collapse-all-btn"
+                      title=${this.allSectionsCollapsed
+                    ? msg('Expand all')
+                    : msg('Collapse all')}
+                      @click=${() => this.toggleAllGroups()}
+                    >
+                      <oscd-icon class="collapse-all-icon"
+                        >${this.allSectionsCollapsed
+                    ? 'unfold_more'
+                    : 'unfold_less'}</oscd-icon
+                      >
+                    </button>
+                  `
+                : E}
+            </div>
+          `
+            : E}
+      <div
+        class="editors-list"
+        role="tablist"
+        tabindex="0"
+        ${n(this.editorsListRef)}
+        @keydown=${(e) => this.handleEditorListKeyDown(e)}
+      >
+        ${pinnedPlugins.length > 0 && !this.isSearching
+            ? this.renderPinnedGroup(pinnedPlugins)
+            : E}
+        ${this.isSearching ? filteredItems : items}
+      </div>
+      <div class="list-end-spacer"></div>
+      <div class="footer">
+        <oscd-icon-button
+          class="toggle-button"
+          title=${!this.expanded ? msg('Expand sidebar') : ''}
+          @click=${() => this.toggleExpanded()}
+        >
+          <oscd-icon
+            >${this.expanded
+            ? 'left_panel_close'
+            : 'left_panel_open'}</oscd-icon
+          >
+        </oscd-icon-button>
+        ${this.expanded
+            ? x `<span
+              class="toggle-sidebar"
+              role="button"
+              tabindex="0"
+              @click=${() => this.toggleExpanded()}
+              @keydown=${(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    this.toggleExpanded();
+                }
+            }}
+              >${msg('Collapse sidebar')}</span
+            >`
+            : E}
+      </div>
+      ${this.renderHoverPopup()}
+    `;
+    }
+};
+EditorPluginsPanel.scopedElements = {
+    'oscd-icon': OscdIcon,
+    'oscd-icon-button': OscdIconButton,
+};
+EditorPluginsPanel.styles = i$6 `
+    :host {
+      width: var(--editor-plugins-panel-collapsed-width);
+      height: calc(100% - var(--editor-plugins-panel-padding-top));
+      display: flex;
+      flex-direction: column;
+      padding-top: var(--editor-plugins-panel-padding-top);
+      transition: width 0.2s ease-in-out;
+      /* overlay scrollbar floats above content — no layout shift on appear/disappear */
+      overflow-y: overlay;
+      overflow-x: hidden;
+      scrollbar-width: thin;
+      scrollbar-color: color-mix(
+          in srgb,
+          var(--editor-plugins-panel-item-icon-color) 15%,
+          transparent
+        )
+        transparent;
+    }
+
+    :host([expanded]) {
+      width: var(--editor-plugins-panel-width);
+    }
+
+    :host::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    :host::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    :host::-webkit-scrollbar-thumb {
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 15%,
+        transparent
+      );
+      border-radius: 2px;
+    }
+
+    :host:hover::-webkit-scrollbar-thumb {
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 45%,
+        transparent
+      );
+    }
+
+    /* ── Toolbar ── */
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px 4px;
+      flex-shrink: 0;
+    }
+
+    :host(:not([expanded])) .toolbar {
+      justify-content: center;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .sidebar-pin-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      border: 1.5px solid
+        color-mix(
+          in srgb,
+          var(--editor-plugins-panel-item-icon-color) 40%,
+          transparent
+        );
+      background: transparent;
+      color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 55%,
+        transparent
+      );
+      cursor: pointer;
+      padding: 0;
+      transition:
+        border-color 0.15s ease,
+        background-color 0.15s ease,
+        color 0.15s ease;
+      --md-icon-size: 15px;
+      --md-icon-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 55%,
+        transparent
+      );
+    }
+
+    .sidebar-pin-btn:hover {
+      border-color: var(--editor-plugins-panel-item-icon-color);
+      color: var(--editor-plugins-panel-item-icon-color);
+      --md-icon-color: var(--editor-plugins-panel-item-icon-color);
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 12%,
+        transparent
+      );
+    }
+
+    .sidebar-pin-btn--active {
+      border-color: var(--editor-plugins-panel-group-active-bg);
+      color: var(--editor-plugins-panel-group-active-bg);
+      --md-icon-color: var(--editor-plugins-panel-group-active-bg);
+    }
+
+    .sidebar-pin-btn--active:hover {
+      border-color: var(--editor-plugins-panel-group-active-bg);
+      color: var(--editor-plugins-panel-group-active-bg);
+      --md-icon-color: var(--editor-plugins-panel-group-active-bg);
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-group-active-bg) 12%,
+        transparent
+      );
+    }
+
+    .toolbar-label {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-family: var(--oscd-text-font, Roboto);
+      font-size: 13px;
+      color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-text-color) 70%,
+        transparent
+      );
+    }
+
+    /* ── Plugin list container ── */
+
+    .editors-list {
+      flex: 1 0 auto;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* ── Individual plugin items ── */
+
+    .plugin-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 6px var(--editor-plugins-panel-item-trailing-space) 6px
+        var(--editor-plugins-panel-item-leading-space);
+      cursor: pointer;
+      color: var(--editor-plugins-panel-item-text-color);
+      border-radius: 4px;
+      box-sizing: border-box;
+      width: 100%;
+      outline: none;
+      transition: background-color 0.12s ease;
+    }
+
+    :host(:not([expanded])) .plugin-item {
+      justify-content: center;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .plugin-item:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 10%,
+        transparent
+      );
+    }
+
+    .plugin-item:focus-visible {
+      outline: 2px solid var(--editor-plugins-panel-item-icon-color);
+      outline-offset: -2px;
+    }
+
+    .plugin-item--active {
+      background-color: var(--editor-plugins-panel-item-active-bg);
+    }
+
+    .plugin-item--active:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-active-bg) 85%,
+        white
+      );
+    }
+
+    .plugin-item--focused {
+      outline: 2px solid var(--editor-plugins-panel-item-icon-color);
+      outline-offset: -2px;
+    }
+
+    /* Indent children in expanded groups */
+    :host([expanded]) .plugin-item--in-group {
+      padding-left: calc(var(--editor-plugins-panel-item-leading-space) + 14px);
+    }
+
+    .plugin-item--shortcut-target {
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 18%,
+        transparent
+      );
+    }
+
+    /* Active item inside a group container: subtle overlay */
+    .group-container .plugin-item--active {
+      background-color: color-mix(in srgb, white 22%, transparent);
+      border-radius: 7px;
+      margin: 0 3px;
+    }
+
+    :host(:not([expanded])) .group-container .plugin-item--active {
+      margin: 0;
+      border-radius: 4px;
+    }
+
+    /* ── Item icon ── */
+
+    .item-icon {
+      --md-icon-size: var(--editor-plugins-panel-item-icon-size);
+      color: var(--editor-plugins-panel-item-icon-color);
+      flex-shrink: 0;
+    }
+
+    /* ── Plugin letter icon fallback ── */
+
+    .plugin-letter-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--editor-plugins-panel-item-icon-size);
+      height: var(--editor-plugins-panel-item-icon-size);
+      border-radius: 5px;
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 30%,
+        transparent
+      );
+      color: var(--editor-plugins-panel-item-icon-color);
+      font-size: calc(var(--editor-plugins-panel-item-icon-size) * 0.55);
+      font-weight: 600;
+      font-family: var(--oscd-text-font, Roboto);
+      flex-shrink: 0;
+    }
+
+    /* ── Plugin item label ── */
+
+    .plugin-item-label {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-family: var(--oscd-text-font, Roboto);
+      font-size: 16px;
+    }
+
+    /* ── Per-plugin pin button ── */
+
+    .plugin-pin-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+      opacity: 0;
+      transition:
+        opacity 0.15s ease,
+        background-color 0.15s ease;
+      --md-icon-size: 14px;
+      color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 60%,
+        transparent
+      );
+      --md-icon-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 60%,
+        transparent
+      );
+    }
+
+    .plugin-item:hover .plugin-pin-btn,
+    .plugin-pin-btn--active {
+      opacity: 1;
+    }
+
+    .plugin-pin-btn:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 15%,
+        transparent
+      );
+      color: var(--editor-plugins-panel-item-icon-color);
+      --md-icon-color: var(--editor-plugins-panel-item-icon-color);
+    }
+
+    .plugin-pin-btn--active {
+      color: var(--editor-plugins-panel-group-active-bg);
+      --md-icon-color: var(--editor-plugins-panel-group-active-bg);
+    }
+
+    oscd-icon[filled] {
+      font-variation-settings: 'FILL' 1;
+    }
+
+    /* ── Group container ── */
+
+    .group-container {
+      margin: 3px 6px;
+      border-radius: 10px;
+      overflow-x: hidden;
+      background: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-group-active-bg) 55%,
+        transparent
+      );
+      transition:
+        margin 0.2s ease,
+        background 0.2s ease;
+    }
+
+    .group-container--inactive {
+      margin: 1px 6px;
+      background: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-group-active-bg) 28%,
+        transparent
+      );
+    }
+
+    .group-container--collapsed {
+      margin: 1px 6px;
+    }
+
+    .group-container--collapsed .group-header {
+      border-radius: 8px;
+    }
+
+    .group-container--collapsed-active {
+      margin: 1px 4px;
+      background: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-group-active-bg) 55%,
+        transparent
+      );
+      border-radius: 10px;
+      overflow-x: hidden;
+    }
+
+    /* Highlight the group container when its hover popup is open */
+    .group-container--hovered {
+      background: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-group-active-bg) 50%,
+        transparent
+      );
+    }
+
+    :host(:not([expanded])) .group-container {
+      margin: 1px 4px;
+    }
+
+    /* ── Group header (expanded sidebar) ── */
+
+    .group-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+      padding: 10px var(--editor-plugins-panel-item-trailing-space) 10px
+        var(--editor-plugins-panel-item-leading-space);
+      border-radius: 8px 8px 0 0;
+      color: var(--editor-plugins-panel-item-text-color);
+    }
+
+    .group-header .group-header-icon {
+      --md-icon-size: var(--editor-plugins-panel-item-icon-size);
+      color: var(--editor-plugins-panel-item-icon-color);
+      flex-shrink: 0;
+    }
+
+    .shortcut-badge-container {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .shortcut-badge {
+      position: absolute;
+      top: -4px;
+      right: -6px;
+      min-width: 14px;
+      height: 14px;
+      line-height: 14px;
+      padding: 0 3px;
+      border-radius: 4px;
+      background-color: var(--oscd-secondary, #2485e5);
+      color: var(--oscd-base3, #fff);
+      font-family: var(--oscd-text-font, Roboto);
+      font-size: 10px;
+      font-weight: 600;
+      text-align: center;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .group-active {
+      background-color: var(--editor-plugins-panel-group-active-bg);
+    }
+
+    .group-name {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-family: var(--oscd-text-font, Roboto);
+      font-size: var(--md-list-item-label-text-size, 16px);
+    }
+
+    .group-header--clickable {
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.12s ease;
+    }
+
+    .group-header--clickable:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 8%,
+        transparent
+      );
+    }
+
+    .group-header--focused {
+      outline: 2px solid var(--editor-plugins-panel-item-icon-color);
+      outline-offset: -2px;
+    }
+
+    .group-collapse-chevron {
+      --md-icon-size: 20px;
+      color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 55%,
+        transparent
+      );
+      flex-shrink: 0;
+      margin-left: auto;
+    }
+
+    /* ── Panel toolbar (search + collapse-all) ── */
+
+    .panel-toolbar {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 6px;
+      flex-shrink: 0;
+      margin-top: calc(var(--editor-plugins-panel-padding-top) * -0.6);
+    }
+
+    .search-row {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 8px;
+      background: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 10%,
+        transparent
+      );
+    }
+
+    .search-icon {
+      --md-icon-size: 18px;
+      color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 50%,
+        transparent
+      );
+      flex-shrink: 0;
+    }
+
+    .search-input {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: var(--editor-plugins-panel-item-text-color);
+      font-family: var(--oscd-text-font, Roboto);
+      font-size: 14px;
+      padding: 2px 0;
+    }
+
+    .search-input::placeholder {
+      color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 40%,
+        transparent
+      );
+    }
+
+    .search-clear {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 22px;
+      height: 22px;
+      border: none;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+      color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 55%,
+        transparent
+      );
+      --md-icon-size: 16px;
+      transition:
+        background-color 0.12s ease,
+        color 0.12s ease;
+    }
+
+    .search-clear:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 15%,
+        transparent
+      );
+      color: var(--editor-plugins-panel-item-icon-color);
+    }
+
+    .collapse-all-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border: none;
+      border-radius: 8px;
+      background: transparent;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+      color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 50%,
+        transparent
+      );
+      --md-icon-size: 18px;
+      transition:
+        background-color 0.12s ease,
+        color 0.12s ease;
+    }
+
+    .collapse-all-btn:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 10%,
+        transparent
+      );
+      color: var(--editor-plugins-panel-item-icon-color);
+    }
+
+    .collapse-all-icon {
+      --md-icon-size: 18px;
+      color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 50%,
+        transparent
+      );
+    }
+
+    .collapse-all-btn:hover .collapse-all-icon {
+      color: var(--editor-plugins-panel-item-icon-color);
+    }
+
+    /* ── Group header (collapsed sidebar) ── */
+
+    .group-header-narrow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 7px 0;
+      color: var(--editor-plugins-panel-item-icon-color);
+    }
+
+    .group-header-narrow .group-header-icon {
+      --md-icon-size: var(--editor-plugins-panel-item-icon-size);
+    }
+
+    .group-header-narrow.group-active {
+      background-color: var(--editor-plugins-panel-group-active-bg);
+      color: var(--editor-plugins-panel-item-icon-color);
+    }
+
+    /* ── Hover popup ── */
+
+    .hover-popup {
+      position: fixed;
+      z-index: 1000;
+      min-width: 220px;
+      max-width: 320px;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: var(
+        --oscd-shell-editor-plugins-panel-background,
+        var(--oscd-primary)
+      );
+      box-shadow:
+        0 4px 16px rgba(0, 0, 0, 0.35),
+        0 1px 4px rgba(0, 0, 0, 0.2);
+      animation: popup-enter 0.15s ease;
+    }
+
+    @keyframes popup-enter {
+      from {
+        opacity: 0;
+        transform: translateX(-6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .hover-popup-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background-color: var(--editor-plugins-panel-group-active-bg);
+      color: var(--editor-plugins-panel-item-text-color);
+    }
+
+    .hover-popup-group-icon {
+      --md-icon-size: var(--editor-plugins-panel-item-icon-size);
+      color: var(--editor-plugins-panel-item-icon-color);
+      flex-shrink: 0;
+    }
+
+    .hover-popup-group-name {
+      font-family: var(--oscd-text-font, Roboto);
+      font-size: 15px;
+      font-weight: 500;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: var(--editor-plugins-panel-item-text-color);
+    }
+
+    .hover-popup-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      min-height: 40px;
+      padding: 6px 16px;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      text-align: left;
+      color: var(--editor-plugins-panel-item-text-color);
+      transition: background-color 0.1s ease;
+      box-sizing: border-box;
+    }
+
+    .hover-popup-item:hover {
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 12%,
+        transparent
+      );
+    }
+
+    .hover-popup-item--active {
+      background-color: color-mix(in srgb, white 18%, transparent);
+    }
+
+    .hover-popup-item--active:hover {
+      background-color: color-mix(in srgb, white 26%, transparent);
+    }
+
+    .hover-popup-item-icon {
+      --md-icon-size: var(--editor-plugins-panel-item-icon-size);
+      color: var(--editor-plugins-panel-item-icon-color);
+      flex-shrink: 0;
+    }
+
+    .hover-popup-letter-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: var(--editor-plugins-panel-item-icon-size);
+      height: var(--editor-plugins-panel-item-icon-size);
+      flex-shrink: 0;
+      border-radius: 5px;
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 30%,
+        transparent
+      );
+      color: var(--editor-plugins-panel-item-icon-color);
+      font-size: calc(var(--editor-plugins-panel-item-icon-size) * 0.55);
+      font-weight: 600;
+      font-family: var(--oscd-text-font, Roboto);
+    }
+
+    .hover-popup-item-label {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-family: var(--oscd-text-font, Roboto);
+      font-size: 15px;
+    }
+
+    /* ── Spacer between list and footer ── */
+
+    .list-end-spacer {
+      min-height: 60px;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer — always at bottom, above all content ── */
+
+    .footer {
+      position: sticky;
+      bottom: 0;
+      /* margin-top: auto pushes footer to bottom when content is short */
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      min-height: 56px;
+      flex-shrink: 0;
+      padding-left: calc(var(--editor-plugins-panel-item-leading-space) - 6px);
+      background-color: var(
+        --oscd-shell-editor-plugins-panel-background,
+        var(--oscd-primary)
+      );
+      /* Own stacking context above all list-item hover/focus states */
+      isolation: isolate;
+      z-index: 10;
+    }
+
+    .footer:focus,
+    .footer:hover,
+    .footer:active {
+      background-color: color-mix(
+        in srgb,
+        var(--editor-plugins-panel-item-icon-color) 8%,
+        var(--oscd-shell-editor-plugins-panel-background)
+      );
+    }
+
+    .toggle-button {
+      --md-icon-button-icon-size: var(--editor-plugins-panel-item-icon-size);
+      --md-icon-button-icon-color: var(--editor-plugins-panel-item-icon-color);
+      --md-icon-button-hover-icon-color: var(
+        --editor-plugins-panel-item-icon-color
+      );
+      --md-icon-button-focus-icon-color: var(
+        --editor-plugins-panel-item-icon-color
+      );
+      --md-icon-button-pressed-icon-color: var(
+        --editor-plugins-panel-item-icon-color
+      );
+    }
+
+    .group-divider {
+      border-top: 1px solid
+        color-mix(
+          in srgb,
+          var(--editor-plugins-panel-item-icon-color) 12%,
+          transparent
+        );
+    }
+
+    .toggle-sidebar {
+      margin-left: 12px;
+      height: 100%;
+      width: 100%;
+      align-content: center;
+      cursor: pointer;
+      color: var(--editor-plugins-panel-item-text-color);
+      font-family: var(--oscd-text-font, Roboto);
+      font-size: var(--md-list-item-label-text-size, 16px);
+      white-space: nowrap;
+    }
+  `;
+__decorate([
+    n$5({ type: Array })
+], EditorPluginsPanel.prototype, "editors", void 0);
+__decorate([
+    n$5({ type: Number })
+], EditorPluginsPanel.prototype, "editorIndex", void 0);
+__decorate([
+    n$5({ type: String })
+], EditorPluginsPanel.prototype, "locale", void 0);
+__decorate([
+    r$2()
+], EditorPluginsPanel.prototype, "pinnedPluginKeys", void 0);
+__decorate([
+    r$2()
+], EditorPluginsPanel.prototype, "activeFromPinned", void 0);
+__decorate([
+    r$2()
+], EditorPluginsPanel.prototype, "hoveredGroupName", void 0);
+__decorate([
+    r$2()
+], EditorPluginsPanel.prototype, "hoveredRect", void 0);
+__decorate([
+    r$2()
+], EditorPluginsPanel.prototype, "collapsedGroups", void 0);
+__decorate([
+    r$2()
+], EditorPluginsPanel.prototype, "pinnedCollapsed", void 0);
+__decorate([
+    r$2()
+], EditorPluginsPanel.prototype, "searchQuery", void 0);
+__decorate([
+    r$2()
+], EditorPluginsPanel.prototype, "showShortcuts", void 0);
+__decorate([
+    r$2()
+], EditorPluginsPanel.prototype, "activeShortcutGroup", void 0);
+__decorate([
+    r$2()
+], EditorPluginsPanel.prototype, "shortcutNumberBuffer", void 0);
+__decorate([
+    r$2()
+], EditorPluginsPanel.prototype, "focusedItem", void 0);
+__decorate([
+    n$5({ type: Boolean, reflect: true })
+], EditorPluginsPanel.prototype, "expanded", null);
+EditorPluginsPanel = EditorPluginsPanel_1 = __decorate([
+    localized()
+], EditorPluginsPanel);
 
 /**
  * @license
@@ -2809,24 +4900,17 @@ OscdIconButton.styles = [styles$a, styles$9];
  * SPDX-License-Identifier: Apache-2.0
  */
 /**
- * TODO(b/265336902): add docs
+ * A component for elevation.
  */
-class Icon extends i$3 {
-    render() {
-        return x `<slot></slot>`;
-    }
+class Elevation extends i$3 {
     connectedCallback() {
         super.connectedCallback();
-        const ariaHidden = this.getAttribute('aria-hidden');
-        if (ariaHidden === 'false') {
-            // Allow the user to set `aria-hidden="false"` to create an icon that is
-            // announced by screenreaders.
-            this.removeAttribute('aria-hidden');
-            return;
-        }
         // Needed for VoiceOver, which will create a "group" if the element is a
         // sibling to other content.
         this.setAttribute('aria-hidden', 'true');
+    }
+    render() {
+        return x `<span class="shadow"></span>`;
     }
 }
 
@@ -2835,24 +4919,26 @@ class Icon extends i$3 {
  * Copyright 2024 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-// Generated stylesheet for ./icon/internal/icon-styles.css.
-const styles$8 = i$6 `:host{font-size:var(--md-icon-size, 24px);width:var(--md-icon-size, 24px);height:var(--md-icon-size, 24px);color:inherit;font-variation-settings:inherit;font-weight:400;font-family:var(--md-icon-font, Material Symbols Outlined);display:inline-flex;font-style:normal;place-items:center;place-content:center;line-height:1;overflow:hidden;letter-spacing:normal;text-transform:none;user-select:none;white-space:nowrap;word-wrap:normal;flex-shrink:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;-moz-osx-font-smoothing:grayscale}::slotted(svg){fill:currentColor}::slotted(*){height:100%;width:100%}
+// Generated stylesheet for ./elevation/internal/elevation-styles.css.
+const styles$5 = i$6 `:host,.shadow,.shadow::before,.shadow::after{border-radius:inherit;inset:0;position:absolute;transition-duration:inherit;transition-property:inherit;transition-timing-function:inherit}:host{display:flex;pointer-events:none;transition-property:box-shadow,opacity}.shadow::before,.shadow::after{content:"";transition-property:box-shadow,opacity;--_level: var(--md-elevation-level, 0);--_shadow-color: var(--md-elevation-shadow-color, var(--md-sys-color-shadow, #000))}.shadow::before{box-shadow:0px calc(1px*(clamp(0,var(--_level),1) + clamp(0,var(--_level) - 3,1) + 2*clamp(0,var(--_level) - 4,1))) calc(1px*(2*clamp(0,var(--_level),1) + clamp(0,var(--_level) - 2,1) + clamp(0,var(--_level) - 4,1))) 0px var(--_shadow-color);opacity:.3}.shadow::after{box-shadow:0px calc(1px*(clamp(0,var(--_level),1) + clamp(0,var(--_level) - 1,1) + 2*clamp(0,var(--_level) - 2,3))) calc(1px*(3*clamp(0,var(--_level),2) + 2*clamp(0,var(--_level) - 2,3))) calc(1px*(clamp(0,var(--_level),4) + 2*clamp(0,var(--_level) - 4,1))) var(--_shadow-color);opacity:.15}
 `;
 
-/*
- * GENERATED SOURCE FILE. DO NOT MODIFY.
- * Modifications will be overwritten.
- * To prevent this file from being overwritten, remove this comment entirely.
+/**
+ * @license
+ * Copyright 2022 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
  */
 /**
- * @tagname oscd-icon
+ * The `<md-elevation>` custom element with default styles.
+ *
+ * Elevation is the relative distance between two surfaces along the z-axis.
+ *
  * @final
  * @suppress {visibility}
  */
-class OscdIcon extends Icon {
+class MdElevation extends Elevation {
 }
-/** @nocollapse */
-OscdIcon.styles = [styles$8];
+MdElevation.styles = [styles$5];
 
 /**
  * @license
@@ -3036,17 +5122,6 @@ function activatePreviousItem(items, activeItemRecord, isActivatable = (isItemNo
     else {
         return activateLastItem(items, isActivatable);
     }
-}
-/**
- * Creates an event that requests the menu to set `tabindex=0` on the item and
- * focus it. We use this pattern because List keeps track of what element is
- * active in the List by maintaining tabindex. We do not want list items
- * to set tabindex on themselves or focus themselves so that we can organize all
- * that logic in the parent List and Menus, and list item stays as dumb as
- * possible.
- */
-function createRequestActivationEvent() {
-    return new Event('request-activation', { bubbles: true, composed: true });
 }
 /**
  * The default `isActivatable` function, which checks if an item is not
@@ -3241,707 +5316,6 @@ class ListController {
         return activatePreviousItem(items, activeItemRecord, this.isActivatable, this.wrapNavigation());
     }
 }
-
-/**
- * @license
- * Copyright 2021 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-const NAVIGABLE_KEY_SET = new Set(Object.values(NavigableKeys));
-// tslint:disable-next-line:enforce-comments-on-exported-symbols
-class List extends i$3 {
-    /** @export */
-    get items() {
-        return this.listController.items;
-    }
-    constructor() {
-        super();
-        this.listController = new ListController({
-            isItem: (item) => item.hasAttribute('md-list-item'),
-            getPossibleItems: () => this.slotItems,
-            isRtl: () => getComputedStyle(this).direction === 'rtl',
-            deactivateItem: (item) => {
-                item.tabIndex = -1;
-            },
-            activateItem: (item) => {
-                item.tabIndex = 0;
-            },
-            isNavigableKey: (key) => NAVIGABLE_KEY_SET.has(key),
-            isActivatable: (item) => !item.disabled && item.type !== 'text',
-        });
-        this.internals = 
-        // Cast needed for closure
-        this.attachInternals();
-        {
-            this.internals.role = 'list';
-            this.addEventListener('keydown', this.listController.handleKeydown);
-        }
-    }
-    render() {
-        return x `
-      <slot
-        @deactivate-items=${this.listController.onDeactivateItems}
-        @request-activation=${this.listController.onRequestActivation}
-        @slotchange=${this.listController.onSlotchange}>
-      </slot>
-    `;
-    }
-    /**
-     * Activates the next item in the list. If at the end of the list, the first
-     * item will be activated.
-     *
-     * @return The activated list item or `null` if there are no items.
-     */
-    activateNextItem() {
-        return this.listController.activateNextItem();
-    }
-    /**
-     * Activates the previous item in the list. If at the start of the list, the
-     * last item will be activated.
-     *
-     * @return The activated list item or `null` if there are no items.
-     */
-    activatePreviousItem() {
-        return this.listController.activatePreviousItem();
-    }
-}
-__decorate([
-    o$2({ flatten: true })
-], List.prototype, "slotItems", void 0);
-
-/**
- * @license
- * Copyright 2024 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-// Generated stylesheet for ./list/internal/list-styles.css.
-const styles$7 = i$6 `:host{background:var(--md-list-container-color, var(--md-sys-color-surface, #fef7ff));color:unset;display:flex;flex-direction:column;outline:none;padding:8px 0;position:relative}
-`;
-
-/*
- * GENERATED SOURCE FILE. DO NOT MODIFY.
- * Modifications will be overwritten.
- * To prevent this file from being overwritten, remove this comment entirely.
- */
-/**
- * @tagname oscd-list
- * @summary Lists are continuous, vertical indexes of text or images.
- *
- * Lists consist of one or more list items, and can contain actions represented
- * by icons and text. List items come in three sizes: one-line, two-line, and
- * three-line.
- *
- * __Takeaways:__
- *
- * - Lists should be sorted in logical ways that make content easy to scan, such
- *   as alphabetical, numerical, chronological, or by user preference.
- * - Lists present content in a way that makes it easy to identify a specific
- *   item in a collection and act on it.
- * - Lists should present icons, text, and actions in a consistent format.
- *
- * @final
- * @suppress {visibility}
- */
-class OscdList extends List {
-}
-OscdList.styles = [styles$7];
-
-/**
- * @license
- * Copyright 2023 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * An item layout component.
- */
-class Item extends i$3 {
-    constructor() {
-        super(...arguments);
-        /**
-         * Only needed for SSR.
-         *
-         * Add this attribute when an item has two lines to avoid a Flash Of Unstyled
-         * Content. This attribute is not needed for single line items or items with
-         * three or more lines.
-         */
-        this.multiline = false;
-    }
-    render() {
-        return x `
-      <slot name="container"></slot>
-      <slot class="non-text" name="start"></slot>
-      <div class="text">
-        <slot name="overline" @slotchange=${this.handleTextSlotChange}></slot>
-        <slot
-          class="default-slot"
-          @slotchange=${this.handleTextSlotChange}></slot>
-        <slot name="headline" @slotchange=${this.handleTextSlotChange}></slot>
-        <slot
-          name="supporting-text"
-          @slotchange=${this.handleTextSlotChange}></slot>
-      </div>
-      <slot class="non-text" name="trailing-supporting-text"></slot>
-      <slot class="non-text" name="end"></slot>
-    `;
-    }
-    handleTextSlotChange() {
-        // Check if there's more than one text slot with content. If so, the item is
-        // multiline, which has a different min-height than single line items.
-        let isMultiline = false;
-        let slotsWithContent = 0;
-        for (const slot of this.textSlots) {
-            if (slotHasContent(slot)) {
-                slotsWithContent += 1;
-            }
-            if (slotsWithContent > 1) {
-                isMultiline = true;
-                break;
-            }
-        }
-        this.multiline = isMultiline;
-    }
-}
-__decorate([
-    n$3({ type: Boolean, reflect: true })
-], Item.prototype, "multiline", void 0);
-__decorate([
-    r('.text slot')
-], Item.prototype, "textSlots", void 0);
-function slotHasContent(slot) {
-    for (const node of slot.assignedNodes({ flatten: true })) {
-        // Assume there's content if there's an element slotted in
-        const isElement = node.nodeType === Node.ELEMENT_NODE;
-        // If there's only text nodes for the default slot, check if there's
-        // non-whitespace.
-        const isTextWithContent = node.nodeType === Node.TEXT_NODE && node.textContent?.match(/\S/);
-        if (isElement || isTextWithContent) {
-            return true;
-        }
-    }
-    return false;
-}
-
-/**
- * @license
- * Copyright 2024 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-// Generated stylesheet for ./labs/item/internal/item-styles.css.
-const styles$6 = i$6 `:host{color:var(--md-sys-color-on-surface, #1d1b20);font-family:var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-body-large-size, 1rem);font-weight:var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400));line-height:var(--md-sys-typescale-body-large-line-height, 1.5rem);align-items:center;box-sizing:border-box;display:flex;gap:16px;min-height:56px;overflow:hidden;padding:12px 16px;position:relative;text-overflow:ellipsis}:host([multiline]){min-height:72px}[name=overline]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-label-small-size, 0.6875rem);font-weight:var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500));line-height:var(--md-sys-typescale-label-small-line-height, 1rem)}[name=supporting-text]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-body-medium-size, 0.875rem);font-weight:var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400));line-height:var(--md-sys-typescale-body-medium-line-height, 1.25rem)}[name=trailing-supporting-text]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-label-small-size, 0.6875rem);font-weight:var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500));line-height:var(--md-sys-typescale-label-small-line-height, 1rem)}[name=container]::slotted(*){inset:0;position:absolute}.default-slot{display:inline}.default-slot,.text ::slotted(*){overflow:hidden;text-overflow:ellipsis}.text{display:flex;flex:1;flex-direction:column;overflow:hidden}
-`;
-
-/**
- * @license
- * Copyright 2023 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * An item layout component that can be used inside list items to give them
- * their customizable structure.
- *
- * `<md-item>` does not have any functionality, which must be added by the
- * component using it.
- *
- * All text will wrap unless `white-space: nowrap` is set on the item or any of
- * its children.
- *
- * Slots available:
- * - `<default>`: The headline, or custom content.
- * - `headline`: The first line.
- * - `supporting-text`: Supporting text lines underneath the headline.
- * - `trailing-supporting-text`: A small text snippet at the end of the item.
- * - `start`: Any leading content, such as icons, avatars, or checkboxes.
- * - `end`: Any trailing content, such as icons and buttons.
- * - `container`: Background container content, intended for adding additional
- *     styles, such as ripples or focus rings.
- *
- * @example
- * ```html
- * <md-item>Single line</md-item>
- *
- * <md-item>
- *   <div class="custom-content">...</div>
- * </md-item>
- *
- * <!-- Classic 1 to 3+ line list items -->
- * <md-item>
- *   <md-icon slot="start">image</md-icon>
- *   <div slot="overline">Overline</div>
- *   <div slot="headline">Headline</div>
- *   <div="supporting-text">Supporting text</div>
- *   <div="trailing-supporting-text">Trailing</div>
- *   <md-icon slot="end">image</md-icon>
- * </md-item>
- * ```
- *
- * When wrapping `<md-item>`, forward the available slots to use the same slot
- * structure for the wrapping component (this is what `<md-list-item>` does).
- *
- * @example
- * ```html
- * <md-item>
- *   <slot></slot>
- *   <slot name="overline" slot="overline"></slot>
- *   <slot name="headline" slot="headline"></slot>
- *   <slot name="supporting-text" slot="supporting-text"></slot>
- *   <slot name="trailing-supporting-text"
- *       slot="trailing-supporting-text"></slot>
- *   <slot name="start" slot="start"></slot>
- *   <slot name="end" slot="end"></slot>
- * </md-item>
- * ```
- *
- * @final
- * @suppress {visibility}
- */
-class MdItem extends Item {
-}
-MdItem.styles = [styles$6];
-
-// Separate variable needed for closure.
-const listItemBaseClass = mixinDelegatesAria(i$3);
-/**
- * @fires request-activation {Event} Requests the list to set `tabindex=0` on
- * the item and focus it. --bubbles --composed
- */
-class ListItemEl extends listItemBaseClass {
-    constructor() {
-        super(...arguments);
-        /**
-         * Disables the item and makes it non-selectable and non-interactive.
-         */
-        this.disabled = false;
-        /**
-         * Sets the behavior of the list item, defaults to "text". Change to "link" or
-         * "button" for interactive items.
-         */
-        this.type = 'text';
-        /**
-         * READONLY. Sets the `md-list-item` attribute on the element.
-         */
-        this.isListItem = true;
-        /**
-         * Sets the underlying `HTMLAnchorElement`'s `href` resource attribute.
-         */
-        this.href = '';
-        /**
-         * Sets the underlying `HTMLAnchorElement`'s `target` attribute when `href` is
-         * set.
-         */
-        this.target = '';
-    }
-    get isDisabled() {
-        return this.disabled && this.type !== 'link';
-    }
-    willUpdate(changed) {
-        if (this.href) {
-            this.type = 'link';
-        }
-        super.willUpdate(changed);
-    }
-    render() {
-        return this.renderListItem(x `
-      <md-item>
-        <div slot="container">
-          ${this.renderRipple()} ${this.renderFocusRing()}
-        </div>
-        <slot name="start" slot="start"></slot>
-        <slot name="end" slot="end"></slot>
-        ${this.renderBody()}
-      </md-item>
-    `);
-    }
-    /**
-     * Renders the root list item.
-     *
-     * @param content the child content of the list item.
-     */
-    renderListItem(content) {
-        const isAnchor = this.type === 'link';
-        let tag;
-        switch (this.type) {
-            case 'link':
-                tag = i$2 `a`;
-                break;
-            case 'button':
-                tag = i$2 `button`;
-                break;
-            default:
-            case 'text':
-                tag = i$2 `li`;
-                break;
-        }
-        const isInteractive = this.type !== 'text';
-        // TODO(b/265339866): announce "button"/"link" inside of a list item. Until
-        // then all are "listitem" roles for correct announcement.
-        const target = isAnchor && !!this.target ? this.target : E;
-        return u `
-      <${tag}
-        id="item"
-        tabindex="${this.isDisabled || !isInteractive ? -1 : 0}"
-        ?disabled=${this.isDisabled}
-        role="listitem"
-        aria-selected=${this.ariaSelected || E}
-        aria-checked=${this.ariaChecked || E}
-        aria-expanded=${this.ariaExpanded || E}
-        aria-haspopup=${this.ariaHasPopup || E}
-        class="list-item ${e(this.getRenderClasses())}"
-        href=${this.href || E}
-        target=${target}
-        @focus=${this.onFocus}
-      >${content}</${tag}>
-    `;
-    }
-    /**
-     * Handles rendering of the ripple element.
-     */
-    renderRipple() {
-        if (this.type === 'text') {
-            return E;
-        }
-        return x ` <md-ripple
-      part="ripple"
-      for="item"
-      ?disabled=${this.isDisabled}></md-ripple>`;
-    }
-    /**
-     * Handles rendering of the focus ring.
-     */
-    renderFocusRing() {
-        if (this.type === 'text') {
-            return E;
-        }
-        return x ` <md-focus-ring
-      @visibility-changed=${this.onFocusRingVisibilityChanged}
-      part="focus-ring"
-      for="item"
-      inward></md-focus-ring>`;
-    }
-    onFocusRingVisibilityChanged(e) { }
-    /**
-     * Classes applied to the list item root.
-     */
-    getRenderClasses() {
-        return { 'disabled': this.isDisabled };
-    }
-    /**
-     * Handles rendering the headline and supporting text.
-     */
-    renderBody() {
-        return x `
-      <slot></slot>
-      <slot name="overline" slot="overline"></slot>
-      <slot name="headline" slot="headline"></slot>
-      <slot name="supporting-text" slot="supporting-text"></slot>
-      <slot
-        name="trailing-supporting-text"
-        slot="trailing-supporting-text"></slot>
-    `;
-    }
-    onFocus() {
-        if (this.tabIndex !== -1) {
-            return;
-        }
-        // Handles the case where the user clicks on the element and then tabs.
-        this.dispatchEvent(createRequestActivationEvent());
-    }
-    focus() {
-        // TODO(b/300334509): needed for some cases where delegatesFocus doesn't
-        // work programmatically like in FF and select-option
-        this.listItemRoot?.focus();
-    }
-    click() {
-        if (!this.listItemRoot) {
-            // If the element has not finished rendering, call super to ensure click
-            // events are dispatched.
-            super.click();
-            return;
-        }
-        // Forward click to the element to ensure link <a>.click() works correctly.
-        this.listItemRoot.click();
-    }
-}
-/** @nocollapse */
-ListItemEl.shadowRootOptions = {
-    ...i$3.shadowRootOptions,
-    delegatesFocus: true,
-};
-__decorate([
-    n$3({ type: Boolean, reflect: true })
-], ListItemEl.prototype, "disabled", void 0);
-__decorate([
-    n$3({ reflect: true })
-], ListItemEl.prototype, "type", void 0);
-__decorate([
-    n$3({ type: Boolean, attribute: 'md-list-item', reflect: true })
-], ListItemEl.prototype, "isListItem", void 0);
-__decorate([
-    n$3()
-], ListItemEl.prototype, "href", void 0);
-__decorate([
-    n$3()
-], ListItemEl.prototype, "target", void 0);
-__decorate([
-    e$3('.list-item')
-], ListItemEl.prototype, "listItemRoot", void 0);
-
-/**
- * @license
- * Copyright 2024 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-// Generated stylesheet for ./list/internal/listitem/list-item-styles.css.
-const styles$5 = i$6 `:host{display:flex;-webkit-tap-highlight-color:rgba(0,0,0,0);--md-ripple-hover-color: var(--md-list-item-hover-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-hover-opacity: var(--md-list-item-hover-state-layer-opacity, 0.08);--md-ripple-pressed-color: var(--md-list-item-pressed-state-layer-color, var(--md-sys-color-on-surface, #1d1b20));--md-ripple-pressed-opacity: var(--md-list-item-pressed-state-layer-opacity, 0.12)}:host(:is([type=button]:not([disabled]),[type=link])){cursor:pointer}md-focus-ring{z-index:1;--md-focus-ring-shape: 8px}a,button,li{background:none;border:none;cursor:inherit;padding:0;margin:0;text-align:unset;text-decoration:none}.list-item{border-radius:inherit;display:flex;flex:1;max-width:inherit;min-width:inherit;outline:none;-webkit-tap-highlight-color:rgba(0,0,0,0);width:100%}.list-item.interactive{cursor:pointer}.list-item.disabled{opacity:var(--md-list-item-disabled-opacity, 0.3);pointer-events:none}[slot=container]{pointer-events:none}md-ripple{border-radius:inherit}md-item{border-radius:inherit;flex:1;height:100%;color:var(--md-list-item-label-text-color, var(--md-sys-color-on-surface, #1d1b20));font-family:var(--md-list-item-label-text-font, var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-list-item-label-text-size, var(--md-sys-typescale-body-large-size, 1rem));line-height:var(--md-list-item-label-text-line-height, var(--md-sys-typescale-body-large-line-height, 1.5rem));font-weight:var(--md-list-item-label-text-weight, var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400)));min-height:var(--md-list-item-one-line-container-height, 56px);padding-top:var(--md-list-item-top-space, 12px);padding-bottom:var(--md-list-item-bottom-space, 12px);padding-inline-start:var(--md-list-item-leading-space, 16px);padding-inline-end:var(--md-list-item-trailing-space, 16px)}md-item[multiline]{min-height:var(--md-list-item-two-line-container-height, 72px)}[slot=supporting-text]{color:var(--md-list-item-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-list-item-supporting-text-font, var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-list-item-supporting-text-size, var(--md-sys-typescale-body-medium-size, 0.875rem));line-height:var(--md-list-item-supporting-text-line-height, var(--md-sys-typescale-body-medium-line-height, 1.25rem));font-weight:var(--md-list-item-supporting-text-weight, var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400)))}[slot=trailing-supporting-text]{color:var(--md-list-item-trailing-supporting-text-color, var(--md-sys-color-on-surface-variant, #49454f));font-family:var(--md-list-item-trailing-supporting-text-font, var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto)));font-size:var(--md-list-item-trailing-supporting-text-size, var(--md-sys-typescale-label-small-size, 0.6875rem));line-height:var(--md-list-item-trailing-supporting-text-line-height, var(--md-sys-typescale-label-small-line-height, 1rem));font-weight:var(--md-list-item-trailing-supporting-text-weight, var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500)))}:is([slot=start],[slot=end])::slotted(*){fill:currentColor}[slot=start]{color:var(--md-list-item-leading-icon-color, var(--md-sys-color-on-surface-variant, #49454f))}[slot=end]{color:var(--md-list-item-trailing-icon-color, var(--md-sys-color-on-surface-variant, #49454f))}@media(forced-colors: active){.disabled slot{color:GrayText}.list-item.disabled{color:GrayText;opacity:1}}
-`;
-
-/**
- * @license
- * Copyright 2022 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * @license
- * Copyright 2025 Omicron Energy GmbH
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * @tagname oscd-list-item
- * @summary
- * Lists are continuous, vertical indexes of text or images. Items are placed
- * inside the list.
- *
- * Lists consist of one or more list items, and can contain actions represented
- * by icons and text. List items come in three sizes: one-line, two-line, and
- * three-line.
- *
- * __Takeaways:__
- *
- * - Lists should be sorted in logical ways that make content easy to scan, such
- *   as alphabetical, numerical, chronological, or by user preference.
- * - Lists present content in a way that makes it easy to identify a specific
- *   item in a collection and act on it.
- * - Lists should present icons, text, and actions in a consistent format.
- *
- * Acceptable slot child variants are:
- *
- * - `img[slot=end]`
- * - `img[slot=start]`
- *
- *  @example
- * ```html
- * <oscd-list-item
- *     headline="User Name"
- *     supportingText="user@name.com">
- *   <md-icon slot="start">account_circle</md-icon>
- *   <md-icon slot="end">check</md-icon>
- * </oscd-list-item>
- * ```
- *
- * @example
- *
- * @final
- * @suppress {visibility}
- */
-class OscdListItem extends ScopedElementsMixin(ListItemEl) {
-}
-OscdListItem.scopedElements = {
-    'md-ripple': MdRipple,
-    'md-item': MdItem,
-    'md-focus-ring': MdFocusRing,
-};
-OscdListItem.styles = [styles$5];
-
-let EditorPluginsPanel = class EditorPluginsPanel extends ScopedElementsMixin(i$3) {
-    constructor() {
-        super(...arguments);
-        this.editors = [];
-        this.editorIndex = 0;
-    }
-    // eslint-disable-next-line class-methods-use-this
-    get expanded() {
-        const expandedStr = localStorage.getItem('editorsPanel.expanded');
-        return expandedStr === 'false' ? false : true;
-    }
-    // eslint-disable-next-line class-methods-use-this
-    set expanded(expanded) {
-        localStorage.setItem('editorsPanel.expanded', String(expanded));
-    }
-    render() {
-        return x `
-      <oscd-list class="editors-list" role="tablist">
-        ${this.editors.map((editor, index) => x `<oscd-list-item
-              class=${e({ active: this.editorIndex === index })}
-              type="button"
-              @click=${() => {
-            this.dispatchEvent(new CustomEvent('editor-select', {
-                detail: { editor, index },
-                bubbles: true,
-                composed: true,
-            }));
-        }}
-            >
-              <oscd-icon slot="start">${editor.icon}</oscd-icon>
-              ${this.expanded
-            ? x `<span
-                    >${editor.translations?.[this.locale] ||
-                editor.name}</span
-                  >`
-            : E}
-            </oscd-list-item>`)}
-      </oscd-list>
-      <div class="footer">
-        <oscd-icon-button
-          class="toggle-button"
-          @click=${() => {
-            this.expanded = !this.expanded;
-        }}
-        >
-          <oscd-icon
-            >${this.expanded
-            ? 'left_panel_close'
-            : 'left_panel_open'}</oscd-icon
-          ></oscd-icon-button
-        >
-      </div>
-    `;
-    }
-};
-EditorPluginsPanel.scopedElements = {
-    'oscd-icon-button': OscdIconButton,
-    'oscd-icon': OscdIcon,
-    'oscd-list': OscdList,
-    'oscd-list-item': OscdListItem,
-};
-EditorPluginsPanel.styles = i$6 `
-    :host {
-      width: 76px;
-      height: calc(100% - 20px);
-      display: grid;
-      grid-template-rows: 1fr auto;
-      min-height: 0;
-      padding-top: 20px;
-      transition: width 0.1s ease-in-out;
-      overflow-y: auto;
-      overflow-x: hidden;
-    }
-
-    .editors-list {
-      min-height: 0;
-      --md-list-item-leading-space: 22px;
-      --md-list-item-trailing-space: 10px;
-      --md-icon-size: 28px;
-      --md-list-container-color: rgba(0, 0, 0, 0);
-      --md-list-item-label-text-color: var(--oscd-base3);
-      --md-list-item-leading-icon-color: var(--oscd-base3);
-    }
-
-    .editors-list .active {
-      background-color: var(--oscd-primary);
-    }
-
-    .editors-list oscd-list-item span {
-      /* prevents jitter when collapsing */
-      white-space: nowrap;
-    }
-
-    .footer {
-      /* setting this to display:none until re-design is fixed and its safe to remove */
-      display: none;
-      /* justify-self: center;
-      justify-content: center;
-      padding-block: 22px; */
-    }
-
-    .toggle-button {
-      --md-icon-color: var(--oscd-base3);
-      --md-icon-button-icon-size: 32px;
-      --md-icon-button-hover-state-layer-color: var(--oscd-base3);
-      --md-icon-button-hover-state-layer-opacity: 0.08;
-      --md-icon-button-icon-color: var(--oscd-base3);
-      --md-icon-button-hover-icon-color: var(--oscd-base3);
-      --md-icon-button-focus-icon-color: var(--oscd-base3);
-      --md-icon-button-pressed-icon-color: var(--oscd-base3);
-      --md-icon-button-state-layer-height: 48px;
-      --md-icon-button-state-layer-width: 48px;
-    }
-
-    :host([expanded]) {
-      width: var(--side-panel-width, 240px);
-    }
-
-    /* :host([expanded]) .footer {
-      justify-self: flex-end;
-      justify-content: flex-end;
-      padding-inline: 22px;
-    } */
-  `;
-__decorate([
-    n$3({ type: Array })
-], EditorPluginsPanel.prototype, "editors", void 0);
-__decorate([
-    n$3({ type: Number })
-], EditorPluginsPanel.prototype, "editorIndex", void 0);
-__decorate([
-    n$3({ type: String })
-], EditorPluginsPanel.prototype, "locale", void 0);
-__decorate([
-    n$3({ type: Boolean, reflect: true })
-], EditorPluginsPanel.prototype, "expanded", null);
-EditorPluginsPanel = __decorate([
-    localized()
-], EditorPluginsPanel);
-
-/**
- * @license
- * Copyright 2022 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * A component for elevation.
- */
-class Elevation extends i$3 {
-    connectedCallback() {
-        super.connectedCallback();
-        // Needed for VoiceOver, which will create a "group" if the element is a
-        // sibling to other content.
-        this.setAttribute('aria-hidden', 'true');
-    }
-    render() {
-        return x `<span class="shadow"></span>`;
-    }
-}
-
-/**
- * @license
- * Copyright 2024 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-// Generated stylesheet for ./elevation/internal/elevation-styles.css.
-const styles$4 = i$6 `:host,.shadow,.shadow::before,.shadow::after{border-radius:inherit;inset:0;position:absolute;transition-duration:inherit;transition-property:inherit;transition-timing-function:inherit}:host{display:flex;pointer-events:none;transition-property:box-shadow,opacity}.shadow::before,.shadow::after{content:"";transition-property:box-shadow,opacity;--_level: var(--md-elevation-level, 0);--_shadow-color: var(--md-elevation-shadow-color, var(--md-sys-color-shadow, #000))}.shadow::before{box-shadow:0px calc(1px*(clamp(0,var(--_level),1) + clamp(0,var(--_level) - 3,1) + 2*clamp(0,var(--_level) - 4,1))) calc(1px*(2*clamp(0,var(--_level),1) + clamp(0,var(--_level) - 2,1) + clamp(0,var(--_level) - 4,1))) 0px var(--_shadow-color);opacity:.3}.shadow::after{box-shadow:0px calc(1px*(clamp(0,var(--_level),1) + clamp(0,var(--_level) - 1,1) + 2*clamp(0,var(--_level) - 2,3))) calc(1px*(3*clamp(0,var(--_level),2) + 2*clamp(0,var(--_level) - 2,3))) calc(1px*(clamp(0,var(--_level),4) + 2*clamp(0,var(--_level) - 4,1))) var(--_shadow-color);opacity:.15}
-`;
-
-/**
- * @license
- * Copyright 2022 Google LLC
- * SPDX-License-Identifier: Apache-2.0
- */
-/**
- * The `<md-elevation>` custom element with default styles.
- *
- * Elevation is the relative distance between two surfaces along the z-axis.
- *
- * @final
- * @suppress {visibility}
- */
-class MdElevation extends Elevation {
-}
-MdElevation.styles = [styles$4];
-
-/**
- * @license
- * Copyright 2018 Google LLC
- * SPDX-License-Identifier: BSD-3-Clause
- */const n="important",i=" !"+n,o=e$1(class extends i$1{constructor(t$1){if(super(t$1),t$1.type!==t.ATTRIBUTE||"style"!==t$1.name||t$1.strings?.length>2)throw Error("The `styleMap` directive must be used in the `style` attribute and must be the only part in the attribute.")}render(t){return Object.keys(t).reduce(((e,r)=>{const s=t[r];return null==s?e:e+`${r=r.includes("-")?r:r.replace(/(?:^(webkit|moz|ms|o)|)(?=[A-Z])/g,"-$&").toLowerCase()}:${s};`}),"")}update(e,[r]){const{style:s}=e.element;if(void 0===this.ft)return this.ft=new Set(Object.keys(r)),this.render(r);for(const t of this.ft)null==r[t]&&(this.ft.delete(t),t.includes("-")?s.removeProperty(t):s[t]=null);for(const t in r){const e=r[t];if(null!=e){this.ft.add(t);const r="string"==typeof e&&e.endsWith(i);t.includes("-")||r?s.setProperty(t,r?e.slice(0,-11):e,r?n:""):s[t]=e;}}return T}});
 
 /**
  * @license
@@ -5206,8 +6580,8 @@ class Menu extends i$3 {
     renderSurface() {
         return x `
       <div
-        class="menu ${e(this.getSurfaceClasses())}"
-        style=${o(this.menuPositionController.surfaceStyles)}
+        class="menu ${e$1(this.getSurfaceClasses())}"
+        style=${o$2(this.menuPositionController.surfaceStyles)}
         popover=${this.positioning === 'popover' ? 'manual' : E}>
         ${this.renderElevation()}
         <div class="items">
@@ -5519,67 +6893,67 @@ class Menu extends i$3 {
     }
 }
 __decorate([
-    e$3('.menu')
+    e$4('.menu')
 ], Menu.prototype, "surfaceEl", void 0);
 __decorate([
-    e$3('slot')
+    e$4('slot')
 ], Menu.prototype, "slotEl", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], Menu.prototype, "anchor", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], Menu.prototype, "positioning", void 0);
 __decorate([
-    n$3({ type: Boolean })
+    n$5({ type: Boolean })
 ], Menu.prototype, "quick", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'has-overflow' })
+    n$5({ type: Boolean, attribute: 'has-overflow' })
 ], Menu.prototype, "hasOverflow", void 0);
 __decorate([
-    n$3({ type: Boolean, reflect: true })
+    n$5({ type: Boolean, reflect: true })
 ], Menu.prototype, "open", void 0);
 __decorate([
-    n$3({ type: Number, attribute: 'x-offset' })
+    n$5({ type: Number, attribute: 'x-offset' })
 ], Menu.prototype, "xOffset", void 0);
 __decorate([
-    n$3({ type: Number, attribute: 'y-offset' })
+    n$5({ type: Number, attribute: 'y-offset' })
 ], Menu.prototype, "yOffset", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'no-horizontal-flip' })
+    n$5({ type: Boolean, attribute: 'no-horizontal-flip' })
 ], Menu.prototype, "noHorizontalFlip", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'no-vertical-flip' })
+    n$5({ type: Boolean, attribute: 'no-vertical-flip' })
 ], Menu.prototype, "noVerticalFlip", void 0);
 __decorate([
-    n$3({ type: Number, attribute: 'typeahead-delay' })
+    n$5({ type: Number, attribute: 'typeahead-delay' })
 ], Menu.prototype, "typeaheadDelay", void 0);
 __decorate([
-    n$3({ attribute: 'anchor-corner' })
+    n$5({ attribute: 'anchor-corner' })
 ], Menu.prototype, "anchorCorner", void 0);
 __decorate([
-    n$3({ attribute: 'menu-corner' })
+    n$5({ attribute: 'menu-corner' })
 ], Menu.prototype, "menuCorner", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'stay-open-on-outside-click' })
+    n$5({ type: Boolean, attribute: 'stay-open-on-outside-click' })
 ], Menu.prototype, "stayOpenOnOutsideClick", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'stay-open-on-focusout' })
+    n$5({ type: Boolean, attribute: 'stay-open-on-focusout' })
 ], Menu.prototype, "stayOpenOnFocusout", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'skip-restore-focus' })
+    n$5({ type: Boolean, attribute: 'skip-restore-focus' })
 ], Menu.prototype, "skipRestoreFocus", void 0);
 __decorate([
-    n$3({ attribute: 'default-focus' })
+    n$5({ attribute: 'default-focus' })
 ], Menu.prototype, "defaultFocus", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'no-navigation-wrap' })
+    n$5({ type: Boolean, attribute: 'no-navigation-wrap' })
 ], Menu.prototype, "noNavigationWrap", void 0);
 __decorate([
-    o$2({ flatten: true })
+    o$5({ flatten: true })
 ], Menu.prototype, "slotItems", void 0);
 __decorate([
-    r$1()
+    r$2()
 ], Menu.prototype, "typeaheadActive", void 0);
 
 /**
@@ -5588,7 +6962,7 @@ __decorate([
  * SPDX-License-Identifier: Apache-2.0
  */
 // Generated stylesheet for ./menu/internal/menu-styles.css.
-const styles$3 = i$6 `:host{--md-elevation-level: var(--md-menu-container-elevation, 2);--md-elevation-shadow-color: var(--md-menu-container-shadow-color, var(--md-sys-color-shadow, #000));min-width:112px;color:unset;display:contents}md-focus-ring{--md-focus-ring-shape: var(--md-menu-container-shape, var(--md-sys-shape-corner-extra-small, 4px))}.menu{border-radius:var(--md-menu-container-shape, var(--md-sys-shape-corner-extra-small, 4px));display:none;inset:auto;border:none;padding:0px;overflow:visible;background-color:rgba(0,0,0,0);color:inherit;opacity:0;z-index:20;position:absolute;user-select:none;max-height:inherit;height:inherit;min-width:inherit;max-width:inherit;scrollbar-width:inherit}.menu::backdrop{display:none}.fixed{position:fixed}.items{display:block;list-style-type:none;margin:0;outline:none;box-sizing:border-box;background-color:var(--md-menu-container-color, var(--md-sys-color-surface-container, #f3edf7));height:inherit;max-height:inherit;overflow:auto;min-width:inherit;max-width:inherit;border-radius:inherit;scrollbar-width:inherit}.item-padding{padding-block:var(--md-menu-top-space, 8px) var(--md-menu-bottom-space, 8px)}.has-overflow:not([popover]) .items{overflow:visible}.has-overflow.animating .items,.animating .items{overflow:hidden}.has-overflow.animating .items{pointer-events:none}.animating ::slotted(.md-menu-hidden){opacity:0}slot{display:block;height:inherit;max-height:inherit}::slotted(:is(md-divider,[role=separator])){margin:8px 0}@media(forced-colors: active){.menu{border-style:solid;border-color:CanvasText;border-width:1px}}
+const styles$4 = i$6 `:host{--md-elevation-level: var(--md-menu-container-elevation, 2);--md-elevation-shadow-color: var(--md-menu-container-shadow-color, var(--md-sys-color-shadow, #000));min-width:112px;color:unset;display:contents}md-focus-ring{--md-focus-ring-shape: var(--md-menu-container-shape, var(--md-sys-shape-corner-extra-small, 4px))}.menu{border-radius:var(--md-menu-container-shape, var(--md-sys-shape-corner-extra-small, 4px));display:none;inset:auto;border:none;padding:0px;overflow:visible;background-color:rgba(0,0,0,0);color:inherit;opacity:0;z-index:20;position:absolute;user-select:none;max-height:inherit;height:inherit;min-width:inherit;max-width:inherit;scrollbar-width:inherit}.menu::backdrop{display:none}.fixed{position:fixed}.items{display:block;list-style-type:none;margin:0;outline:none;box-sizing:border-box;background-color:var(--md-menu-container-color, var(--md-sys-color-surface-container, #f3edf7));height:inherit;max-height:inherit;overflow:auto;min-width:inherit;max-width:inherit;border-radius:inherit;scrollbar-width:inherit}.item-padding{padding-block:var(--md-menu-top-space, 8px) var(--md-menu-bottom-space, 8px)}.has-overflow:not([popover]) .items{overflow:visible}.has-overflow.animating .items,.animating .items{overflow:hidden}.has-overflow.animating .items{pointer-events:none}.animating ::slotted(.md-menu-hidden){opacity:0}slot{display:block;height:inherit;max-height:inherit}::slotted(:is(md-divider,[role=separator])){margin:8px 0}@media(forced-colors: active){.menu{border-style:solid;border-color:CanvasText;border-width:1px}}
 `;
 
 /**
@@ -5603,7 +6977,7 @@ const styles$3 = i$6 `:host{--md-elevation-level: var(--md-menu-container-elevat
  */
 class InternalMenu extends Menu {
 }
-InternalMenu.styles = [styles$3];
+InternalMenu.styles = [styles$4];
 /**
  * @tagname oscd-menu
  * @summary Menus display a list of choices on a temporary surface.
@@ -5659,7 +7033,159 @@ OscdMenu.scopedElements = {
     'md-focus-ring': MdFocusRing,
     'md-elevation': MdElevation,
 };
-OscdMenu.styles = [styles$3];
+OscdMenu.styles = [styles$4];
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * An item layout component.
+ */
+class Item extends i$3 {
+    constructor() {
+        super(...arguments);
+        /**
+         * Only needed for SSR.
+         *
+         * Add this attribute when an item has two lines to avoid a Flash Of Unstyled
+         * Content. This attribute is not needed for single line items or items with
+         * three or more lines.
+         */
+        this.multiline = false;
+    }
+    render() {
+        return x `
+      <slot name="container"></slot>
+      <slot class="non-text" name="start"></slot>
+      <div class="text">
+        <slot name="overline" @slotchange=${this.handleTextSlotChange}></slot>
+        <slot
+          class="default-slot"
+          @slotchange=${this.handleTextSlotChange}></slot>
+        <slot name="headline" @slotchange=${this.handleTextSlotChange}></slot>
+        <slot
+          name="supporting-text"
+          @slotchange=${this.handleTextSlotChange}></slot>
+      </div>
+      <slot class="non-text" name="trailing-supporting-text"></slot>
+      <slot class="non-text" name="end"></slot>
+    `;
+    }
+    handleTextSlotChange() {
+        // Check if there's more than one text slot with content. If so, the item is
+        // multiline, which has a different min-height than single line items.
+        let isMultiline = false;
+        let slotsWithContent = 0;
+        for (const slot of this.textSlots) {
+            if (slotHasContent(slot)) {
+                slotsWithContent += 1;
+            }
+            if (slotsWithContent > 1) {
+                isMultiline = true;
+                break;
+            }
+        }
+        this.multiline = isMultiline;
+    }
+}
+__decorate([
+    n$5({ type: Boolean, reflect: true })
+], Item.prototype, "multiline", void 0);
+__decorate([
+    r$1('.text slot')
+], Item.prototype, "textSlots", void 0);
+function slotHasContent(slot) {
+    for (const node of slot.assignedNodes({ flatten: true })) {
+        // Assume there's content if there's an element slotted in
+        const isElement = node.nodeType === Node.ELEMENT_NODE;
+        // If there's only text nodes for the default slot, check if there's
+        // non-whitespace.
+        const isTextWithContent = node.nodeType === Node.TEXT_NODE && node.textContent?.match(/\S/);
+        if (isElement || isTextWithContent) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/**
+ * @license
+ * Copyright 2024 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+// Generated stylesheet for ./labs/item/internal/item-styles.css.
+const styles$3 = i$6 `:host{color:var(--md-sys-color-on-surface, #1d1b20);font-family:var(--md-sys-typescale-body-large-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-body-large-size, 1rem);font-weight:var(--md-sys-typescale-body-large-weight, var(--md-ref-typeface-weight-regular, 400));line-height:var(--md-sys-typescale-body-large-line-height, 1.5rem);align-items:center;box-sizing:border-box;display:flex;gap:16px;min-height:56px;overflow:hidden;padding:12px 16px;position:relative;text-overflow:ellipsis}:host([multiline]){min-height:72px}[name=overline]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-label-small-size, 0.6875rem);font-weight:var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500));line-height:var(--md-sys-typescale-label-small-line-height, 1rem)}[name=supporting-text]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-body-medium-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-body-medium-size, 0.875rem);font-weight:var(--md-sys-typescale-body-medium-weight, var(--md-ref-typeface-weight-regular, 400));line-height:var(--md-sys-typescale-body-medium-line-height, 1.25rem)}[name=trailing-supporting-text]{color:var(--md-sys-color-on-surface-variant, #49454f);font-family:var(--md-sys-typescale-label-small-font, var(--md-ref-typeface-plain, Roboto));font-size:var(--md-sys-typescale-label-small-size, 0.6875rem);font-weight:var(--md-sys-typescale-label-small-weight, var(--md-ref-typeface-weight-medium, 500));line-height:var(--md-sys-typescale-label-small-line-height, 1rem)}[name=container]::slotted(*){inset:0;position:absolute}.default-slot{display:inline}.default-slot,.text ::slotted(*){overflow:hidden;text-overflow:ellipsis}.text{display:flex;flex:1;flex-direction:column;overflow:hidden}
+`;
+
+/**
+ * @license
+ * Copyright 2023 Google LLC
+ * SPDX-License-Identifier: Apache-2.0
+ */
+/**
+ * An item layout component that can be used inside list items to give them
+ * their customizable structure.
+ *
+ * `<md-item>` does not have any functionality, which must be added by the
+ * component using it.
+ *
+ * All text will wrap unless `white-space: nowrap` is set on the item or any of
+ * its children.
+ *
+ * Slots available:
+ * - `<default>`: The headline, or custom content.
+ * - `headline`: The first line.
+ * - `supporting-text`: Supporting text lines underneath the headline.
+ * - `trailing-supporting-text`: A small text snippet at the end of the item.
+ * - `start`: Any leading content, such as icons, avatars, or checkboxes.
+ * - `end`: Any trailing content, such as icons and buttons.
+ * - `container`: Background container content, intended for adding additional
+ *     styles, such as ripples or focus rings.
+ *
+ * @example
+ * ```html
+ * <md-item>Single line</md-item>
+ *
+ * <md-item>
+ *   <div class="custom-content">...</div>
+ * </md-item>
+ *
+ * <!-- Classic 1 to 3+ line list items -->
+ * <md-item>
+ *   <md-icon slot="start">image</md-icon>
+ *   <div slot="overline">Overline</div>
+ *   <div slot="headline">Headline</div>
+ *   <div="supporting-text">Supporting text</div>
+ *   <div="trailing-supporting-text">Trailing</div>
+ *   <md-icon slot="end">image</md-icon>
+ * </md-item>
+ * ```
+ *
+ * When wrapping `<md-item>`, forward the available slots to use the same slot
+ * structure for the wrapping component (this is what `<md-list-item>` does).
+ *
+ * @example
+ * ```html
+ * <md-item>
+ *   <slot></slot>
+ *   <slot name="overline" slot="overline"></slot>
+ *   <slot name="headline" slot="headline"></slot>
+ *   <slot name="supporting-text" slot="supporting-text"></slot>
+ *   <slot name="trailing-supporting-text"
+ *       slot="trailing-supporting-text"></slot>
+ *   <slot name="start" slot="start"></slot>
+ *   <slot name="end" slot="end"></slot>
+ * </md-item>
+ * ```
+ *
+ * @final
+ * @suppress {visibility}
+ */
+class MdItem extends Item {
+}
+MdItem.styles = [styles$3];
 
 /**
  * @license
@@ -5905,7 +7431,7 @@ class MenuItemEl extends menuItemBaseClass {
         aria-checked=${this.ariaChecked || E}
         aria-expanded=${this.ariaExpanded || E}
         aria-haspopup=${this.ariaHasPopup || E}
-        class="list-item ${e(this.getRenderClasses())}"
+        class="list-item ${e$1(this.getRenderClasses())}"
         href=${this.href || E}
         target=${target}
         @click=${this.menuItemController.onClick}
@@ -5966,37 +7492,37 @@ MenuItemEl.shadowRootOptions = {
     delegatesFocus: true,
 };
 __decorate([
-    n$3({ type: Boolean, reflect: true })
+    n$5({ type: Boolean, reflect: true })
 ], MenuItemEl.prototype, "disabled", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], MenuItemEl.prototype, "type", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], MenuItemEl.prototype, "href", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], MenuItemEl.prototype, "target", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'keep-open' })
+    n$5({ type: Boolean, attribute: 'keep-open' })
 ], MenuItemEl.prototype, "keepOpen", void 0);
 __decorate([
-    n$3({ type: Boolean })
+    n$5({ type: Boolean })
 ], MenuItemEl.prototype, "selected", void 0);
 __decorate([
-    e$3('.list-item')
+    e$4('.list-item')
 ], MenuItemEl.prototype, "listItemRoot", void 0);
 __decorate([
-    o$2({ slot: 'headline' })
+    o$5({ slot: 'headline' })
 ], MenuItemEl.prototype, "headlineElements", void 0);
 __decorate([
-    o$2({ slot: 'supporting-text' })
+    o$5({ slot: 'supporting-text' })
 ], MenuItemEl.prototype, "supportingTextElements", void 0);
 __decorate([
-    n$2({ slot: '' })
+    n$4({ slot: '' })
 ], MenuItemEl.prototype, "defaultElements", void 0);
 __decorate([
-    n$3({ attribute: 'typeahead-text' })
+    n$5({ attribute: 'typeahead-text' })
 ], MenuItemEl.prototype, "typeaheadText", null);
 
 /**
@@ -6114,47 +7640,67 @@ PluginsMenu.styles = i$6 `
     }
 
     img {
-      height: 34.4px;
-      width: auto;
+      height: var(--app-bar-app-icon-height);
+      width: var(--app-bar-app-icon-width);
     }
 
     :host h1.app-title {
-      font-family: Roboto;
-      font-size: 22.114px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: normal;
+      font-family: var(--app-bar-title-text-font-family);
+      font-size: var(--app-bar-title-text-font-size);
+      font-style: var(--app-bar-title-text-font-style);
+      font-weight: var(--app-bar-title-text-font-weight);
+      line-height: var(--app-bar-title-text-line-height);
+      letter-spacing: var(--app-bar-title-text-letter-spacing);
+      color: var(--app-bar-title-text-color);
       display: inline;
     }
+
+    oscd-filled-icon-button {
+      --md-sys-color-on-primary: var(--plugins-menu-button-color);
+      --md-filled-icon-button-icon-color: var(--plugins-menu-button-color);
+      --md-filled-icon-button-icon-size: var(--plugins-menu-button-size);
+    }
+
     oscd-menu {
-      min-width: 350px;
-      padding: 12px;
+      min-width: var(--plugins-menu-min-width);
+      padding: var(--plugins-menu-padding);
+      --md-menu-container-color: var(--plugins-menu-container-color);
     }
 
     oscd-menu-item {
       width: 100%;
+      --md-menu-item-label-text-color: var(--plugins-menu-item-label-color);
+      --md-menu-item-leading-icon-color: var(
+        --plugins-menu-item-leading-icon-color
+      );
+      --md-menu-item-selected-container-color: var(
+        --plugins-menu-item-selected-container-color
+      );
+      --md-menu-item-selected-label-text-color: var(
+        --plugins-menu-item-selected-label-color
+      );
     }
   `;
 __decorate([
-    n$3({ type: Array })
+    n$5({ type: Array })
 ], PluginsMenu.prototype, "editableDocs", void 0);
 __decorate([
-    n$3({ type: Array })
+    n$5({ type: Array })
 ], PluginsMenu.prototype, "menuPlugins", void 0);
 __decorate([
-    n$3({ type: String })
+    n$5({ type: String })
 ], PluginsMenu.prototype, "appIcon", void 0);
 __decorate([
-    n$3({ type: String })
+    n$5({ type: String })
 ], PluginsMenu.prototype, "appTitle", void 0);
 __decorate([
-    n$3({ type: String, reflect: true })
+    n$5({ type: String, reflect: true })
 ], PluginsMenu.prototype, "locale", void 0);
 __decorate([
-    n$3({ type: String, reflect: true })
+    n$5({ type: String, reflect: true })
 ], PluginsMenu.prototype, "open", void 0);
 __decorate([
-    e$3('oscd-menu')
+    e$4('oscd-menu')
 ], PluginsMenu.prototype, "menu", void 0);
 PluginsMenu = __decorate([
     localized()
@@ -6438,37 +7984,37 @@ Button.shadowRootOptions = {
     delegatesFocus: true,
 };
 __decorate([
-    n$3({ type: Boolean, reflect: true })
+    n$5({ type: Boolean, reflect: true })
 ], Button.prototype, "disabled", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'soft-disabled', reflect: true })
+    n$5({ type: Boolean, attribute: 'soft-disabled', reflect: true })
 ], Button.prototype, "softDisabled", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], Button.prototype, "href", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], Button.prototype, "download", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], Button.prototype, "target", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'trailing-icon', reflect: true })
+    n$5({ type: Boolean, attribute: 'trailing-icon', reflect: true })
 ], Button.prototype, "trailingIcon", void 0);
 __decorate([
-    n$3({ type: Boolean, attribute: 'has-icon', reflect: true })
+    n$5({ type: Boolean, attribute: 'has-icon', reflect: true })
 ], Button.prototype, "hasIcon", void 0);
 __decorate([
-    n$3()
+    n$5()
 ], Button.prototype, "type", void 0);
 __decorate([
-    n$3({ reflect: true })
+    n$5({ reflect: true })
 ], Button.prototype, "value", void 0);
 __decorate([
-    e$3('.button')
+    e$4('.button')
 ], Button.prototype, "buttonElement", void 0);
 __decorate([
-    o$2({ slot: 'icon', flatten: true })
+    o$5({ slot: 'icon', flatten: true })
 ], Button.prototype, "assignedIcons", void 0);
 
 /**
@@ -6545,7 +8091,7 @@ OscdTextButton.styles = [styles$1, styles];
  */
 class OscdElevation extends Elevation {
 }
-OscdElevation.styles = [styles$4];
+OscdElevation.styles = [styles$5];
 
 let LandingPage = class LandingPage extends ScopedElementsMixin(i$3) {
     constructor() {
@@ -6596,13 +8142,13 @@ LandingPage.styles = i$6 `
     }
 
     .heading {
-      color: var(--oscd-base3);
+      color: var(--landing-heading-color);
       text-align: center;
-      font-family: 'Roboto';
-      font-size: 50px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
+      font-family: var(--landing-heading-font-family);
+      font-size: var(--landing-heading-size);
+      font-style: var(--landing-heading-style);
+      font-weight: var(--landing-heading-weight);
+      line-height: var(--landing-heading-line-height);
 
       margin-block-start: 64px;
       margin-block-end: 8px;
@@ -6611,36 +8157,36 @@ LandingPage.styles = i$6 `
     }
 
     .sub-heading {
-      color: var(--oscd-base3);
+      color: var(--landing-subheading-color);
       text-align: center;
-      font-family: Roboto;
-      font-size: 16.909px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 65.194px; /* 385.56% */
+      font-family: var(--landing-subheading-font-family);
+      font-size: var(--landing-subheading-size);
+      font-style: var(--landing-subheading-style);
+      font-weight: var(--landing-subheading-weight);
+      line-height: var(--landing-subheading-line-height);
 
       margin-block-end: 168px;
     }
 
     .menu-plugins-grid {
-      width: 60%;
+      width: var(--landing-grid-width);
       display: flex;
       flex-wrap: wrap;
-      gap: 95px;
+      gap: var(--landing-grid-gap);
       justify-content: center;
       margin: 0 auto;
       padding: 16px 0;
     }
 
     .menu-plugin-item {
-      --md-text-button-container-shape: 2px;
+      --md-text-button-container-shape: var(--landing-card-radius);
       display: flex;
       flex-direction: row;
       align-items: center;
       text-align: center;
       padding: 8px;
-      color: var(--oscd-base3);
-      background: var(--oscd-primary);
+      color: var(--landing-card-text-color);
+      background: var(--landing-card-background);
       transition: background-color 0.3s;
       cursor: pointer;
     }
@@ -6650,19 +8196,19 @@ LandingPage.styles = i$6 `
     }
 
     .menu-plugin-item-content {
-      color: var(--oscd-base3);
-      width: 240px;
-      height: 180px;
+      color: var(--landing-card-text-color);
+      width: var(--landing-card-width);
+      height: var(--landing-card-height);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 24px;
-      font-family: 'Roboto';
+      font-family: var(--landing-heading-font-family);
     }
 
     .menu-plugin-item-content oscd-icon {
-      --md-icon-size: 54px;
+      --md-icon-size: var(--landing-card-icon-size);
     }
 
     .menu-plugin-item-content span {
@@ -6680,22 +8226,22 @@ LandingPage.styles = i$6 `
       height: 50px;
       background: linear-gradient(
         to top left,
-        var(--omicron-yellow) 50%,
+        var(--landing-card-corner-accent) 50%,
         transparent 50%
       );
     }
   `;
 __decorate([
-    n$3({ type: String })
+    n$5({ type: String })
 ], LandingPage.prototype, "heading", void 0);
 __decorate([
-    n$3({ type: String })
+    n$5({ type: String })
 ], LandingPage.prototype, "subHeading", void 0);
 __decorate([
-    n$3({ type: Array })
+    n$5({ type: Array })
 ], LandingPage.prototype, "menuPlugins", void 0);
 __decorate([
-    n$3({ type: String, reflect: true })
+    n$5({ type: String, reflect: true })
 ], LandingPage.prototype, "locale", void 0);
 LandingPage = __decorate([
     localized()
@@ -6756,11 +8302,11 @@ FilesMenu.styles = i$6 `
 
     :host oscd-text-button {
       --md-text-button-label-text-line-height: normal;
-      --md-text-button-label-text-family: 'Roboto';
-      --md-text-button-label-text-weight: 500;
-      --md-text-button-label-text-size: 18px;
+      --md-text-button-label-text-family: var(--file-menu-text-font-family);
+      --md-text-button-label-text-weight: var(--file-menu-text-weight);
+      --md-text-button-label-text-size: var(--file-menu-text-size);
       --md-text-button-label-text-style: normal;
-      --md-sys-color-primary: var(--oscd-base3);
+      --md-sys-color-primary: var(--file-menu-text-color);
       display: inline;
     }
 
@@ -6769,29 +8315,369 @@ FilesMenu.styles = i$6 `
     }
 
     oscd-menu {
-      min-width: 350px;
-      padding: 12px;
+      min-width: var(--plugins-menu-min-width);
+      padding: var(--plugins-menu-padding);
+      --md-menu-container-color: var(--plugins-menu-container-color);
     }
 
     oscd-menu-item {
       width: 100%;
+      --md-menu-item-label-text-color: var(--plugins-menu-item-label-color);
+      --md-menu-item-leading-icon-color: var(
+        --plugins-menu-item-leading-icon-color
+      );
+      --md-menu-item-selected-container-color: var(
+        --plugins-menu-item-selected-container-color
+      );
+      --md-menu-item-selected-label-text-color: var(
+        --plugins-menu-item-selected-label-color
+      );
     }
   `;
 __decorate([
-    n$3({ type: Array })
+    n$5({ type: Array })
 ], FilesMenu.prototype, "editableDocs", void 0);
 __decorate([
-    n$3({ type: String })
+    n$5({ type: String })
 ], FilesMenu.prototype, "selectedDocName", void 0);
 __decorate([
-    n$3({ type: String, reflect: true })
+    n$5({ type: String, reflect: true })
 ], FilesMenu.prototype, "locale", void 0);
 __decorate([
-    e$3('#fileMenu')
+    e$4('#fileMenu')
 ], FilesMenu.prototype, "menu", void 0);
 FilesMenu = __decorate([
     localized()
 ], FilesMenu);
+
+/**
+ * Single source of truth for oscd-shell design tokens.
+ *
+ * This block contains:
+ * 1) Internal base tokens and fallbacks
+ * 2) Public token -> internal token mappings
+ *
+ * Keep this as an all-or-nothing layer so mappings can safely reference
+ * internal base tokens (e.g. --oscd-base*).
+ */
+const oscdShellDesignTokens = i$6 `
+  /* Internal base theme tokens and defaults */
+  * {
+    --oscd-primary: var(--oscd-theme-primary, #0b335b);
+    --oscd-secondary: var(--oscd-theme-secondary, #2485e5);
+    --oscd-base03: var(--oscd-theme-base03, #121417);
+    --oscd-base02: var(--oscd-theme-base02, #1a1e23);
+    --oscd-base01: var(--oscd-theme-base01, #3d4651);
+    --oscd-base00: var(--oscd-theme-base00, #46505d);
+    --oscd-base0: var(--oscd-theme-base0, #8b97a7);
+    --oscd-base1: var(--oscd-theme-base1, #96a1b0);
+    --oscd-base2: var(--oscd-theme-base2, #f3f5f6);
+    --oscd-base3: var(--oscd-theme-base3, white);
+    --oscd-error: var(--oscd-theme-error, #dc322f);
+    --oscd-warning: var(--oscd-theme-warning, #b58900);
+    --oscd-text-font: var(--oscd-theme-text-font, 'Roboto');
+    --oscd-text-font-mono: var(--oscd-theme-text-font-mono, 'Roboto Mono');
+    --oscd-icon-font: var(--oscd-theme-icon-font, 'Material Symbols Outlined');
+
+    /* Fallbacks for Material Design variables */
+    --md-sys-color-primary: var(--oscd-primary);
+    --md-sys-color-on-primary: var(--oscd-base3);
+    --md-sys-color-secondary: var(--oscd-secondary);
+    --md-sys-color-on-secondary: var(--oscd-base3);
+    --md-sys-color-secondary-container: var(--oscd-base2);
+    --md-sys-color-surface: var(--oscd-base3);
+    --md-sys-color-on-surface: var(--oscd-base00);
+    --md-sys-color-surface-variant: var(--oscd-base3);
+    --md-sys-color-on-surface-variant: var(--oscd-base00);
+    --md-sys-color-surface-bright: var(--oscd-base2);
+    --md-sys-color-surface-container: var(--oscd-base3);
+    --md-sys-color-surface-container-high: var(--oscd-base3);
+    --md-sys-color-surface-container-highest: var(--oscd-base3);
+    --md-sys-color-outline-variant: var(--oscd-primary);
+    --md-sys-color-scrim: #000000;
+    --md-sys-color-error: var(--oscd-error);
+    --md-sys-color-on-error: var(--oscd-base3);
+    --md-icon-button-disabled-icon-color: var(--oscd-base3);
+    /* --md-menu-item-selected-label-text-color: var(--oscd-base01); */
+    --md-icon-button-disabled-icon-color: var(--oscd-base3);
+
+    /* MDC Theme Colors
+     * Needed for supporting any pluggins still using the depricated MWC Components
+     */
+    --mdc-theme-primary: var(--oscd-primary);
+    --mdc-theme-secondary: var(--oscd-secondary);
+    --mdc-theme-background: var(--oscd-base3);
+    --mdc-theme-surface: var(--oscd-base3);
+    --mdc-theme-on-primary: var(--oscd-base2);
+    --mdc-theme-on-secondary: var(--oscd-base2);
+    --mdc-theme-on-background: var(--oscd-base00);
+    --mdc-theme-on-surface: var(--oscd-base00);
+    --mdc-theme-text-primary-on-background: var(--oscd-base01);
+    --mdc-theme-text-secondary-on-background: var(--oscd-base00);
+    --mdc-theme-text-icon-on-background: var(--oscd-base00);
+    --mdc-theme-error: var(--oscd-error);
+    --mdc-button-disabled-ink-color: var(--oscd-base1);
+    --mdc-drawer-heading-ink-color: var(--oscd-base00);
+    --mdc-dialog-heading-ink-color: var(--oscd-base00);
+    --mdc-text-field-fill-color: var(--oscd-base2);
+    --mdc-text-field-disabled-fill-color: var(--oscd-base3);
+    --mdc-text-field-ink-color: var(--oscd-base00);
+    --mdc-text-field-label-ink-color: var(--oscd-base00);
+    --mdc-text-field-idle-line-color: var(--oscd-base00);
+    --mdc-text-field-hover-line-color: var(--oscd-base02);
+    --mdc-select-fill-color: var(--oscd-base2);
+    --mdc-select-disabled-fill-color: var(--oscd-base3);
+    --mdc-select-ink-color: var(--oscd-base00);
+    --mdc-select-label-ink-color: var(--oscd-base00);
+    --mdc-select-idle-line-color: var(--oscd-base00);
+    --mdc-select-hover-line-color: var(--oscd-base02);
+    --mdc-select-dropdown-icon-color: var(--oscd-base01);
+    --mdc-typography-font-family: var(--oscd-text-font);
+    --mdc-icon-font: var(--oscd-icon-font);
+    --mdc-theme-text-disabled-on-light: rgba(255, 255, 255, 0.38);
+  }
+
+  * {
+    --app-bar-height: 54px;
+    --side-panel-width: 280px;
+
+    --md-sys-color-primary: var(--oscd-primary);
+    --md-sys-color-on-primary: var(--oscd-base3);
+
+    --md-sys-color-secondary-container: var(--oscd-base2);
+
+    --md-sys-color-surface: var(--oscd-base3);
+    --md-sys-color-on-surface: var(--oscd-base00);
+  }
+
+  /*
+   * Public token -> internal token mappings
+   *
+   * Example pattern:
+   * --internal-variable-name: var(--oscd-shell-public-token, <default>);
+   */
+  * {
+    /* App bar */
+    --app-bar-color: var(--oscd-shell-app-bar-color, var(--oscd-base3));
+    --app-bar-background-color: var(
+      --oscd-shell-app-bar-background-color,
+      var(--oscd-primary)
+    );
+    --app-bar-height: var(--oscd-shell-app-bar-height, 54px);
+    --app-bar-small-height: var(--oscd-shell-app-bar-small-height, 48px);
+    --app-bar-elevation: var(
+      --oscd-shell-app-bar-elevation,
+      var(--md-sys-elevation-level-2)
+    );
+    --app-bar-app-icon-height: var(--oscd-shell-app-bar-icon-height, 34.4px);
+    --app-bar-app-icon-width: var(--oscd-shell-app-bar-icon-width, auto);
+    --app-bar-title-text-font-family: var(
+      --oscd-shell-app-bar-title-font-family,
+      var(--oscd-text-font)
+    );
+    --app-bar-title-text-color: var(
+      --oscd-shell-app-bar-title-color,
+      var(--app-bar-color)
+    );
+    --app-bar-title-text-font-size: var(
+      --oscd-shell-app-bar-title-font-size,
+      22.114px
+    );
+    --app-bar-title-text-font-weight: var(
+      --oscd-shell-app-bar-title-font-weight,
+      400
+    );
+    --app-bar-title-text-font-style: var(
+      --oscd-shell-app-bar-title-font-style,
+      normal
+    );
+    --app-bar-title-text-line-height: var(
+      --oscd-shell-app-bar-title-line-height,
+      normal
+    );
+    --app-bar-title-text-letter-spacing: var(
+      --oscd-shell-app-bar-title-letter-spacing,
+      inherit
+    );
+    --app-bar-action-icon-size: var(
+      --oscd-shell-app-bar-action-icon-size,
+      24px
+    );
+    --app-bar-action-icon-color: var(
+      --oscd-shell-app-bar-action-icon-color,
+      var(--oscd-base3)
+    );
+
+    /* Bridge to oscd-ui app bar tokens */
+    --oscd-app-bar-color: var(--app-bar-color);
+    --oscd-app-bar-background-color: var(--app-bar-background-color);
+    --oscd-app-bar-elevation: var(--app-bar-elevation);
+    --oscd-app-bar-title-font-family: var(--app-bar-title-text-font-family);
+    --oscd-app-bar-title-font-size: var(--app-bar-title-text-font-size);
+    --oscd-app-bar-title-font-weight: var(--app-bar-title-text-font-weight);
+    --oscd-app-bar-title-line-height: var(--app-bar-title-text-line-height);
+
+    /* Files menu */
+    --file-menu-text-font-family: var(
+      --oscd-shell-file-menu-text-font-family,
+      var(--oscd-text-font)
+    );
+    --file-menu-text-size: var(--oscd-shell-file-menu-text-size, 18px);
+    --file-menu-text-weight: var(--oscd-shell-file-menu-text-weight, 500);
+    --file-menu-text-color: var(
+      --oscd-shell-file-menu-text-color,
+      var(--oscd-base3)
+    );
+
+    /* Plugins menu */
+    --plugins-menu-button-size: var(
+      --oscd-shell-plugins-menu-button-size,
+      24px
+    );
+    --plugins-menu-button-color: var(
+      --oscd-shell-plugins-menu-button-color,
+      var(--oscd-base3)
+    );
+    --plugins-menu-min-width: var(--oscd-shell-plugins-menu-min-width, 350px);
+    --plugins-menu-padding: var(--oscd-shell-plugins-menu-padding, 12px);
+    --plugins-menu-container-color: var(
+      --oscd-shell-plugins-menu-container-color,
+      var(--oscd-base3)
+    );
+    --plugins-menu-item-label-color: var(
+      --oscd-shell-plugins-menu-item-label-color,
+      var(--oscd-base00)
+    );
+    --plugins-menu-item-leading-icon-color: var(
+      --oscd-shell-plugins-menu-item-leading-icon-color,
+      var(--oscd-base00)
+    );
+    --plugins-menu-item-selected-container-color: var(
+      --oscd-shell-plugins-menu-item-selected-container-color,
+      var(--oscd-base2)
+    );
+    --plugins-menu-item-selected-label-color: var(
+      --oscd-shell-plugins-menu-item-selected-label-color,
+      var(--oscd-base00)
+    );
+
+    /* Editor plugins panel */
+    --editor-plugins-panel-width: var(
+      --oscd-shell-editor-plugins-panel-width,
+      320px
+    );
+    --editor-plugins-panel-collapsed-width: var(
+      --oscd-shell-editor-plugins-panel-collapsed-width,
+      72px
+    );
+    --editor-plugins-panel-padding-top: var(
+      --oscd-shell-editor-plugins-panel-padding-top,
+      20px
+    );
+    --editor-plugins-panel-item-leading-space: var(
+      --oscd-shell-editor-plugins-panel-item-leading-space,
+      22px
+    );
+    --editor-plugins-panel-item-trailing-space: var(
+      --oscd-shell-editor-plugins-panel-item-trailing-space,
+      10px
+    );
+    --editor-plugins-panel-item-icon-size: var(
+      --oscd-shell-editor-plugins-panel-item-icon-size,
+      28px
+    );
+    --editor-plugins-panel-item-text-color: var(
+      --oscd-shell-editor-plugins-panel-item-text-color,
+      var(--oscd-base3)
+    );
+    --editor-plugins-panel-item-icon-color: var(
+      --oscd-shell-editor-plugins-panel-item-icon-color,
+      var(--oscd-base3)
+    );
+    --editor-plugins-panel-item-active-bg: var(
+      --oscd-shell-editor-plugins-panel-item-active-bg,
+      var(--oscd-primary)
+    );
+    --editor-plugins-panel-group-active-bg: var(
+      --oscd-shell-editor-plugins-panel-group-active-bg,
+      var(--oscd-secondary)
+    );
+    --side-panel-width: var(--editor-plugins-panel-width);
+
+    /* Breadcrumb */
+    --oscd-shell-editor-breadcrumb-color: var(
+      --oscd-shell-editor-breadcrumb-color,
+      var(--oscd-secondary)
+    );
+
+    /* Main editor container */
+    --editor-background-color: var(
+      --oscd-shell-editor-background-color,
+      var(--oscd-base3)
+    );
+    --editor-padding: var(--oscd-shell-editor-padding, 8px);
+
+    /* Landing page */
+    --landing-heading-color: var(
+      --oscd-shell-landing-heading-color,
+      var(--oscd-base3)
+    );
+    --landing-heading-font-family: var(
+      --oscd-shell-landing-heading-font-family,
+      var(--oscd-text-font)
+    );
+    --landing-heading-size: var(--oscd-shell-landing-heading-size, 50px);
+    --landing-heading-style: var(--oscd-shell-landing-heading-style, normal);
+    --landing-heading-weight: var(--oscd-shell-landing-heading-weight, 600);
+    --landing-heading-line-height: var(
+      --oscd-shell-landing-heading-line-height,
+      normal
+    );
+
+    --landing-subheading-color: var(
+      --oscd-shell-landing-subheading-color,
+      var(--oscd-base3)
+    );
+    --landing-subheading-font-family: var(
+      --oscd-shell-landing-subheading-font-family,
+      var(--oscd-text-font)
+    );
+    --landing-subheading-size: var(
+      --oscd-shell-landing-subheading-size,
+      16.909px
+    );
+    --landing-subheading-style: var(
+      --oscd-shell-landing-subheading-style,
+      normal
+    );
+    --landing-subheading-weight: var(
+      --oscd-shell-landing-subheading-weight,
+      400
+    );
+    --landing-subheading-line-height: var(
+      --oscd-shell-landing-subheading-line-height,
+      65.194px
+    );
+    --landing-grid-width: var(--oscd-shell-landing-grid-width, 60%);
+    --landing-grid-gap: var(--oscd-shell-landing-grid-gap, 95px);
+    --landing-card-width: var(--oscd-shell-landing-card-width, 240px);
+    --landing-card-height: var(--oscd-shell-landing-card-height, 180px);
+    --landing-card-background: var(
+      --oscd-shell-landing-card-background,
+      var(--oscd-primary)
+    );
+    --landing-card-text-color: var(
+      --oscd-shell-landing-card-text-color,
+      var(--oscd-base3)
+    );
+    --landing-card-radius: var(--oscd-shell-landing-card-radius, 2px);
+    --landing-card-icon-size: var(--oscd-shell-landing-card-icon-size, 54px);
+    --landing-card-corner-accent: var(
+      --oscd-shell-landing-card-corner-accent,
+      var(--omicron-yellow)
+    );
+  }
+`;
 
 /**
  * @license
@@ -6942,6 +8828,10 @@ OscdAppBar.styles = i$6 `
     }
   `;
 
+/** Flattens groups so callers can work with a simple indexed list of leaf plugins. */
+function flattenEditors(editors) {
+    return editors.flatMap(e => 'plugins' in e ? e.plugins : [e]);
+}
 let OscdShell = class OscdShell extends ScopedElementsMixin(i$3) {
     get locale() {
         return getLocale();
@@ -6960,11 +8850,11 @@ let OscdShell = class OscdShell extends ScopedElementsMixin(i$3) {
         return this._plugins;
     }
     set plugins(plugins) {
-        this._plugins = Object.entries(plugins).reduce((acc, [pluginType, kind]) => {
-            const convertedPlugins = loadSourcedPlugins(kind, this.registry);
-            acc[pluginType] = convertedPlugins;
-            return acc;
-        }, { menu: [], editor: [], background: [] });
+        this._plugins = {
+            menu: loadSourcedPlugins(plugins.menu ?? [], this.registry),
+            editor: loadEditorPlugins(plugins.editor ?? [], this.registry),
+            background: loadSourcedPlugins(plugins.background ?? [], this.registry),
+        };
     }
     /*
      * States
@@ -6976,7 +8866,34 @@ let OscdShell = class OscdShell extends ScopedElementsMixin(i$3) {
         return this.xmlEditor.past.length >= 1;
     }
     get editor() {
-        return this.plugins.editor[this.editorIndex]?.tagName ?? '';
+        return flattenEditors(this.plugins.editor)[this.editorIndex]?.tagName ?? '';
+    }
+    get breadcrumbGroupName() {
+        let fi = 0;
+        for (const item of this.plugins.editor) {
+            if ('plugins' in item) {
+                const g = item;
+                if (this.editorIndex >= fi &&
+                    this.editorIndex < fi + g.plugins.length) {
+                    return g.translations?.[this.locale] ?? g.name;
+                }
+                fi += g.plugins.length;
+            }
+            else {
+                if (fi === this.editorIndex) {
+                    return '';
+                }
+                fi++;
+            }
+        }
+        return '';
+    }
+    get breadcrumbPluginName() {
+        const plugin = flattenEditors(this.plugins.editor)[this.editorIndex];
+        if (!plugin) {
+            return '';
+        }
+        return plugin.translations?.[this.locale] ?? plugin.name;
     }
     get doc() {
         return this.docs[this.docName];
@@ -7020,6 +8937,9 @@ let OscdShell = class OscdShell extends ScopedElementsMixin(i$3) {
         ];
         this._plugins = { menu: [], editor: [], background: [] };
         this.editorIndex = 0;
+        this.panelExpanded = true;
+        this.editorLoading = false;
+        this._editorLoadObserver = null;
         /** The name of the [[`doc`]] currently being edited */
         this.docName = '';
         /** The set of `XMLDocument`s currently loaded */
@@ -7115,6 +9035,11 @@ let OscdShell = class OscdShell extends ScopedElementsMixin(i$3) {
             this.docVersion += 1;
         });
     }
+    updated(changed) {
+        if (changed.has('editorIndex') || changed.has('editor')) {
+            this.checkEditorLoaded();
+        }
+    }
     connectedCallback() {
         super.connectedCallback();
         document.addEventListener('keydown', this.handleKeyPress);
@@ -7135,6 +9060,52 @@ let OscdShell = class OscdShell extends ScopedElementsMixin(i$3) {
         this.removeEventListener('oscd-undo', this.handleUndo);
         this.removeEventListener('oscd-redo', this.handleRedo);
         this.removeEventListener('oscd-close', this.handleCloseDoc);
+        this._editorLoadObserver?.disconnect();
+        this._editorLoadObserver = null;
+    }
+    checkEditorLoaded() {
+        if (!this.editor) {
+            this.editorLoading = false;
+            return;
+        }
+        const container = this.shadowRoot?.querySelector('section.editor-container');
+        if (!container) {
+            return;
+        }
+        const pluginEl = container.querySelector(this.editor);
+        // Already upgraded and has content — no loading needed
+        if (pluginEl &&
+            pluginEl.shadowRoot &&
+            pluginEl.shadowRoot.childElementCount > 0) {
+            this.editorLoading = false;
+            return;
+        }
+        // Start loading indicator
+        this.editorLoading = true;
+        this._editorLoadObserver?.disconnect();
+        this._editorLoadObserver = new MutationObserver(() => {
+            const el = container.querySelector(this.editor);
+            if (el && el.shadowRoot && el.shadowRoot.childElementCount > 0) {
+                this.editorLoading = false;
+                this._editorLoadObserver?.disconnect();
+                this._editorLoadObserver = null;
+            }
+        });
+        if (pluginEl) {
+            this._editorLoadObserver.observe(pluginEl, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+            });
+        }
+        // Fallback: stop loading after 2 seconds regardless
+        setTimeout(() => {
+            if (this.editorLoading) {
+                this.editorLoading = false;
+                this._editorLoadObserver?.disconnect();
+                this._editorLoadObserver = null;
+            }
+        }, 2000);
     }
     isEditable(docName) {
         return !!this.editable.find(ext => docName.toLowerCase().endsWith(`.${ext}`));
@@ -7143,7 +9114,7 @@ let OscdShell = class OscdShell extends ScopedElementsMixin(i$3) {
         this.docVersion += 1;
     }
     renderPlugin(tagName) {
-        const tag = s(tagName);
+        const tag = s$1(tagName);
         return u `<${tag} 
               .locale="${this.locale}"
               .docName="${this.docName}"
@@ -7209,6 +9180,19 @@ let OscdShell = class OscdShell extends ScopedElementsMixin(i$3) {
           @menu-plugin-select=${(event) => this.onMenuPluginSelect(event)}
         ></plugins-menu>
 
+        ${!this.panelExpanded && this.breadcrumbPluginName
+            ? x `<span slot="alignStart" class="editor-breadcrumb">
+              ${this.breadcrumbGroupName
+                ? x `<span class="editor-breadcrumb-group"
+                      >${this.breadcrumbGroupName}</span
+                    ><span class="editor-breadcrumb-sep">›</span>`
+                : E}
+              <span class="editor-breadcrumb-plugin"
+                >${this.breadcrumbPluginName}</span
+              >
+            </span>`
+            : E}
+
         <files-menu
           slot="alignMiddle"
           .selectedDocName=${this.docName}
@@ -7255,10 +9239,20 @@ let OscdShell = class OscdShell extends ScopedElementsMixin(i$3) {
             @editor-select=${(e) => {
             this.editorIndex = e.detail.index;
         }}
+            @panel-expanded-change=${(e) => {
+            this.panelExpanded = e.detail.expanded;
+        }}
           ></editor-plugins-panel>
         </section>
 
         <section class="editor-container">
+          ${this.editorLoading
+            ? x `
+                <div class="editor-loading">
+                  <div class="editor-loading-spinner"></div>
+                </div>
+              `
+            : E}
           ${this.editor ? this.renderPlugin(this.editor) : E}
         </section>
 
@@ -7275,169 +9269,204 @@ OscdShell.scopedElements = {
     'editor-plugins-panel': EditorPluginsPanel,
     'landing-page': LandingPage,
 };
-OscdShell.styles = i$6 `
-    ${theming}
+OscdShell.styles = [
+    oscdShellDesignTokens,
+    i$6 `
+      :host {
+        height: 100%;
+        display: grid;
+        grid-template-rows: min-content 1fr;
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          'header'
+          'main';
+      }
 
-    * {
-      --app-bar-height: 54px;
-      --side-panel-width: 280px;
-    }
+      oscd-app-bar {
+        grid-area: header;
+        box-shadow: var(--md-sys-elevation-level-2);
+        z-index: 10;
+      }
 
-    :host {
-      height: 100%;
-      display: grid;
-      grid-template-rows: min-content 1fr;
-      grid-template-columns: 1fr;
-      grid-template-areas:
-        'header'
-        'main';
-    }
+      oscd-app-bar * {
+        --md-filled-icon-button-disabled-container-opacity: var(
+          --app-bar-action-icon-disabled-container-opacity,
+          0
+        );
+        --md-filled-icon-button-disabled-icon-color: var(
+          --app-bar-action-icon-disabled-color,
+          var(--md-sys-color-on-primary)
+        );
+        --md-filled-icon-button-icon-size: var(--app-bar-action-icon-size);
+        --md-filled-icon-button-icon-color: var(--app-bar-action-icon-color);
+        --md-sys-color-on-primary: var(--app-bar-action-icon-color);
+      }
 
-    oscd-app-bar {
-      grid-area: header;
-      box-shadow: var(--md-sys-elevation-level-2);
-      z-index: 10;
-    }
+      main {
+        grid-area: main;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        grid-template-areas: 'sidebar editor';
+        overflow: hidden;
+      }
 
-    main {
-      grid-area: main;
-      display: grid;
-      grid-template-columns: var(--side-panel-width) 1fr;
-      grid-template-areas: 'sidebar editor';
-      overflow: hidden;
-    }
+      section.editors-side-panel-section {
+        grid-area: sidebar;
+        overflow: hidden;
+      }
 
-    /* Side panel collapsed state */
-    main.sidebar-collapsed {
-      grid-template-columns: 0 1fr;
-    }
+      section.editor-container {
+        grid-area: editor;
+        background-color: var(--editor-background-color);
+        padding: var(--editor-padding);
+        overflow: auto;
+        position: relative;
+      }
 
-    section.editors-side-panel-section {
-      grid-area: sidebar;
-      overflow-y: auto;
-      overflow-x: hidden;
-      transition: transform 0.3s ease-in-out;
-    }
+      .off-screen-plugin-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+      }
 
-    /* Hide side panel when collapsed */
-    main.sidebar-collapsed section.editors-side-panel-section {
-      transform: translateX(-100%);
-    }
+      .editor-breadcrumb {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        margin-left: 8px;
+        font-family: var(--oscd-text-font, Roboto);
+        font-size: 14px;
+        color: var(--oscd-shell-editor-breadcrumb-color, var(--oscd-secondary));
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
-    section.editor-container {
-      grid-area: editor;
-      background-color: var(--slate-100);
-      padding: 8px;
-      overflow: auto;
-      position: relative;
-    }
+      .editor-breadcrumb-group {
+        opacity: 0.7;
+      }
 
-    .off-screen-plugin-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      overflow: hidden;
-      margin: 0;
-      padding: 0;
-    }
+      .editor-breadcrumb-sep {
+        opacity: 0.5;
+        margin: 0 2px;
+      }
 
-    oscd-navigation-drawer-header {
-      --md-list-item-supporting-text-color: var(--md-sys-color-on-surface);
-    }
+      .editor-breadcrumb-plugin {
+        font-weight: 500;
+      }
 
-    oscd-app-bar * {
-      --md-filled-icon-button-disabled-container-opacity: 0;
-      --md-filled-icon-button-disabled-icon-color: var(
-        --md-sys-color-on-primary
-      );
-    }
+      .editor-loading {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: var(--editor-background-color);
+        z-index: 5;
+      }
 
-    .edit-dialog-remove-button {
-      --md-text-button-icon-color: var(--oscd-error);
-      --md-text-button-label-text-color: var(--oscd-error);
-      --md-text-button-focus-label-text-color: var(--oscd-error);
-      --md-text-button-focus-icon-color: var(--oscd-error);
-      --md-text-button-hover-label-text-color: var(--oscd-error);
-      --md-text-button-hover-state-layer-color: var(--oscd-error);
-      --md-text-button-hover-icon-color: var(--oscd-error);
-      --md-text-button-pressed-label-text-color: var(--oscd-error);
-      --md-text-button-pressed-state-layer-color: var(--oscd-error);
-      --md-text-button-pressed-icon-color: var(--oscd-error);
-    }
-    #title {
-      position: relative;
-    }
-  `;
+      .editor-loading-spinner {
+        width: 36px;
+        height: 36px;
+        border: 3px solid
+          color-mix(in srgb, var(--oscd-secondary, #2485e5) 25%, transparent);
+        border-top-color: var(--oscd-secondary, #2485e5);
+        border-radius: 50%;
+        animation: editor-load-spin 0.8s linear infinite;
+      }
+
+      @keyframes editor-load-spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    `,
+];
 __decorate([
-    n$3({ type: String })
+    n$5({ type: String })
 ], OscdShell.prototype, "appIcon", void 0);
 __decorate([
-    n$3({ type: String })
+    n$5({ type: String })
 ], OscdShell.prototype, "appTitle", void 0);
 __decorate([
-    n$3({ type: String })
+    n$5({ type: String })
 ], OscdShell.prototype, "landingPageHeading", void 0);
 __decorate([
-    n$3({ type: String })
+    n$5({ type: String })
 ], OscdShell.prototype, "landingPageSubHeading", void 0);
 __decorate([
-    n$3({ type: Array, reflect: true })
+    n$5({ type: Array, reflect: true })
 ], OscdShell.prototype, "editable", void 0);
 __decorate([
-    n$3({ type: String, reflect: true })
+    n$5({ type: String, reflect: true })
 ], OscdShell.prototype, "locale", null);
 __decorate([
-    n$3({ type: Object })
+    n$5({ type: Object })
 ], OscdShell.prototype, "plugins", null);
 __decorate([
-    r$1()
+    r$2()
 ], OscdShell.prototype, "canRedo", null);
 __decorate([
-    r$1()
+    r$2()
 ], OscdShell.prototype, "canUndo", null);
 __decorate([
-    r$1()
+    r$2()
 ], OscdShell.prototype, "editor", null);
 __decorate([
-    r$1()
+    r$2()
+], OscdShell.prototype, "breadcrumbGroupName", null);
+__decorate([
+    r$2()
+], OscdShell.prototype, "breadcrumbPluginName", null);
+__decorate([
+    r$2()
 ], OscdShell.prototype, "editorIndex", void 0);
 __decorate([
-    r$1()
+    r$2()
+], OscdShell.prototype, "panelExpanded", void 0);
+__decorate([
+    r$2()
+], OscdShell.prototype, "editorLoading", void 0);
+__decorate([
+    r$2()
     /** The `XMLDocument` currently being edited */
 ], OscdShell.prototype, "doc", null);
 __decorate([
-    n$3({ type: String, reflect: true })
+    n$5({ type: String, reflect: true })
 ], OscdShell.prototype, "docName", void 0);
 __decorate([
-    r$1()
+    r$2()
 ], OscdShell.prototype, "docs", null);
 __decorate([
-    r$1()
+    r$2()
 ], OscdShell.prototype, "docVersion", void 0);
 __decorate([
-    r$1()
+    r$2()
 ], OscdShell.prototype, "editableDocs", null);
 __decorate([
-    r$1()
+    r$2()
 ], OscdShell.prototype, "last", null);
 __decorate([
-    r$1()
+    r$2()
 ], OscdShell.prototype, "xmlEditor", void 0);
 __decorate([
-    e$3('plugins-menu')
+    e$4('plugins-menu')
 ], OscdShell.prototype, "pluginsMenu", void 0);
 __decorate([
-    e$3('editor-plugins-panel')
+    e$4('editor-plugins-panel')
 ], OscdShell.prototype, "editorPluginsPanel", void 0);
 __decorate([
-    n$2({ slot: 'landing-page' })
+    n$4({ slot: 'landing-page' })
 ], OscdShell.prototype, "_landingPageNodes", void 0);
 OscdShell = __decorate([
     localized(),
     t$1('oscd-shell')
 ], OscdShell);
 
-export { OscdShell };
+export { OscdShell, flattenEditors };
 //# sourceMappingURL=oscd-shell.js.map

@@ -1,4 +1,4 @@
-import { LitElement } from 'lit';
+import { LitElement, PropertyValues } from 'lit';
 import { OscdFilledIconButton } from '@omicronenergy/oscd-ui/iconbutton/OscdFilledIconButton.js';
 import { XMLEditor } from '@omicronenergy/oscd-editor';
 import { EditEventV2, OpenEvent } from '@openscd/oscd-api';
@@ -24,11 +24,31 @@ export type SourcedPluginEntry = {
     icon: string;
     requireDoc?: boolean;
 };
-export type PluginSet<P = PluginEntry> = {
-    menu: P[];
-    editor: P[];
-    background: P[];
+/** A named grouping of editor plugins. Has no `src`/`tagName` — it is not itself renderable. */
+export type PluginGroup = {
+    name: string;
+    translations?: Translations;
+    icon: string;
+    requireDoc?: boolean;
+    plugins: (PluginEntry | SourcedPluginEntry)[];
 };
+/** A `PluginGroup` after sourced children have been resolved to `PluginEntry` items. */
+export type ResolvedPluginGroup = {
+    name: string;
+    translations?: Translations;
+    icon: string;
+    requireDoc?: boolean;
+    plugins: PluginEntry[];
+};
+/** A flat editor plugin or a resolved plugin group. */
+export type EditorPluginEntry = PluginEntry | ResolvedPluginGroup;
+export type PluginSet = {
+    menu: PluginEntry[];
+    editor: EditorPluginEntry[];
+    background: PluginEntry[];
+};
+/** Flattens groups so callers can work with a simple indexed list of leaf plugins. */
+export declare function flattenEditors(editors: EditorPluginEntry[]): PluginEntry[];
 declare const OscdShell_base: typeof LitElement & import("@open-wc/scoped-elements/lit-element.js").ScopedElementsHostConstructor;
 export declare class OscdShell extends OscdShell_base {
     static scopedElements: {
@@ -53,11 +73,20 @@ export declare class OscdShell extends OscdShell_base {
     set locale(tag: LocaleTag);
     _plugins: PluginSet;
     get plugins(): PluginSet;
-    set plugins(plugins: Partial<PluginSet<Partial<PluginEntry | SourcedPluginEntry>>>);
+    set plugins(plugins: Partial<{
+        menu: Partial<PluginEntry | SourcedPluginEntry>[];
+        editor: (Partial<PluginEntry | SourcedPluginEntry> | PluginGroup)[];
+        background: Partial<PluginEntry | SourcedPluginEntry>[];
+    }>);
     get canRedo(): boolean;
     get canUndo(): boolean;
     get editor(): string;
+    get breadcrumbGroupName(): string;
+    get breadcrumbPluginName(): string;
     private editorIndex;
+    private panelExpanded;
+    private editorLoading;
+    private _editorLoadObserver;
     get doc(): XMLDocument;
     /** The name of the [[`doc`]] currently being edited */
     docName: string;
@@ -73,8 +102,10 @@ export declare class OscdShell extends OscdShell_base {
     editorPluginsPanel: EditorPluginsPanel;
     private _landingPageNodes?;
     constructor();
+    updated(changed: PropertyValues): void;
     connectedCallback(): void;
     disconnectedCallback(): void;
+    private checkEditorLoaded;
     handleOpenDoc: ({ detail: { docName, doc } }: OpenEvent) => void;
     handleRenameDoc: (customEvent: RenameEvent) => void;
     handleEditV2: (event: EditEventV2) => void;
@@ -95,7 +126,7 @@ export declare class OscdShell extends OscdShell_base {
     renderOffScreenPlugins(): import("lit-html").TemplateResult<1>;
     renderDefaultLandingPage(): import("lit-html").TemplateResult<1>;
     render(): import("lit-html").TemplateResult<1>;
-    static styles: import("lit").CSSResult;
+    static styles: import("lit").CSSResult[];
 }
 declare global {
     interface HTMLElementTagNameMap {

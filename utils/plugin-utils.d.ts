@@ -1,4 +1,9 @@
-import { PluginEntry, SourcedPluginEntry } from '../oscd-shell.js';
+import { EditorPluginEntry, PluginEntry, PluginGroup, ResolvedPluginGroup, SourcedPluginEntry } from '../oscd-shell.js';
+/**
+ * Checks if the given object is a PluginGroup (has a `plugins` array child, no `src`/`tagName`).
+ * Works for both input PluginGroup and resolved ResolvedPluginGroup.
+ */
+export declare function isPluginGroup(plugin: unknown): plugin is PluginGroup | ResolvedPluginGroup;
 /**
  * Checks if the given object is a valid Plugin.
  * @param plugin - The object to check.
@@ -26,4 +31,9 @@ export declare function validatePlugin(plugin: unknown): PluginEntry | undefined
  * @param plugins - Array of plugins to convert.
  * @returns Array of plugins with tagName included.
  */
+/**
+ * Like `loadSourcedPlugins` but handles the editor array which may contain `PluginGroup` entries.
+ * Groups are resolved by loading their child plugins; flat entries are loaded as-is.
+ */
+export declare function loadEditorPlugins(plugins: (Partial<PluginEntry | SourcedPluginEntry> | PluginGroup)[], registry: CustomElementRegistry): EditorPluginEntry[];
 export declare function loadSourcedPlugins(plugins: Partial<PluginEntry | SourcedPluginEntry>[], registry: CustomElementRegistry): PluginEntry[];
