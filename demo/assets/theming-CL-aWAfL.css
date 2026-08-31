@@ -10,28 +10,25 @@
   --oscd-theme-base2: var(--slate-110);
   --oscd-theme-base3: white;
   --oscd-theme-error: #dc322f;
-  --oscd-theme-text-font: 'Roboto';
-  --oscd-theme-icon-font: 'Material Symbols Outlined';
-  --oscd-theme-text-font-mono: 'Roboto Mono';
+  --oscd-theme-text-font: "Roboto";
+  --oscd-theme-icon-font: "Material Symbols Outlined";
+  --oscd-theme-text-font-mono: "Roboto Mono";
   --oscd-theme-warning: #b58900;
-
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
 }
 
 abbr {
-  text-decoration: none;
   border-bottom: none;
+  text-decoration: none;
 }
 
-html,
-body {
-  height: 100%;
+html, body {
   width: 100%;
+  height: 100%;
   margin: 0;
 }
 
 body {
-  background: url('./background.svg') no-repeat center center fixed;
-  background-size: cover;
+  background: url("background-DiV8u6qL.svg") center / cover no-repeat fixed;
 }
