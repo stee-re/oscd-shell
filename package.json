@@ -32,22 +32,22 @@
     "!/dist/*.test.*"
   ],
   "scripts": {
-    "lint": "eslint .",
-    "format": "eslint . --fix",
+    "lint": "oscd lint",
+    "format": "oscd lint --format",
     "extract": "lit-localize extract",
     "localize": "lit-localize build",
-    "build": "rimraf dist && mkdir dist && npm run extract && npm run localize && npm run analyze -- --exclude dist && tsc ",
-    "bundle": "rimraf dist && npm run extract && npm run localize && rollup -c rollup.config.js",
-    "start": "npm run build && concurrently -k \"tsc --watch --preserveWatchOutput\" \"wds --open '/demo/' --node-resolve\"",
-    "start:bundle": "npm run bundle && concurrently -k -r \"rollup -c rollup.config.js --watch\" \"wds --root-dir dist --app-index demo/index.html --open '/demo/' --watch\"",
-    "test": "npm run build && wtr --coverage --group unit",
-    "test:watch": "npm run build && concurrently -k -r \"tsc --watch --preserveWatchOutput\" \"wtr --coverage --watch --group unit\"",
-    "analyze": "cem analyze --litelement --exclude demo/* --exclude dist/* --exclude *.spec.ts --exclude *.test.ts --exclude coverage/*",
+    "build": "npm run extract && npm run localize && oscd build --analyze",
+    "bundle": "npm run extract && npm run localize && oscd bundle --analyze",
+    "start": "npm run build && oscd start",
+    "start:bundle": "npm run bundle && oscd start-bundle",
+    "test": "npm run extract && npm run localize && oscd test",
+    "test:watch": "npm run extract && npm run localize && oscd test --watch",
+    "analyze": "oscd analyze",
     "doc": "npm run analyze -- --exclude dist && typedoc --out dist/doc src/oscd-shell.ts src/foundation.ts",
-    "test:visual": "npm run build && wtr --group visual",
-    "test:update": "npm run build && wtr --group visual --update-visual-baseline",
-    "deploy": "npm run bundle && npm run doc && gh-pages --dist 'dist' --nojekyll",
-    "prepare": "husky"
+    "test:visual": "npm run extract && npm run localize && oscd test --visual",
+    "test:update": "npm run extract && npm run localize && oscd test --update",
+    "deploy": "npm run bundle && npm run doc && oscd deploy",
+    "prepare": "oscd install-hooks"
   },
   "dependencies": {
     "@lit/localize": "^0.12.2",
@@ -66,71 +66,31 @@
     "tslib": "^2.8.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "^20.5.0",
-    "@commitlint/config-conventional": "^20.5.0",
-    "@custom-elements-manifest/analyzer": "^0.11.0",
-    "@eslint/eslintrc": "^3.3.5",
-    "@eslint/js": "~9.34.0",
     "@lit/localize-tools": "^0.8.1",
+    "@omicronenergy/oscd-tooling": "^0.0.6",
     "@open-wc/dev-server-hmr": "^0.2.0",
-    "@open-wc/eslint-config": "^13.0.0",
     "@open-wc/testing": "^5.0.0",
     "@rollup/plugin-node-resolve": "^16.0.3",
     "@rollup/plugin-typescript": "^12.3.0",
     "@types/mocha": "^10.0.10",
-    "@typescript-eslint/eslint-plugin": "^8.58.0",
-    "@typescript-eslint/parser": "^8.58.0",
     "@ungap/structured-clone": "^1.3.0",
-    "@web/dev-server": "^0.4.6",
     "@web/dev-server-polyfill": "^1.0.6",
     "@web/rollup-plugin-html": "^3.1.0",
-    "@web/rollup-plugin-import-meta-assets": "^3.0.0",
-    "@web/test-runner": "^1.0.0",
-    "@web/test-runner-commands": "^0.9.0",
+    "@web/rollup-plugin-import-meta-assets": "^2.3.3",
     "@web/test-runner-playwright": "^0.11.1",
     "@web/test-runner-visual-regression": "^0.10.0",
-    "concurrently": "^9.2.1",
-    "eslint": "~9.34.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-html": "^8.1.4",
-    "eslint-plugin-lit": "^2.2.1",
-    "eslint-plugin-lit-a11y": "^5.1.1",
-    "eslint-plugin-no-only-tests": "^3.3.0",
-    "eslint-plugin-prettier": "^5.5.5",
-    "eslint-plugin-tsdoc": "^0.5.2",
-    "eslint-plugin-wc": "^3.1.0",
-    "gh-pages": "^6.3.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.4.0",
     "pixelmatch": "^7.1.0",
     "pngjs": "^7.0.0",
-    "prettier": "^3.8.1",
-    "rimraf": "^6.1.3",
     "rollup": "^4.60.1",
     "rollup-plugin-copy": "^3.5.0",
     "sinon": "^21.0.3",
     "typedoc": "^0.28.18",
-    "typescript": "^6.0.2"
+    "typescript": "~6.0.3"
   },
   "overrides": {
     "@web/test-runner-playwright": {
       "playwright": "1.59.1"
     }
   },
-  "customElements": "custom-elements.json",
-  "prettier": {
-    "singleQuote": true,
-    "arrowParens": "avoid"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.ts": [
-      "eslint --fix",
-      "eslint"
-    ]
-  }
+  "customElements": "custom-elements.json"
 }

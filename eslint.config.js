@@ -1,77 +1,27 @@
-import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import tsParser from '@typescript-eslint/parser';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
-import eslintPluginTSDoc from 'eslint-plugin-tsdoc';
-import openWcConfig from '@open-wc/eslint-config';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all,
-});
+import oscdEslintConfig from '@omicronenergy/oscd-tooling/configs/eslint.config.js';
 
 export default [
-  ...openWcConfig,
-  ...compat.extends(
-    'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
-    'plugin:@typescript-eslint/recommended',
-  ),
+  ...oscdEslintConfig,
   {
-    ignores: [
-      'dist/',
-      'node_modules',
-      'coverage',
-      'doc',
-      'src/locales.ts',
-      'src/locales/',
-    ],
+    ignores: ['src/locales.ts', 'src/locales/'],
   },
-
   {
-    plugins: {
-      '@typescript-eslint': typescriptEslint,
-      'eslint-plugin-tsdoc': eslintPluginTSDoc,
-    },
-
-    languageOptions: {
-      parser: tsParser,
-    },
-
+    // Scoped to match the shared config's ts-file config object (index 6 of
+    // `oscdEslintConfig`) so the `import-x` plugin it registers is
+    // guaranteed to be present wherever these rules apply.
+    files: ['**/*.{ts,tsx,mts,cts}'],
     rules: {
-      '@typescript-eslint/no-non-null-assertion': 'off',
+      // Shell-specific: `LocaleTag` values are read directly off `this`
+      // without invoking any instance method, so `no-this-in-static` style
+      // enforcement doesn't apply to the localize accessor.
+      'class-methods-use-this': ['error', { exceptMethods: ['locale'] }],
 
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        {
-          args: 'all',
-          argsIgnorePattern: '^_',
-          caughtErrors: 'all',
-          caughtErrorsIgnorePattern: '^_',
-          destructuredArrayIgnorePattern: '^_',
-          varsIgnorePattern: '^_',
-          ignoreRestSiblings: true,
-        },
-      ],
-      'no-use-before-define': 'off',
-      'class-methods-use-this': [
-        'error',
-        {
-          exceptMethods: ['locale'],
-        },
-      ],
-      '@typescript-eslint/no-explicit-any': [
-        'error',
-        {
-          ignoreRestArgs: true,
-        },
-      ],
+      // Local overrides of the shared import-x config: OpenSCD packages'
+      // deep subpath exports aren't reliably resolvable by import-x, and
+      // spec/test files live alongside their source (not under a `test/`
+      // directory), so the shared devDependencies allow-list doesn't cover
+      // them.
+      'import-x/no-unresolved': 'off',
       'import-x/no-extraneous-dependencies': [
         'error',
         {
@@ -82,30 +32,9 @@ export default [
             'rollup.config.js',
             'web-test-runner.config.js',
             'web-dev-server.*',
-            'vite.config.js',
           ],
         },
       ],
-      'import-x/no-unresolved': 'off',
-      'import-x/extensions': [
-        'error',
-        'always',
-        {
-          ignorePackages: true,
-        },
-      ],
-    },
-  },
-  eslintPluginPrettierRecommended,
-  {
-    rules: {
-      curly: ['error', 'all'],
-    },
-  },
-  {
-    files: ['**/*.test.ts', '**/*.spec.ts'],
-    rules: {
-      '@typescript-eslint/no-unused-expressions': 'off',
     },
   },
 ];

@@ -83,10 +83,12 @@ most important symbol they export (e.g. `MyClass.ts`).
 
 ### Code Style and Linting
 
-We use eslint and prettier for formatting and linting. Both are run as part of
-a `husky` pre-commit hook defined in `package.json`. Nonetheless, we recommend
-you use your editor's or IED's eslint and prettier plugins for continuous
-formatting and linting while writing the code in order to avoid any surprises.
+We use ESLint (with `@stylistic` for formatting), centralized in
+[`@omicronenergy/oscd-tooling`](https://github.com/OMICRONEnergyOSS/oscd-tooling)
+and run via the `oscd` CLI. Linting runs as part of a git pre-commit hook
+(`.githooks/pre-commit`, installed by `npm run prepare`). Nonetheless, we
+recommend you use your editor's ESLint plugin for continuous linting while
+writing the code in order to avoid any surprises.
 
 Apart from the rules the linter and formatter enforce, we adopt the following
 guidelines taken from the terse but broad [Deno Style Guide](https://deno.land/manual/contributing/style_guide) with some minor adjustments:

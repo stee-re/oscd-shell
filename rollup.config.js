@@ -3,15 +3,14 @@ import typescript from '@rollup/plugin-typescript';
 import copy from 'rollup-plugin-copy';
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 
-import fs, { readdirSync } from 'fs';
+import { readdirSync } from 'fs';
 
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 
-const tsconfig = JSON.parse(fs.readFileSync('./tsconfig.json', 'utf8'));
-const demoTsconfig = {
-  ...tsconfig,
-  compilerOptions: { ...tsconfig.compilerOptions, outDir: 'dist/demo' },
-};
+// Point @rollup/plugin-typescript at the tsconfig file itself (rather than
+// spreading its parsed JSON) so it resolves `"extends"` the same way `tsc`
+// does; `outDir` is a genuine compilerOption override merged on top.
+const demoTsconfig = { tsconfig: './tsconfig.json', outDir: 'dist/demo' };
 
 const locales = readdirSync('src/locales').map(locale => ({
   input: `src/locales/${locale}`,
