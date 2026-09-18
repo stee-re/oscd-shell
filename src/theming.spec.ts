@@ -46,7 +46,7 @@ describe('shell design tokens', () => {
     );
     expect(appBarChildren).to.not.be.empty;
 
-    appBarChildren.forEach(child => {
+    appBarChildren.forEach((child) => {
       expect(
         tokenValue(child, '--md-sys-color-on-primary'),
         `--md-sys-color-on-primary empty on <${child.localName}>`,

@@ -69,7 +69,7 @@ describe('OscdShell Plugin Handling', () => {
 
     it('background plugins do something', async () => {
       // Use a real event listener and a Promise to avoid timing issues
-      const eventPromise = new Promise<CustomEvent>(resolve => {
+      const eventPromise = new Promise<CustomEvent>((resolve) => {
         document.addEventListener(
           'test-rx',
           (e: Event) => resolve(e as CustomEvent),

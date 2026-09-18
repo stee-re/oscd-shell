@@ -65,7 +65,7 @@ export class PluginsMenu extends ScopedElementsMixin(LitElement) {
           <oscd-icon slot="end">arrow_right</oscd-icon>
         </oscd-menu-item>
         <oscd-menu slot="menu">
-          ${plugin.plugins.map(plugin => {
+          ${plugin.plugins.map((plugin) => {
             return this.renderMenuItem(plugin, hasDoc);
           })}
         </oscd-menu>
@@ -119,7 +119,7 @@ export class PluginsMenu extends ScopedElementsMixin(LitElement) {
         menuCorner="START_END"
         anchorCorner="START_END"
       >
-        ${this.menuPlugins.map(plugin => {
+        ${this.menuPlugins.map((plugin) => {
           const hasDoc = (this.editableDocs ?? []).length > 0;
 
           if (isPluginGroup(plugin)) {

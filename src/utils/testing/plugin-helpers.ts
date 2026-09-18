@@ -103,9 +103,9 @@ export const waitForAllPluginsToInstantiate = async (shell: OscdShell) => {
   const editorPlugin =
     docLoaded && shell.selectedEditor
       ? findPluginByTagName(
-          shell._resolvedPlugins.editor,
-          shell.selectedEditor.tagName,
-        )
+        shell._resolvedPlugins.editor,
+        shell.selectedEditor.tagName,
+      )
       : undefined;
 
   const menuPlugins = flattenPluginEntries(shell._resolvedPlugins.menu).filter(

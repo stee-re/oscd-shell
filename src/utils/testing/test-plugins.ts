@@ -16,7 +16,7 @@ export class TestMenuPlugin1 extends LitElement {
 export class TestBackgroundPlugin extends HTMLElement {
   constructor() {
     super();
-    document.addEventListener('test-tx', event => {
+    document.addEventListener('test-tx', (event) => {
       document.dispatchEvent(
         new CustomEvent('test-rx', {
           detail: (event as CustomEvent).detail,

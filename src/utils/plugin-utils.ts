@@ -34,9 +34,9 @@ export function filterPlugins(
     .map(item =>
       isPluginGroup(item)
         ? {
-            ...item,
-            plugins: item.plugins.filter(predicate),
-          }
+          ...item,
+          plugins: item.plugins.filter(predicate),
+        }
         : item,
     )
     .filter(item =>
@@ -73,7 +73,7 @@ export function filterBySearchTerm(
   if (!term) {
     return editors;
   }
-  return filterPlugins(editors, plugin => {
+  return filterPlugins(editors, (plugin) => {
     const localizedName = locale ? plugin.translations?.[locale] : undefined;
     return (
       plugin.name.toLowerCase().includes(term) ||
@@ -227,7 +227,7 @@ export function loadSourcedPlugins(
   registry: CustomElementRegistry,
 ): (ResolvedPlugin | PluginGroup<ResolvedPlugin>)[] {
   return plugins
-    .map(plugin => {
+    .map((plugin) => {
       if (isPluginGroup(plugin)) {
         return {
           ...plugin,
@@ -262,13 +262,13 @@ export function loadSourcedPlugins(
 
       const url = new URL(src, window.location.href).toString();
       import(/* @vite-ignore */ url)
-        .then(mod => {
+        .then((mod) => {
           // Because this is async, we need to check (again) if the element is already defined.
           if (!registry?.get(hashedTagName)) {
             registry.define(hashedTagName, mod.default);
           }
         })
-        .catch(err => {
+        .catch((err) => {
           // Log this as a warning because we load an Error WC in place of the plugin.
           console.warn(
             `[Invalid Plugin] Failed to load plugin ${plugin.name} <${hashedTagName}/> from ${url}`,
