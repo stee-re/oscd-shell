@@ -5,7 +5,7 @@ import type { OscdShell } from './oscd-shell.js';
 import { createTestDocs } from './utils/testing/test-doc-helpers.js';
 
 /**
- * Design tokens flow --oscd-theme-* -> --oscd-* -> --md-sys-* -> --oscd-shell-*
+ * Design tokens flow --oscd-theme-* -\> --oscd-* -\> --md-sys-* -\> --oscd-shell-*
  * and must only ever be read upward. A component that assigns a shell token
  * back into an --md-sys-* token creates a reference cycle on that element,
  * which CSS resolves to the guaranteed-invalid value: the token silently
