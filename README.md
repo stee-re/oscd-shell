@@ -34,9 +34,9 @@ To automatically fix linting and formatting errors, run
 npm run format
 ```
 
-We use ESLint and Prettier for linting and formatting. Plugins for automatic
-formatting and linting during editing are available for vim, emacs, VSCode,
-and all popular IDEs.
+Linting and formatting are centralized in
+[`@omicronenergy/oscd-tooling`](https://github.com/OMICRONEnergyOSS/oscd-tooling),
+which runs ESLint (with `@stylistic` for formatting) via the `oscd` CLI.
 
 ## Testing with Web Test Runner
 
@@ -52,10 +52,15 @@ To run the tests in interactive watch mode run:
 npm run test:watch
 ```
 
-## Tooling configs
+## Tooling
 
-For most of the tools, the configuration is in the `package.json` to reduce the
-amount of files in the project.
+Build, lint, test, bundle, and deploy tooling is centralized in
+[`@omicronenergy/oscd-tooling`](https://github.com/OMICRONEnergyOSS/oscd-tooling)
+and run via the `oscd` CLI (see `package.json` scripts). This project keeps
+its own `rollup.config.js` and `web-test-runner.config.js` because its build
+has needs (multi-entry bundling, a custom test harness) that diverge from the
+shared defaults — `oscd` automatically prefers a project-local config file of
+the same name over its own default.
 
 ## Local Demo with `web-dev-server`
 
