@@ -26,7 +26,7 @@ const factor = (
   : 2;
 
 function timeout(ms: number) {
-  return new Promise(res => {
+  return new Promise((res) => {
     setTimeout(res, ms * factor);
   });
 }

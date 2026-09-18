@@ -18,7 +18,7 @@ const { getLocale, setLocale } =
   configureLocalization({
     sourceLocale,
     targetLocales,
-    loadLocale: _locale => {
+    loadLocale: (_locale) => {
       return import(new URL(`./locales/de.js`, import.meta.url).href);
     },
   });

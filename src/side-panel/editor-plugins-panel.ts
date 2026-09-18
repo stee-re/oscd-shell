@@ -207,13 +207,13 @@ export class EditorPluginsPanel extends ScopedElementsMixin(LitElement) {
       const pinnedChildren: EditorPluginTreeNode[] = pinnedPlugins.length
         ? buildTreeNodes(pinnedPlugins)
         : [
-            {
-              kind: 'placeholder',
-              name: msg('Items you pin will appear here'),
-              id: 'pinned-placeholder',
-              children: [],
-            },
-          ];
+          {
+            kind: 'placeholder',
+            name: msg('Items you pin will appear here'),
+            id: 'pinned-placeholder',
+            children: [],
+          },
+        ];
       this.pinnedTreeNodes = [
         {
           id: 'pinned',
